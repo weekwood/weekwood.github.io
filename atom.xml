@@ -4,7 +4,7 @@
   <title><![CDATA[WuDi Coder]]></title>
   <link href="http://weekwood.github.com/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2012-12-25T00:10:56-08:00</updated>
+  <updated>2012-12-30T22:25:58-08:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
     <name><![CDATA[Wu Di]]></name>
@@ -12,6 +12,310 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[API Design 译文]]></title>
+    <link href="http://weekwood.github.com/2012/12/30/api-design-yi-wen/"/>
+    <updated>2012-12-30T00:02:00-08:00</updated>
+    <id>http://weekwood.github.com/2012/12/30/api-design-yi-wen</id>
+    <content type="html"><![CDATA[<p>本文来源于<a href="http://mattgemmell.com/2012/05/24/api-design/">matt gemmell</a>困于自己英语水平问题， 若有错误见谅。</p>
+
+<p>One of the development tasks I do most often is designing the API for a reusable component. The components are usually for iOS (though sometimes they’re for OS X), and are invariably GUI controls or views of some kind.</p>
+
+<p>设计可重用的API组件是我最常做的开发任务之一，这些组件一般用于iOS（一些时候也用在OS X）的GUI控件或者某些视图上</p>
+
+<p>I’ve designed literally dozens of component APIs over the years, including for clients like Apple, and I’ve learned quite a bit about the process. I periodically release open source components too, and the feedback I’ve had has helped me put together a set of guidelines for API design that I’d like to share with you.</p>
+
+<p>多年来我设计了几十个API组件都已经成功出现在了大家的视线里，包括一些苹果风格的客户端，并且我对这个开发过程有了一定的了解。我也定期会发布一些开源的组件，这些反馈帮助我整理了一套API设计的指南，我想将成果和大家分享。</p>
+
+<p>This is an important topic, whether you’re an open source contributor, or working as part of a team on a large app, or just creating your own software. Just like the first launch experience of an app, your API is part of the first impression that a developer will have with your code, and will have a huge impact on whether they use it or throw it away.</p>
+
+<p>这是一个很重要的话题，不论你致力于开源，与其他成员一起完成一个大型软件，或者独自创作。就像第一次打开一个应用程序的体验，你的API将是开发者对你的代码的第一印象，他们是否使用它，或者把它扔掉，等都产生巨大的影响。</p>
+
+<p>APIs are UX for developers. I’ve always been surprised that there isn’t more material written about this aspect of our work, in a way that’s specific to the popular platforms.</p>
+
+<p>APIs 是对开发者的交互设计，我时常感到惊讶为什么没有很多资料提到这方面的工作，它是非常受欢迎的方式。</p>
+
+<p>As we go through some guidelines, I’m going to use my most recently released open source GUI component, <a href="http://mattgemmell.com/2012/05/14/mgtilemenu/">MGTileMenu</a>, as an example where necessary. You can read <a href="http://mattgemmell.com/2012/05/14/mgtilemenu/">all about MGTileMenu here</a> first, if you like.</p>
+
+<p>就像我们常看到的指南那样，让我来用我最近发布的开源组件<a href="http://mattgemmell.com/2012/05/14/mgtilemenu/">MGTileMenu</a>当做例子来描述，你可以先阅读&#8221;MGTileMenu&#8221;<a href="http://mattgemmell.com/2012/05/14/mgtilemenu/">MGT</a>来了解他，当然如果你愿意的话。</p>
+
+<h3><strong>素质（Desirable qualities）</strong></h3>
+
+<p>API design is very much like user interface and user experience design. Your target audience has different needs and characteristics, but they’re still humans who are looking to get a job done. As with a friendly, usable app UI, you’re still trying to make your API:</p>
+
+<p>API设计和用户界面设计以及用户体验设计非常之相像。你的目标用户总是有着不同的需求以及特点，但是他们最终目的依然是完成工作。作为一个友好的可用性高的应用UI，你需要尝试让你的API:</p>
+
+<ul>
+<li>直观（Intuitive）</li>
+<li>Forgiving</li>
+<li>Frictionless</li>
+</ul>
+
+
+<p>As with any piece of software designed for use by humans, we have to think about the use cases. We have to make the most commonly-needed stuff easy, without undue configuration. Default behaviours should be useful as-is, and should be sensibly chosen. The software should be discoverable, and should allow the user to generalise from known paradigms. It’s all exactly the same set of principles as when we’re creating UIs.</p>
+
+<p>为人设计的软件，我们需要思考用户用例，让一些常用的东西使用起来更加容易，更少的配置。作为默认的行为，并且它应该做成明智的选择。软件应该是可发现的，并且可以让用户从已知的模式中概括出来。这套准则应该和创建UI的时候完全一致。</p>
+
+<h2><strong>开发接口（The developer interface）</strong></h2>
+
+<p>Components are interacted with by the developer using four primary explicit means:
+Components是以下四种方式和开发者互动:</p>
+
+<ul>
+<li>The class interface: its exposed properties and methods.</li>
+<li>The delegate protocol, where relevant.</li>
+<li>The data-source protocol, where appropriate.</li>
+<li>Any provided notifications.</li>
+</ul>
+
+
+<p>We have to design each of those, judiciously and deliberately, for human use. There are two key questions when you’re thinking about the API:</p>
+
+<p>我们将明智并且谨慎的设计他们。这里有2个关键的问题当你思考API的时候：</p>
+
+<ul>
+<li><strong>What is the control?</strong></li>
+</ul>
+
+
+<p>This influences the interface and convenience methods. Is it a button? A slider? Your interface is obvious. Your convenience methods will follow the standard semantics of the control.</p>
+
+<p>它影响了界面和方法。它是一个按钮吗？一个滑块？您的界面是显而易见的。您的方法将遵循的标准语义的control。</p>
+
+<ul>
+<li><strong>What is the control like?</strong></li>
+</ul>
+
+
+<p>This influences the delegate and/or data-source model and notifications. If it’s a new type of control, is it essentially very similar to something else? An outline view is a linear table. A calendar widget is a date-picker. A collection of commands presented with a unified presentation is a menu.</p>
+
+<p>它会影响委托和/或数据源模型和通知。如果它是一个新型的control，它本质上是非常相似的别的东西吗？大纲视图是​​一个线性表。日历小工具是一个日期选择器。用一个统一的命令集合就是一个菜单。</p>
+
+<p>Our core goal is consistency with existing components and models, so that we can turn an unfamiliar control into something the developer already understands. Use standard APIs, models, and patterns wherever possible (and that’s almost always). Familiarity and intuitiveness are just as important at code level as they are for the end user.</p>
+
+<p>我们的核心目标是与现有的组件和模型的保持一致性，因此，我们可以把一个陌生的control，变成开发人员已经知道的东西。使用标准的API，模型和模式，只要有可能的（这是几乎总是）。熟悉和直观性对最终用户也同样重要。</p>
+
+<p>Let’s look at the four components of the component API mentioned above.</p>
+
+<p>让我们来看下由以上四点构成的API组件。</p>
+
+<h3><strong>类接口Class interface</strong></h3>
+
+<p>Here’s <a href="https://github.com/mattgemmell/MGTileMenu/blob/master/MGTileMenu/MGTileMenuController.h">the interface file for MGTileMenu</a>.</p>
+
+<p>Before we even start talking about the specifics of the interface, we have a couple of over-arching rules:</p>
+
+<p>在我们讨论具体的接口之前，这有一些涵盖范围比较广泛的规则：</p>
+
+<h3><strong>Rule 1: 使用方言（Use the local dialect）</strong></h3>
+
+<p>One the most common mistakes I see in API design is the use of foreign conventions. APIs belong to a platform and a developer ecosystem. You simply can’t use whatever idioms and architectures you’re used to from a different platform; to do so is to pollute your current codebase and to damage the productivity of your fellow developers.</p>
+
+<p>我所看到最常见的错误是API的设计利用了外来的约定。APIs 属于固定平台和开发者生态系统。你根本不能使用任何习语和你用过的不同平台的架构，这样做是污染您当前的代码库，并​​损害你的开发人员的生产力。</p>
+
+<p>Learn your target platform’s conventions before coding. For example, on iOS or OS X, don’t use exceptions for control flow. Name your methods in an appropriate manner (which usually means sufficiently verbose, but should also of course be sufficiently succinct).</p>
+
+<p>在coding之前要了解你目标平台的约定，比如，在iOS 或者 OS X，不使用control flow 的异常    。以适当的方式命名你的方法（通常指有足够详细，但也应该有足够的简洁）。</p>
+
+<p>Learn what a protocol is, and a delegate, and a category. Use that terminology throughout your code. Learn the relevant naming schemes for constructors and destructors. Obey native memory management rules. The vocabulary and the grammar are indivisible, and you’re either developing for a given platform or you’re not.</p>
+
+<p>了解协议是什么，和一个委托，一个类别。在你的代码中使用该术语。学习相关的构造函数和析构函数的​​命名方案。请遵守本机内存管理规则。词汇和语法是不可分割的，你要么发展为一个给定的平台，或者你跨平台。</p>
+
+<h3><strong>Rule 2: 设计解耦（Design decoupled）</strong></h3>
+
+<p>Any component should be designed such that it’s not coupled to the project you created it for, and if it’s a GUI control or view, it should at least display something by default. Use the existing framework classes as a guide, and maintain loose coupling with delegate protocols, well-designed/named API methods and notifications where appropriate.</p>
+
+<p>任何component的设计应该没有连接到你当前创建的项目，如果他是一个GUI control或者一个视图，它应该默认显示一些东西。使用现有的框架作为一个指南,与委托协议,精心设计的/命名的API方法和通知在适当的地方维护松耦合。</p>
+
+<p>An obvious but very effective way to do this is to create a new project for each component, and develop the component literally in isolation. Force yourself to use your own API. Stay away from the temptation of tying unrelated classes together. Start as you mean to go on.</p>
+
+<p>一个很明显的，但非常有效的方式，是每次为你的component创建一个项目，并逐渐的隔离开发component。强迫自己使用自己的API。远离无关的类。</p>
+
+<p>With that said, let’s talk about the class interface proper. Initialisation methods are one of the most important parts of the interface, because they’re how people get started with your component. Your class will have certain required settings for initial configuration. So, an obvious rule:</p>
+
+<p>接下来，让我们来适当谈谈类的接口。初始化方法的接口中最重要的部分之一，因为他们是人们如何开始使用您的组件。你的类将有一定的初始配置所需的设置。所以，一个明显的规律：</p>
+
+<h3><strong>Rule 3: 必须设置初始化参数（Required settings should be initializer parameters）</strong></h3>
+
+<p>If something needs to be set, don’t wait for it - require it up-front, immediately, and return nil if you don’t get something acceptable.</p>
+
+<p>如果有什么需要设置的，不要等待 -需要它了就去做，如果你没有得到的东西的立即返回nil。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">initWithDelegate:</span><span class="p">(</span><span class="kt">id</span><span class="o">&lt;</span><span class="n">MGTileMenuDelegate</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">theDelegate</span><span class="p">;</span> <span class="c1">// required parameter; cannot be nil.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Rule 4: <strong>允许访问初始化参数（Allow access to initializer parameters）</strong></p>
+
+<p>This is a corollary to the previous rule: remember not to just swallow those parameters. Give access to them via properties, and note if they might have been massaged in any way (sanitised, or otherwise modified).</p>
+
+<p>这是一个推导：切记不要只轻信这些参数。通过属性对它们的访问，如果它们可能已任何方式被按摩以（净化，或以其他方式修改）。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">weak</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="kt">id</span><span class="o">&lt;</span><span class="n">MGTileMenuDelegate</span><span class="o">&gt;</span> <span class="n">delegate</span><span class="p">;</span> <span class="c1">// must be specified via initializer method.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>These previous two examples raise a further general point.</p>
+
+<p>前两个例子阐述了这个观点。</p>
+
+<h3><strong>Rule 5: 注释你的header文件 Comment your header files (including defaults)</strong></h3>
+
+<p>Realistically, you won’t always provide separate, standalone documentation for a component. If you don’t provide documentation, your .h files (and demo app) are your docs. They should be suitably written, and by ‘suitably’ I mean:</p>
+
+<p>实际上,你不总为component提供单独的文档。如果你不提供文档，你的.h文件（包括demo app）就是你的文档。他们应该适当的描述，我的意思是:</p>
+
+<ul>
+<li>Sufficiently detailed, but no more so. Be succinct.</li>
+<li>For professionals. Assume things that are safe to assume. Don’t waffle.</li>
+</ul>
+
+
+<p>足以描述，但是不是特别多，要简洁。
+一切是提供给专业人士，所以适当的描述别描述无关的事情。</p>
+
+<p>Particularly, you should briefly note default values beside properties or accessors; it’s much easier to scan those in the header file than to try to locate your initialisation code in the implementation.</p>
+
+<p>特别是,你应该简要注释在属性或访问器旁边;头文件扫描比在初始化实例的时候更容易。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">CGGradientRef</span> <span class="n">tileGradient</span><span class="p">;</span> <span class="c1">// gradient to apply to tile backgrounds (default: a lovely blue)</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSInteger</span> <span class="n">selectionBorderWidth</span><span class="p">;</span> <span class="c1">// default: 5 pixels</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">CGGradientRef</span> <span class="n">selectionGradient</span><span class="p">;</span> <span class="c1">// default: a subtle white (top) to grey (bottom) gradient</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3><strong>Rule 6: Get up and running in 3 lines</strong></h3>
+
+<p>Your class should be designed so that it requires minimal code to integrate (delegate/data-source protocol included, about which more later). Excluding delegate methods, you should aim to make it usable at least for testing purposes with only 3 lines of code.</p>
+
+<p>你的类应该是这样设计的,它需要最少的代码来集成(包括委托/数据源)。你的目标应该是只用3行代码使达到测试目的，当然这一切不包括委托方法。</p>
+
+<p>Those lines are:</p>
+
+<p>这几行应该是:</p>
+
+<ul>
+<li>Instantiate it.</li>
+<li>Basically configure, so it will show and/or do something.</li>
+<li><p>Display or otherwise activate it.</p></li>
+<li><p>实例化</p></li>
+<li>基本配置</li>
+<li>显示</li>
+</ul>
+
+
+<p>That should be it. Anything substantially more onerous is a code smell. Here are the relevant lines from MGTileMenu’s demo app:</p>
+
+<p>就是这样，这里是<a href="http://mattgemmell.com/2012/05/14/mgtilemenu/">MGTileMenu</a>中相应的代码:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// Instantiate.</span>
+</span><span class='line'><span class="n">tileController</span> <span class="o">=</span> <span class="p">[[</span><span class="n">MGTileMenuController</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithDelegate:</span><span class="n">self</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// Configure.</span>
+</span><span class='line'><span class="n">tileController</span><span class="p">.</span><span class="n">dismissAfterTileActivated</span> <span class="o">=</span> <span class="n">NO</span><span class="p">;</span> <span class="c1">// to make it easier to play with in the demo app.</span>
+</span><span class='line'><span class="c1">// Display.</span>
+</span><span class='line'><span class="p">[</span><span class="n">tileController</span> <span class="nl">displayMenuCenteredOnPoint:</span><span class="n">loc</span> <span class="nl">inView:</span><span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3><strong>Rule 7: 臃肿的demo意味着不合格的component A fat demo usually means a broken component</strong></h3>
+
+<p>Another corollary: the size of your demo harness is a quality metric for your component, where smaller is better. Demo harnesses/code should be as small and thin as possible (making suitable allowances for demos that aim to explore all of a component’s customisation or functionality).</p>
+
+<p>另一个推论：您的demo的大小是衡量你component质量的标准，其值越小越好。Demo/Code 应该尽可能的小而薄的（用于演示，旨在描述所有组件的定制或功能）。</p>
+
+<p>The core required code to turn an empty Xcode app template into a demo of your app should be minimised. It’s not OK to required copy-pasted boilerplate to get your component working, and having an example of it in your demo isn’t an excuse.</p>
+
+<p>核心思想是当你的代码从你的空的xcode项目模板到你的demo中应该保持最小化的修改。这并不是一个好的借口当你需要复制粘贴样板来让你的component运行。</p>
+
+<h3><strong>Rule 8: 预测定制化的可能性 Anticipate customisation scenarios</strong></h3>
+
+<p>My standard rule for apps is don’t give the user options. Choose sensible defaults to fit the majority, and skip the Preferences window. Good software, after all, is opinionated.</p>
+
+<p>我的标准规则的应用程序是不给用户选择。选择合理的默认值，以适应大多数情况，并跳过“首选项”窗口。我固执己见的认为好的软件应该如此。</p>
+
+<p>The situation is a bit different with components, because the scenarios of use aren’t as clear-cut. You can certainly make a component that only fits one specific situation, but usually we want some flexibility. You never know exactly how another developer is going to use your component, so you have to build in some generality.</p>
+
+<p>目前的情况是应该有一些不同的components，因为在使用目的不明确的情况下。你当然可以使一个components只适合一个特定的情况，但通常我们需要有一定的灵活性。你永远不知道究竟是另一名开发人员将使用您的components，所以你必须建立在一些一般性。</p>
+
+<p>It’s important to choose your customisation points carefully. It’s particularly important to consider dependencies - not in the compiling/linking sense, but rather the logical relationships between types of customisation. I approach this by trying not to think of customisation at the instance-variable level, but rather at the “aspect” level. What aspects of your component do you want to allow customisation of? Then you work out what specific properties to expose.</p>
+
+<p>一个非常重要的事情就是小心的选择可定制的地方。这是特别重要的考虑依赖关系——而不是在编译/链接意义上,而是逻辑关系类型的定制。我的方法通过努力不去想定制的实例变量层面,而是在“方面”水平。您的组件的哪些方面你想让定制的?然后你找出特定的属性来公开。</p>
+
+<p>It’s easy to cripple a certain type of customisation by not exposing sufficient configuration points. Some examples:</p>
+
+<p>这很容易削弱某种类型的自定义的不足。一些例子：</p>
+
+<ul>
+<li>Don’t expose width and height without considering corner radius too.</li>
+<li>Don’t expose background colour without highlighted background colour.</li>
+<li><p>Don’t expose size without spacing.</p></li>
+<li><p>不公开的宽度和高度也没有考虑圆角半径。</p></li>
+<li>不公开背景颜色没有突出显示的背景颜色。</li>
+<li>不公开大小没有间距。</li>
+</ul>
+
+
+<p>The specifics depend on the component, but just try to consider the relationships between properties, from the point of view of either appearance or functionality. Empathise with the developer. Be flexible, without abandoning the identity of the component.</p>
+
+<p>具体细节取决于component,但只尝试考虑属性之间的关系,要么外观或功能。对于开发者。是需要灵活的,没有放弃身份的component。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="kt">BOOL</span> <span class="n">dismissAfterTileActivated</span><span class="p">;</span> <span class="c1">// automatically dismiss menu after a tile is activated (YES; default)</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="kt">BOOL</span> <span class="n">rightHanded</span><span class="p">;</span> <span class="c1">// leave gap for right-handed finger (YES; default) or left-handed (NO)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSInteger</span> <span class="n">tileSide</span><span class="p">;</span> <span class="c1">// width and height of each tile, in pixels (default 72 pixels)</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSInteger</span> <span class="n">tileGap</span><span class="p">;</span> <span class="c1">// horizontal and vertical gaps between tiles, in pixels (default: 20 pixels)</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">CGFloat</span> <span class="n">cornerRadius</span><span class="p">;</span> <span class="c1">// corner radius for bezel and all tiles, in pixels (default: 12.0 pixels)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Let common sense be your guide. Decide what options will serve 70% or so of the usage situations you can think of, and provide those options. Let your delegate methods and code structure serve the rest.</p>
+
+<p>让常识成为你的向导。这将确定你能想到的70%左右的选项，并提供这些选项。以及您的委托方法和代码结构的其余服务。</p>
+
+<h3><strong>Rule 9: 更多的属性，更少的actions More properties, fewer actions</strong></h3>
+
+<p>There’s a particular pattern that keeps cropping up in components that I like - some of which are from standard frameworks, some open source from third parties, and some even my own. It’s a ratio of the number of properties (or accessors, or customisation points) on a component, to the number of “do stuff” methods (i.e. all the other stuff, from initializers to state-updating).</p>
+
+<p>有一个特定的模式，不断出现在我喜欢的组件中 - 其中一些是从标准的框架，也有来自第三方的，有的甚至是我自己的一些开放源码的。在一个组件中属性的数量(或访问器,或定制)和“做东西”的方法(即所有其他的东西,从初始化来状态更新)有特定的比例。</p>
+
+<p>It’s pretty much always more properties, and fewer ‘actions’ (again, that’s not actions in the Interface Builder sense). MGTileMenu has an initializer, and four actual for-public-use methods (one of which is a convenience that calls another). In terms of customisation points, it has four times as many. I think that’s a good ratio, and leads to components that are both concise in actual functionality, but also flexible in customisation.</p>
+
+<p>它几乎总是更多的属性,和更少的action”(再一次,这不是Interface Builder中的actions)。MGTileMenu有一个初始化器,和四个实际公共使用方法。在定制中,它达到4倍多。我认为这是一个好的比率,很简洁，但也很灵活去定制的component。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">initWithDelegate:</span><span class="p">(</span><span class="kt">id</span><span class="o">&lt;</span><span class="n">MGTileMenuDelegate</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">theDelegate</span><span class="p">;</span> <span class="c1">// required parameter; cannot be nil.</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">CGPoint</span><span class="p">)</span><span class="nf">displayMenuPage:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">pageNum</span> <span class="nf">centeredOnPoint:</span><span class="p">(</span><span class="n">CGPoint</span><span class="p">)</span><span class="nv">centerPt</span> <span class="nf">inView:</span><span class="p">(</span><span class="n">UIView</span> <span class="o">*</span><span class="p">)</span><span class="nv">parentView</span><span class="p">;</span> <span class="c1">// zero-based pageNum</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">dismissMenu</span><span class="p">;</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">switchToPage:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">pageNum</span><span class="p">;</span> <span class="c1">// zero-based pageNum</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>待续。。。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[arc+blocks+llvm4 的时代1/3]]></title>
