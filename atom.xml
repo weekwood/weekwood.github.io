@@ -4,7 +4,7 @@
   <title><![CDATA[Di Wu]]></title>
   <link href="http://weekwood.github.com/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2013-01-02T22:24:37-08:00</updated>
+  <updated>2013-01-02T22:53:44-08:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
     <name><![CDATA[Di Wu]]></name>
@@ -27,6 +27,9 @@
 <p>I’ve designed literally dozens of component APIs over the years, including for clients like Apple, and I’ve learned quite a bit about the process. I periodically release open source components too, and the feedback I’ve had has helped me put together a set of guidelines for API design that I’d like to share with you.</p>
 
 <p>多年来我设计了几十个API组件都已经成功出现在了大家的视线里，包括一些苹果风格的客户端，并且我对这个开发过程有了一定的了解。我也定期会发布一些开源的组件，这些反馈帮助我整理了一套API设计的指南，我想将成果和大家分享。</p>
+
+<!-- more -->
+
 
 <p>This is an important topic, whether you’re an open source contributor, or working as part of a team on a large app, or just creating your own software. Just like the first launch experience of an app, your API is part of the first impression that a developer will have with your code, and will have a huge impact on whether they use it or throw it away.</p>
 
@@ -382,6 +385,9 @@ Components是以下四种方式和开发者互动:</p>
 
 <p>ARC(Automatic Reference Counting) 到现在已经出来一年有余,越来越多的团队已经体会到他的好处。曾和同行们讨论过新手是否有必要深入学习手动内存管理。个人认为从arc开始的成本要低很多，而且能编译出强壮的代码，何乐不为？</p>
 
+<!-- more -->
+
+
 <h3>什么是手动内存管理</h3>
 
 <blockquote><p>如果需要持有一个对象，那么对其发送retain 如果之后不再使用该对象，那么需要对其发送release（或者autorealse） 每一次对retain,alloc或者new的调用，需要对应一次release或autorealse调用</p></blockquote>
@@ -443,6 +449,11 @@ Components是以下四种方式和开发者互动:</p>
     <id>http://weekwood.github.com/2012/12/23/regex-to-catch-at-mention-number-hashtag-and-link-http-s-slash-slash</id>
     <content type="html"><![CDATA[<p>在做tweet类文本的时候你需要解析以#开头的话题 @开头的昵称 http开头的连接
 以下这个就是一个很好的例子(核心代码：<a href="https://github.com/SebastienThiebaud/STTweetLabel">STTweetLabel</a>)</p>
+
+<!-- more -->
+
+
+
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>

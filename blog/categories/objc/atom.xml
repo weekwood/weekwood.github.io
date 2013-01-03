@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ObjC | Di Wu]]></title>
   <link href="http://weekwood.github.com/blog/categories/objc/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2013-01-02T22:24:37-08:00</updated>
+  <updated>2013-01-02T22:53:44-08:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
     <name><![CDATA[Di Wu]]></name>
@@ -27,6 +27,9 @@
 <p>I’ve designed literally dozens of component APIs over the years, including for clients like Apple, and I’ve learned quite a bit about the process. I periodically release open source components too, and the feedback I’ve had has helped me put together a set of guidelines for API design that I’d like to share with you.</p>
 
 <p>多年来我设计了几十个API组件都已经成功出现在了大家的视线里，包括一些苹果风格的客户端，并且我对这个开发过程有了一定的了解。我也定期会发布一些开源的组件，这些反馈帮助我整理了一套API设计的指南，我想将成果和大家分享。</p>
+
+<!-- more -->
+
 
 <p>This is an important topic, whether you’re an open source contributor, or working as part of a team on a large app, or just creating your own software. Just like the first launch experience of an app, your API is part of the first impression that a developer will have with your code, and will have a huge impact on whether they use it or throw it away.</p>
 
