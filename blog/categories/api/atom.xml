@@ -4,7 +4,7 @@
   <title><![CDATA[Category: API | Di Wu]]></title>
   <link href="http://weekwood.github.com/blog/categories/api/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2013-01-06T21:06:37-08:00</updated>
+  <updated>2013-01-06T23:20:20-08:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
     <name><![CDATA[Di Wu]]></name>
@@ -367,6 +367,119 @@ Components是以下四种方式和开发者互动:</p>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3><strong>委托和数据源 Delegate and data-source protocols</strong></h3>
+
+<p>Delegate protocols are fantastic. They’re an easy, familiar and flexible way to embrace the MVC pattern, and they reinforce good habits of loose coupling and judicious API design.</p>
+
+<p>委托协议是非常令人难以置信的功能，非常的简单，用一种常见并且灵活的方式来实现MVC 模式，同时他也是巩固了松散耦合的良好习惯以及明智了api 设计。</p>
+
+<p>Here’s MGTileMenu’s delegate protocol.</p>
+
+<p>这里是[MGTileMenu’s 的委托][MGTileMenu’s delegate protocol]</p>
+
+<p>There are classic delegate and data-source protocols that we can draw on for almost any component. If you’re displaying data, the <strong>One True Data-Source Protocol</strong> is likely to be something very close to:</p>
+
+<p>1.<strong>How many</strong> things do I have?
+2.What’s the value for <strong>property Y</strong> of <strong>thing X</strong>?</p>
+
+<p>它们是经典的委托和数据源让我们利用在几乎所有的component中。如果你想显示数据，一个真正的数据源很可能类似这样:
+1.我有多少东西？
+2.X的Y属性的值是多少</p>
+
+<p>Similarly, in almost any situation, the <strong>One True Delegate Protocol</strong> is likely to take the form:</p>
+
+<p><strong>Should</strong> this thing do that?
+This thing <strong><strong>is about to</strong> do that.
+This thing </strong>just did<strong> that.
+This is also known as the </strong>Should<strong>, </strong>Will<strong>, </strong>Did<strong> protocol pattern, and it ties neatly in with the </strong>Will-Did** notification pattern too, about which more later.</p>
+
+<p>同时，几乎在任何情况下，一个真正的委托需要如下这样的一个表单:
+这事应该这样做?
+这事要做。
+这事情是这样。
+这个也是已知的<strong>Should</strong>,<strong>Will</strong>,<strong>Did</strong>协议模式以及与<strong>Will-Did</strong>通知模式紧密联系在一起，</p>
+
+<p>Let me mention something you might find controversial: I find it perfectly acceptable to conflate the delegate with the data-source (i.e. combine them into a single protocol). I do it with MGTileMenu and several other components, for example.</p>
+
+<p>让我提出一些事情你可能会争议：我觉得把委托和数据源混合在一起是完全可以接受的（就是组合成一个协议）</p>
+
+<p>I fully accept the principle of separating them, and I can think of many cases where you’d want to keep them separate. Apple keeps them separate too, generally. That’s fine.</p>
+
+<p>我完全接受他们分开的原则,我能想到的许多情况下,您想要将它们区分开来。苹果一般也让他们分开。这个无所谓。</p>
+
+<p>In my experience, though, in most cases it’s fine to combine them. Most people handle data-source methods and delegate methods in the same place. I’ve never had a complaint about unifying those protocols, and I can scarcely remember a situation where even existing separate protocols were handled in different places.</p>
+
+<p>在我的经验中,尽管,在大多数情况下可以组合它们。大多数人处理数据源方法和委托方法在相同的地方。我从来没有收到投诉关于统一这些协议,我几乎不记得哪里有分开的protocols在不同的地方处理。</p>
+
+<p>If you care about purity, or have a need to separate delegate from data-source, then obviously you should do so. I just don’t think you need to feel bad if you combine them.</p>
+
+<p>如果你很关心纯粹，或者需要一个独立的于数据源的委托，那么很明显你应该这么做。我只是人为你不需要感到沮丧在你组合他们的时候。</p>
+
+<h3><strong>Rule 13: 限制’required‘ 委托 Limit ‘required’ delegate methods</strong></h3>
+
+<p>Be very careful when choosing which of your delegate methods are required. Too many required methods tends to indicate:</p>
+
+<p>请小心的选择哪些委托是必须的，大多数的’required‘方法往往:</p>
+
+<ul>
+<li>Poor choice of default behaviour.</li>
+<li><p>Too much of your own politics are in your code.</p></li>
+<li><p>不充分的默认行为</p></li>
+<li>加入了太多你的主观意见</li>
+</ul>
+
+
+<p>A well-designed component should need very, very few required delegate methods - just the bare minimum to do whatever it does. Choose carefully. Equally, remember that it’s easy to add optional methods later, but it’s hard to turn optional ones into required ones (people will complain, and rightly so).</p>
+
+<p>一个非常好的component 应该需要非常非常少的’required‘委托方法 - 最小化无论做什么。认真公平的去选择，记得以后会容易增加’optional‘的方法，但是以后很难从’optional‘转变成’required‘方法。</p>
+
+<p>MGTileMenu has five required methods, four of which are data-source methods:
+MGTileMenu 有5个’required‘ 方法，其中4个数据源方法：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nf">numberOfTilesInMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">tileMenu</span><span class="p">;</span> <span class="c1">// in total (will be shown in groups of up to 5 per page)</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">UIImage</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nf">imageForTile:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">tileNumber</span> <span class="nf">inMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">tileMenu</span><span class="p">;</span> <span class="c1">// zero-based tileNumber</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">NSString</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nf">labelForTile:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">tileNumber</span> <span class="nf">inMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">tileMenu</span><span class="p">;</span> <span class="c1">// zero-based tileNumber</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">NSString</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nf">descriptionForTile:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">tileNumber</span> <span class="nf">inMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">*</span><span class="p">)</span><span class="nv">tileMenu</span><span class="p">;</span> <span class="c1">// zero-based tileNumber&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>The first two follow the One True Data-Source Protocol. The third and fourth do too, but they also expose my politics: I think that software should be accessible, and I’m forcing you to supply a label and hint for each tile for VoiceOver to read. I’m comfortable with it.</p>
+
+<p>前两个遵循一个真正的数据源协议。第三四个也是如此，但是他们也有我个人的意见：我认为软件应该是可访问的,我迫使你提供一个标签,示意用语音来读每个tile。我感到这样很舒适。</p>
+
+<p>There’s also one delegate method proper:</p>
+
+<p>这里也有一个委托方法：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tileMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">*</span><span class="p">)</span><span class="nv">tileMenu</span> <span class="nf">didActivateTile:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">tileNumber</span><span class="p">;</span> <span class="c1">// zero-based tileNumber</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>That one is required because it’s how you find out that a tile was activated. If you’re not willing to pay attention to that, MGTileMenu will do nothing useful, and you might as well not be using it at all. So, it’s required.</p>
+
+<p>这个一个是’required‘因为他是告诉你如何找到一个激活的‘tile’。如果你将来不注重这个，MGTileMenu不可使用,你可能也不会使用它。所以,这是必须的。</p>
+
+<h3><strong>Rule 14: 设计辅助功能特性 Design for accessibility</strong></h3>
+
+<p>Following immediately on from the last rule: make things accessible. Don’t tack it on at the end, either: design for accessibility from the start. If you follow the “use controls in your controls” rule, you probably get this almost for free.</p>
+
+<p>遵循最后一条规则：让事情访问。不要在结束的时候思考它，从一开始注意辅助功能设计。如果你遵循“use controls in your controls”的原则，你可能已经完成了这个功能。</p>
+
+<p>Delegate (or rather, data-source) methods, as shown above, are a great place to twist the arm of another developer to make them at least provide something for VoiceOver. And if you can automatically repurpose something visual (like a displayed text label) as a VoiceOver label, so much the better (again, in most cases VoiceOver already handles this for you).</p>
+
+<p>委托(或相反,数据源)方法,如上所示,是一个伟大的地方的手臂扭另一个开发者来让他们至少提供一些VoiceOver。如果你可以自动改变一些视觉(就像一个显示文本标签)作为一个VoiceOver标签,那就更好了(同样,在大多数情况下已经为您处理这个VoiceOver)。</p>
+
+<p>Be socially conscious. Make it hard not to support accessibility. I also wrote <a href="http://mattgemmell.com/2010/12/19/accessibility-for-iphone-and-ipad-apps/">an article about supporting VoiceOver</a> in iOS apps, which Apple recommends to companies who contact them about accessibility programming. I recommend it too, but then I wrote it, so you’d expect that.</p>
+
+<p>是社会意识。很难不支持可访问性。我也写了一篇关于支持VoiceOver在iOS应用程序,苹果公司建议联系他们关于辅助功能的编程。我也推荐它,但后来我写的,所以你会指望你这样做。</p>
 
 <p>待续。。。</p>
 ]]></content>
