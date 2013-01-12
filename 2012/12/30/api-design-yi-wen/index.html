@@ -52,7 +52,7 @@
   
   <!-- Twitter -->
   <li>
-  <a href="http://www.twitter.com/ViiMoo" class="twitter" title="Twitter"></a>
+  <a href="http://www.twitter.com/Dean_Woo" class="twitter" title="Twitter"></a>
   </li>
   
   
@@ -96,7 +96,7 @@
 
 <p>I’ve designed literally dozens of component APIs over the years, including for clients like Apple, and I’ve learned quite a bit about the process. I periodically release open source components too, and the feedback I’ve had has helped me put together a set of guidelines for API design that I’d like to share with you.</p>
 
-<p>多年来我设计了几十个API组件都已经成功出现在了大家的视线里，包括一些苹果风格的客户端，并且我对这个开发过程有了一定的了解。我也定期会发布一些开源的组件，这些反馈帮助我整理了一套API设计的指南，我想将成果和大家分享。</p>
+<p>多年来我设计了几十个API组件都已经成功出现在了大家的视线里，包括一些苹果风格的客户端，并且我对这个开发过程有了一定的了解。我也定期会发布一些开源的组件，并且获得了很多反馈，帮助我整理了一套API设计的指南，我想将成果和大家分享。</p>
 
 <!-- more -->
 
@@ -107,7 +107,7 @@
 
 <p>APIs are UX for developers. I’ve always been surprised that there isn’t more material written about this aspect of our work, in a way that’s specific to the popular platforms.</p>
 
-<p>APIs 是对开发者的交互设计，我时常感到惊讶为什么没有很多资料提到这方面的工作，它是非常受欢迎的方式。</p>
+<p>APIs 是对开发者的交互设计，我时常感到惊讶为什么没有很多资料提到这方面的工作，它是非常受欢迎的。</p>
 
 <p>As we go through some guidelines, I’m going to use my most recently released open source GUI component, <a href="http://mattgemmell.com/2012/05/14/mgtilemenu/">MGTileMenu</a>, as an example where necessary. You can read <a href="http://mattgemmell.com/2012/05/14/mgtilemenu/">all about MGTileMenu here</a> first, if you like.</p>
 
@@ -132,8 +132,9 @@
 
 <h2><strong>开发接口（The developer interface）</strong></h2>
 
-<p>Components are interacted with by the developer using four primary explicit means:
-Components是以下四种方式和开发者互动:</p>
+<p>Components are interacted with by the developer using four primary explicit means:</p>
+
+<p>Components是通过下四种方式和开发者互动:</p>
 
 <ul>
 <li>The class interface: its exposed properties and methods.</li>
@@ -185,21 +186,21 @@ Components是以下四种方式和开发者互动:</p>
 
 <p>One the most common mistakes I see in API design is the use of foreign conventions. APIs belong to a platform and a developer ecosystem. You simply can’t use whatever idioms and architectures you’re used to from a different platform; to do so is to pollute your current codebase and to damage the productivity of your fellow developers.</p>
 
-<p>我所看到最常见的错误是API的设计利用了外来的约定。APIs 属于固定平台和开发者生态系统。你根本不能使用任何习语和你用过的不同平台的架构，这样做是污染您当前的代码库，并​​损害你的开发人员的生产力。</p>
+<p>我所看到最常见的错误是API的设计利用了外来的约定。APIs 属于固定平台和固定的开发者生态系统。你根本不能使用任何习语和你用过的不同平台的架构，这样做是污染您当前的代码库，并​​损害你的开发人员的生产力。</p>
 
 <p>Learn your target platform’s conventions before coding. For example, on iOS or OS X, don’t use exceptions for control flow. Name your methods in an appropriate manner (which usually means sufficiently verbose, but should also of course be sufficiently succinct).</p>
 
-<p>在coding之前要了解你目标平台的约定，比如，在iOS 或者 OS X，不使用control flow 的异常    。以适当的方式命名你的方法（通常指有足够详细，但也应该有足够的简洁）。</p>
+<p>在coding之前要了解你目标平台的约定，比如，在iOS 或者 OS X，不使用异常对待control的流程  。以适当的方式命名你的方法（通常指有足够详细，但也应该有足够的简洁）。</p>
 
 <p>Learn what a protocol is, and a delegate, and a category. Use that terminology throughout your code. Learn the relevant naming schemes for constructors and destructors. Obey native memory management rules. The vocabulary and the grammar are indivisible, and you’re either developing for a given platform or you’re not.</p>
 
-<p>了解协议是什么，和一个委托，一个类别。在你的代码中使用该术语。学习相关的构造函数和析构函数的​​命名方案。请遵守本机内存管理规则。词汇和语法是不可分割的，你要么发展为一个给定的平台，或者你跨平台。</p>
+<p>了解协议，和委托，类别分别是什么。在你的代码中使用该术语。学习相关的构造函数和析构函数的​​命名方案。请遵守内存管理规则。词汇和语法是不可分割的，你要么发展为一个固定的的平台，或者你跨平台。</p>
 
 <h3><strong>Rule 2: 设计解耦（Design decoupled）</strong></h3>
 
 <p>Any component should be designed such that it’s not coupled to the project you created it for, and if it’s a GUI control or view, it should at least display something by default. Use the existing framework classes as a guide, and maintain loose coupling with delegate protocols, well-designed/named API methods and notifications where appropriate.</p>
 
-<p>任何component的设计应该没有连接到你当前创建的项目，如果他是一个GUI control或者一个视图，它应该默认显示一些东西。使用现有的框架作为一个指南,与委托协议,精心设计的/命名的API方法和通知在适当的地方维护松耦合。</p>
+<p>任何component的设计应该没有连接到你当前创建的项目，如果他是一个GUI control或者一个视图，它应该默认显示一些东西。使用现有的框架作为一个指南,与委托协议,精心设计的/命名的API方法和通知在适当的地方保持松耦合。</p>
 
 <p>An obvious but very effective way to do this is to create a new project for each component, and develop the component literally in isolation. Force yourself to use your own API. Stay away from the temptation of tying unrelated classes together. Start as you mean to go on.</p>
 
@@ -224,6 +225,8 @@ Components是以下四种方式和开发者互动:</p>
 
 <p>This is a corollary to the previous rule: remember not to just swallow those parameters. Give access to them via properties, and note if they might have been massaged in any way (sanitised, or otherwise modified).</p>
 
+<p>这个前一个结果的必然结果: 记住不要仅仅传入参数，应该可以通过属性或者赋值来访问他们，如果他们可以通过任何方式来一场“按摩”（修改，重写等）</p>
+
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">weak</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="kt">id</span><span class="o">&lt;</span><span class="n">MGTileMenuDelegate</span><span class="o">&gt;</span> <span class="n">delegate</span><span class="p">;</span> <span class="c1">// must be specified via initializer method.</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -241,12 +244,11 @@ Components是以下四种方式和开发者互动:</p>
 
 <ul>
 <li>Sufficiently detailed, but no more so. Be succinct.</li>
-<li>For professionals. Assume things that are safe to assume. Don’t waffle.</li>
+<li><p>For professionals. Assume things that are safe to assume. Don’t waffle.</p></li>
+<li><p>足以描述，但是不是特别多，要简洁。</p></li>
+<li>一切是提供给专业人士，所以适当的描述别描述无关的事情。</li>
 </ul>
 
-
-<p>足以描述，但是不是特别多，要简洁。
-一切是提供给专业人士，所以适当的描述别描述无关的事情。</p>
 
 <p>Particularly, you should briefly note default values beside properties or accessors; it’s much easier to scan those in the header file than to try to locate your initialisation code in the implementation.</p>
 
@@ -261,7 +263,7 @@ Components是以下四种方式和开发者互动:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h3><strong>Rule 6: Get up and running in 3 lines</strong></h3>
+<h3><strong>Rule 6: 三行内运行起来 Get up and running in 3 lines</strong></h3>
 
 <p>Your class should be designed so that it requires minimal code to integrate (delegate/data-source protocol included, about which more later). Excluding delegate methods, you should aim to make it usable at least for testing purposes with only 3 lines of code.</p>
 
@@ -291,11 +293,11 @@ Components是以下四种方式和开发者互动:</p>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// Instantiate.</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// Instantiate. 初始化</span>
 </span><span class='line'><span class="n">tileController</span> <span class="o">=</span> <span class="p">[[</span><span class="n">MGTileMenuController</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithDelegate:</span><span class="n">self</span><span class="p">];</span>
-</span><span class='line'><span class="c1">// Configure.</span>
+</span><span class='line'><span class="c1">// Configure. 配置</span>
 </span><span class='line'><span class="n">tileController</span><span class="p">.</span><span class="n">dismissAfterTileActivated</span> <span class="o">=</span> <span class="n">NO</span><span class="p">;</span> <span class="c1">// to make it easier to play with in the demo app.</span>
-</span><span class='line'><span class="c1">// Display.</span>
+</span><span class='line'><span class="c1">// Display. 显示</span>
 </span><span class='line'><span class="p">[</span><span class="n">tileController</span> <span class="nl">displayMenuCenteredOnPoint:</span><span class="n">loc</span> <span class="nl">inView:</span><span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">];</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -308,7 +310,7 @@ Components是以下四种方式和开发者互动:</p>
 
 <p>The core required code to turn an empty Xcode app template into a demo of your app should be minimised. It’s not OK to required copy-pasted boilerplate to get your component working, and having an example of it in your demo isn’t an excuse.</p>
 
-<p>核心思想是当你的代码从你的空的xcode项目模板到你的demo中应该保持最小化的修改。这并不是一个好的借口当你需要复制粘贴样板来让你的component运行。</p>
+<p>核心思想是当你的代码从你的空的xcode项目模板到你的demo中应该保持最小化的修改。这并不是一个好的借口当你需要复制粘贴demo来让你的component运行。</p>
 
 <h3><strong>Rule 8: 预测定制化的可能性 Anticipate customisation scenarios</strong></h3>
 
@@ -318,7 +320,7 @@ Components是以下四种方式和开发者互动:</p>
 
 <p>The situation is a bit different with components, because the scenarios of use aren’t as clear-cut. You can certainly make a component that only fits one specific situation, but usually we want some flexibility. You never know exactly how another developer is going to use your component, so you have to build in some generality.</p>
 
-<p>目前的情况是应该有一些不同的components，因为在使用目的不明确的情况下。你当然可以使一个components只适合一个特定的情况，但通常我们需要有一定的灵活性。你永远不知道究竟是另一名开发人员将使用您的components，所以你必须建立在一些一般性。</p>
+<p>目前的情况是应该有一些不同的components，因为在使用目的不明确的情况下。你当然可以使一个components只适合一个特定的情况，但通常我们需要有一定的灵活性。你永远不知道究竟另一名开发人员将如何使用您的components，所以你必须建立在一些一般性。</p>
 
 <p>It’s important to choose your customisation points carefully. It’s particularly important to consider dependencies - not in the compiling/linking sense, but rather the logical relationships between types of customisation. I approach this by trying not to think of customisation at the instance-variable level, but rather at the “aspect” level. What aspects of your component do you want to allow customisation of? Then you work out what specific properties to expose.</p>
 
@@ -384,11 +386,11 @@ Components是以下四种方式和开发者互动:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h3><strong>Rule 10: Use controls in your controls</strong></h3>
+<h3><strong>Rule 10: 在你的控件中使用控件 Use controls in your controls</strong></h3>
 
 <p>A great way to simplify both the API and implementation of your component is to use existing controls in your implementation. A unified presentation doesn’t meant that you can’t build something out of pre-existing components (indeed, that’s one of the basic principles of good software engineering).</p>
 
-<p>一个很重要的方式来简化API和实现你的component是里用已有的controls在你的实现方法中。标准的表现并不意味着你不能在已有的components上创造东西。（事实上，这是一个好的软件工程师的基本准则）</p>
+<p>一个很重要的方式来简化API和实现你的component是里用已有的controls在你的实现方法。标准的表现并不意味着你不能在已有的components上创造东西。（事实上，这是一个好的软件工程师的基本准则）</p>
 
 <p>Consider how UITableViewCell and UIButton have simple APIs because they use sub-controls such as UIImageViews and UILabels. You can, and should, do that too - and if appropriate, expose the corresponding sub-controls to keep your class interface concise and consistent.</p>
 
@@ -423,9 +425,9 @@ Components是以下四种方式和开发者互动:</p>
 
 <p>The first helps me shift a tile menu so that it’s fully visible within its parent view (which might be handy for another developer, if they’re providing ancillary UI related to the menu), and the second returns a Core Graphics gradient from two UIColors, which I used when setting a default background for the tiles (and another developer may find handy when implementing MGTileMenu’s delegate protocol, to give tiles custom gradients).</p>
 
-<p>这第一个帮助我转换一个标题菜单让他可以完完全全显示在它的父视图中（这可能方便其他开发人员如果他们相关配套的UI菜单），第二个是从2个颜色中返回一个图形渐变，用在了设置默认背景的色块（另一名开发人员可能会发现方便的时候实现MGTileMenu的委托协议，并自定义渐变色块）</p>
+<p>这第一个帮助我转换一个tile菜单让他可以完完全全显示在它的父视图中（这可能方便其他开发人员如果他们相关配套的UI菜单），第二个是从2个颜色中返回一个图形渐变，用在了设置默认背景的tile（另一名开发人员可能会发现方便的时候实现MGTileMenu的委托协议，并自定义渐变tile）</p>
 
-<h3><strong>Rule 12: Magic is OK. Numbers aren’t.</strong></h3>
+<h3><strong>Rule 12: 魔法可以，数字就算了 Magic is OK. Numbers aren’t.</strong></h3>
 
 <p>Sooner or later, you’ll put magic into your component. Hopefully there’ll be plenty of the Steve Jobs type of intuitive, delightful, empowering magic, but what I’m talking about is things like numbers and other values that have special meaning in your code. A common example is -1, to indicate a unique thing in a set, or a special situation.</p>
 
@@ -433,7 +435,7 @@ Components是以下四种方式和开发者互动:</p>
 
 <p>It’s fine. It’s genuinely OK to do that. What’s not OK, though, is needlessly putting mysterious raw values throughout your code, and   . If you’re exposing magic, dress them up for consumption. Use #defines or a constant or something. Just make them presentable and understandable.</p>
 
-<p>这个可以，诚实的来说也仅仅是OK，那什么是不OK，把一些不必要的神秘的原始值贯穿于你的代码中，尤其不正常的是屎吧他暴露在API中。如果你想施展一些魔法，把他们包装起来再使用，用#defines 或者一个常量或者其他一些什么东西。让他们更像样，更容易理解。</p>
+<p>这个可以，诚实的来说也仅仅是OK，那什么是不OK，把一些不必要的神秘的原始值贯穿于你的代码中，尤其不正常的是把它暴露在API中。如果你想施展一些魔法，把他们包装起来再使用，用#defines 或者一个常量或者其他一些什么东西。让他们更像样，更容易理解。</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -476,7 +478,7 @@ This is also known as the </strong>Should<strong>, </strong>Will<strong>, </stro
 
 <p>Let me mention something you might find controversial: I find it perfectly acceptable to conflate the delegate with the data-source (i.e. combine them into a single protocol). I do it with MGTileMenu and several other components, for example.</p>
 
-<p>让我提出一些事情你可能会争议：我觉得把委托和数据源混合在一起是完全可以接受的（就是组合成一个协议）</p>
+<p>让我提出一些事情可能你会提出争议：我觉得把委托和数据源混合在一起是完全可以接受的（就是组合成一个协议）</p>
 
 <p>I fully accept the principle of separating them, and I can think of many cases where you’d want to keep them separate. Apple keeps them separate too, generally. That’s fine.</p>
 
@@ -488,7 +490,7 @@ This is also known as the </strong>Should<strong>, </strong>Will<strong>, </stro
 
 <p>If you care about purity, or have a need to separate delegate from data-source, then obviously you should do so. I just don’t think you need to feel bad if you combine them.</p>
 
-<p>如果你很关心纯粹，或者需要一个独立的于数据源的委托，那么很明显你应该这么做。我只是人为你不需要感到沮丧在你组合他们的时候。</p>
+<p>如果你很关心纯粹，或者需要一个独立的于数据源的委托，那么很明显你应该这么做。我只是认为你不需要感到沮丧在你组合他们的时候。</p>
 
 <h3><strong>Rule 13: 限制’required‘ 委托 Limit ‘required’ delegate methods</strong></h3>
 
@@ -499,7 +501,7 @@ This is also known as the </strong>Should<strong>, </strong>Will<strong>, </stro
 <ul>
 <li>Poor choice of default behaviour.</li>
 <li><p>Too much of your own politics are in your code.</p></li>
-<li><p>不充分的默认行为</p></li>
+<li><p>默认行为不够不充分</p></li>
 <li>加入了太多你的主观意见</li>
 </ul>
 
@@ -524,7 +526,7 @@ MGTileMenu 有5个’required‘ 方法，其中4个数据源方法：</p>
 
 <p>The first two follow the One True Data-Source Protocol. The third and fourth do too, but they also expose my politics: I think that software should be accessible, and I’m forcing you to supply a label and hint for each tile for VoiceOver to read. I’m comfortable with it.</p>
 
-<p>前两个遵循一个真正的数据源协议。第三四个也是如此，但是他们也有我个人的意见：我认为软件应该是可访问的,我迫使你提供一个标签,示意用语音来读每个tile。我感到这样很舒适。</p>
+<p>前两个遵循一个真正的数据源协议。第三四个也是如此，但是他们也有我个人的意见：我认为软件应该是可访问的,我迫使你提供一个标签,示意用VoiceOver来读每个tile。我感到这样很舒适。</p>
 
 <p>There’s also one delegate method proper:</p>
 
@@ -551,9 +553,328 @@ MGTileMenu 有5个’required‘ 方法，其中4个数据源方法：</p>
 
 <p>Be socially conscious. Make it hard not to support accessibility. I also wrote <a href="http://mattgemmell.com/2010/12/19/accessibility-for-iphone-and-ipad-apps/">an article about supporting VoiceOver</a> in iOS apps, which Apple recommends to companies who contact them about accessibility programming. I recommend it too, but then I wrote it, so you’d expect that.</p>
 
-<p>是社会意识。很难不支持可访问性。我也写了一篇关于支持VoiceOver在iOS应用程序,苹果公司建议联系他们关于辅助功能的编程。我也推荐它,但后来我写的,所以你会指望你这样做。</p>
+<p>想要有好的社会意识。就想方设法支持辅助功能。我也写了一篇关于在iOS应用程序中支持VoiceOver,苹果公司建议联系他们了解关于辅助功能的编程。我也推荐它,并且后来我是这么做的的,所以你会希望你这样做。</p>
 
-<p>待续。。。</p>
+<h3><strong>Rule 15: Use semantic objects for parameters</strong></h3>
+
+<p>This doesn’t just apply to protocols, but protocols are where it’s particularly important. Use actual, first-class, semantically-appropriate objects for data, even if it’s more hassle for you to work with in your implementation.</p>
+
+<p>这一条不仅仅适用于协议，虽然协议对于它特别的重要，使用合适一流并且具有合适语义的对象，即使它的出现让你的实现更加的复杂。</p>
+
+<p>If you’re asking for a date, don’t accept numbers - get an actual NSDate object. There are objects or structures for just about everything, and you should use them as intended. Create a class if you need to (you probably won’t need to).</p>
+
+<p>如果你需要一个日期，不接受数字，意思说你要一个实际的NSDate对象，这个对象和结构就是一切，你应该使用他们作为你的预期值。如果需要你可以创建一个类（你也许不需要）</p>
+
+<p>The one standard exception, of course, is indices - there’s no reason for them to be anything but primitives, since NSNumber adds nothing that’s semantically important enough to offset the bundling/unbundling inconvenience.</p>
+
+<p>一个标准的例外,当然,是指数——没有理由为他们增加语义除了原语,因为NSNumber的原有语义足以抵消打包/解包带来的不便。</p>
+
+<h3><strong>Rule 16: 增大api的容量如果语义不明确 Enhance the API if semantics don’t fit</strong></h3>
+
+<p>I see this all the time. I mentioned earlier how you can think of almost any new, custom control as being substantially like something that already exists (often, it’s like the already-existing thing that you’re using behind the scenes for your implementation).</p>
+
+<p>我总是看到这样的问题，我早些时候提到你如何去思考任何新的自定义的控件是一些已经存在的东西。（通常，它就像你实现了已经存在的东西的幕后的方法）</p>
+
+<p>That’s great, and you’re very clever, but semantics trump similarity. It’s absolutely fine (and wonderful) to layer a new API on top of an existing one, in order to make the semantics fit. For example:</p>
+
+<p>这很好，你很聪明，但是语义要胜于相似。这当然很可以在已有的api上增加一层，为了让语义更加的合适比如:</p>
+
+<ul>
+<li>A contact list implemented with a table should have a contacts-related API</li>
+</ul>
+
+
+<p>一个基于table的联系人列表应该有一个联系人有关的API</p>
+
+<ul>
+<li>A month-view calendar implemented with a grid should have a date-related API</li>
+</ul>
+
+
+<p>一个基于grid的月历应该有一个日期相关的api</p>
+
+<p>And so forth. Don’t force yourself (or other developers) to constantly be mentally converting between an abstract implementation API and the actual semantics of the component - make the API reflect the actual purpose of the component instead.</p>
+
+<p>等等。不要强迫你自己(或其他开发人员)不断的在脑子里转换一个抽象的实现API和组件的实际语义——容易使API反映实际目的与组件相反。</p>
+
+<p>MGTileMenu’s delegate protocol does that by treating the menu not as a collection of UIButtons (the implementation), but rather as a unified menu, with numbered tiles each of which have relevant display properties.</p>
+
+<p>MGTileMenu’s 委托协议实现并没有采用一个UIButton的集合，而是一个统一的菜单，每一个有编号tiles都有相关的协议。</p>
+
+<h3><strong>Rule 17: 高亮总是很有趣 Highlighting is interesting</strong></h3>
+
+<p>I learned this one by having to go back and add new delegate methods and notifications to APIs I thought were finished. For interactive controls, highlighting is interesting. By ‘interesting’, I mean of potential significance to the surrounding app.</p>
+
+<p>我知道这一点是返回增加一个委托方法并且通知APIs当我完成的时候，对于交互式的控制，高亮是有趣的。重点突出“有趣”，我的意思时候是说app的潜在意义要有趣。</p>
+
+<p>Any control will inform the app (in one sense or another, perhaps just by calling an action method) when it has been fully triggered, but comparatively few will notify when they’ve been visually highlighted (selected, pressed) or unhighlighted without being triggered. It turns out that that’s actually pretty important. The app might want to:</p>
+
+<p>任何控制将通知应用程序（或其他在某种意义上说，也许只是通过调用一个动作方法）时，它已经完全触发，但相对较少的通知时，他们已经被视觉上突出显示（选中，按下），或者未突出显示没有被触发。事实证明，这实际上是非常重要的。该应用程序可能希望：</p>
+
+<ul>
+<li>Add, remove or reposition ancillary UI.</li>
+<li>Update some other part of its display.</li>
+<li>Offer some contextual help.</li>
+<li>Some other thing you can’t possibly foresee.</li>
+</ul>
+
+
+<p>Highlighting is certainly an example of an optional set of delegate methods, but they’re important to have, and almost always trivial to implement.</p>
+
+<p>+添加删除或者重新定位UI。
++更新其中的一部分显示。
++提供一些上下文辅助。
++一些其他不可预见的情况。
+高亮当然是一个示例的一组可选的委托方法,但它们很重要,而且几乎总是琐碎的实现。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tileMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">*</span><span class="p">)</span><span class="nv">tileMenu</span> <span class="nf">didSelectTile:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">tileNumber</span><span class="p">;</span> <span class="c1">// zero-based tileNumber</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tileMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">*</span><span class="p">)</span><span class="nv">tileMenu</span> <span class="nf">didDeselectTile:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">tileNumber</span><span class="p">;</span> <span class="c1">// zero-based tileNumber</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3><strong>Rule 18: Optional方法并不是一个承诺 Optional methods aren’t a commitment</strong></h3>
+
+<p>Many of us approach optional delegate methods as an either-or situation: if you don’t implement them, you get the default behaviour, and if you do, then you’re totally responsible for what happens. That’s not ideal.</p>
+
+<p>我们中的许多人方法可选的委托方法作为一个二选一的情况:如果你不实现它们,你会得到默认的行为,如果你这么做了,那么你完全要为发生的事情负责。这并不是理想的。</p>
+
+<p>In any implementation which provides an optional delegate method, you should still fall back on the default behaviour even if the method is implemented, but doesn’t return something sensible. It sounds obvious, but it’s amazing how many components will blithely let delegate objects return any kind of craziness without sanity-checking, just because the delegate has somehow promised to behave itself by implementing the method.</p>
+
+<p>在任何实现提供了一个可选的委托方法,您仍然应该依靠缺省行为即使实现了该方法,但不会返回一些明智的东西。这听起来显而易见,但令人惊奇的是,很多组件将无忧无虑地让委托对象返回任何愚蠢类型而且没有做基本检查,仅仅因为委托方法莫名其妙的实现本身方法的行为。</p>
+
+<p>I’m talking particularly about visual customisations, such as background colours or images. Consider very, very carefully whether you shouldn’t intervene in that case, and fall back upon your default appearance. Did they really want to show nothing? Does that even make sense? Will it make the control look broken? If so, step in, and serve up the default just as if the delegate method was never implemented in the first place.</p>
+
+<p>我说的尤其是关于视觉自定义,比如背景颜色或图片。非常、非常小心考虑你是否不应该干预在这种情况下,依靠你的默认外观。他们是否真的想要显示什么?它合理么?它会使控制显示出错?如果是这样,你就应该提供默认数值就比如委托方法没在第一时间实现。</p>
+
+<p>Relatedly, have a documented, standard, unsurprising way to deliberately invoke the default behaviour via returning something like nil from each optional delegate method.</p>
+
+<p>同理，有一个记录在案的标准的，不会令人感到惊讶的方式去调用默认行为从Optional委托返回一些类似nil的东西</p>
+
+<p>MGTileMenu, for example, has a relatively complex hierarchy of ways you can customise tile backgrounds. You can implement any (or all, or none) of three optional delegate methods to provide a background image, gradient or colour for each tile, in that priority order. You can also opt into the default behaviour for any tile at any time, by returning nil or NULL as is appropriate to the type.</p>
+
+<p>MGTileMenu 比如，有一个相对复杂的方法你可以定义tile的背景，你可以实现三个optional委托的任意（当然也可以是全部或者一个也不实现）为每一个tile去提供背景图，渐变或者颜色。在他们的优先级下，你也可以在任何时候为每个tile选择默认行为，通过适当的类型返回nil 或者NULL。</p>
+
+<p>You’ll have to try fairly hard (by returning clearColor, or an empty UIImage object) to really, really make a tile’s background completely transparent.</p>
+
+<p>你可以试试一些相对特殊的例子（返回透明或者一个空的image对象），使得tile的背景完全透明。</p>
+
+<h3><strong>Rule 19: 总是提及是谁在讲话 Always say who’s talking</strong></h3>
+
+<p>This is a simple rule, and an equally simple mistake to make. In your delegate methods, always pass the sender as a parameter. Always. Even for singletons. Even for things you cannot conceive would ever be used more than once simultaneously. No exceptions.</p>
+
+<p>这是一个相对简单的规则，以及同样简单的错误，在你的委托方法中。你总要传入sender当做一个参数。即使是一个单例。即使你不能相像这个对象会同时超过一次使用。没有例外。</p>
+
+<p>像这样</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tileMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">*</span><span class="p">)</span><span class="nv">tileMenu</span> <span class="nf">didActivateTile:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">tileNumber</span><span class="p">;</span> <span class="c1">// zero-based tileNumber</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>不要像这样</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tileMenuDidActivateTile:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">tileNumber</span><span class="p">;</span> <span class="c1">// zero-based tileNumber</span>
+</span><span class='line'><span class="c1">// Um, WHICH menu?</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3><strong>Rule 20:把有特点的参数放在前面 Put distinguishing params first in query methods</strong></h3>
+
+<p>The One True Data-Source Protocol should always have query methods such that the most interesting thing goes first. The specific quality or property you’re requesting a value for. Like this:</p>
+
+<p>一个真正的数据源协议应该总是有这样的查询方法,最容易让人感兴趣的总是是第一个，特定的质量或属性你请求一个值像这样:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nf">imageForTile:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">tileNumber</span> <span class="nf">inMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">*</span><span class="p">)</span><span class="nv">tileMenu</span><span class="p">;</span> <span class="c1">// zero-based tileNumber</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>不要像这样:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nf">tileMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">*</span><span class="p">)</span><span class="nv">tileMenu</span> <span class="nf">imageForTile:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">tileNumber</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The return type should flow naturally into the first part of the method name, without causing surprise. Data-source protocols often have many similarly-named methods, so keep the unique and interesting parts at the very start. Easier to read, and easier to autocomplete.</p>
+
+<p>返回类型的流程应该自然地进入第一部分的方法名称,而不造成任何惊讶。数据源通常有许多名称类似的协议方法,所以保持独特而有趣的部分一开始。更易于阅读,并且容易自动完成。</p>
+
+<p>Some people have pointed out that Apple’s UITableViewDataSource protocol doesn’t do it that way, and instead puts the sender first, for example:</p>
+
+<p>一些人指出,苹果UITableViewDataSource协议并不这样做,相反让发送者首先,例如:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nf">tableView:</span><span class="p">(</span><span class="n">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="nv">tableView</span> <span class="nf">numberOfRowsInSection:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">section</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>All I can say is: I’m aware of the difference. I stand by my argument.
+我能说的就是，我知道区别，但是我固执己见。</p>
+
+<h3><strong>Rule 21: 通知方法不要忘记把sender放在第一个 Put the sender first in notification methods</strong></h3>
+
+<p>The One True Delegate Protocol, however, isn’t for queries but rather for notifications. In this situation, you put the sender first (following our “say who’s talking” rule above).</p>
+
+<p>一个真正的委托，不是为查询而是通知。在这种情况下,你把发送放在第一位(遵守我们的习惯上的“谁”在说话的规则)。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tileMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">*</span><span class="p">)</span><span class="nv">tileMenu</span> <span class="nf">willSwitchToPage:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">pageNumber</span><span class="p">;</span> <span class="c1">// zero-based pageNumber</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This follows how an interaction would go between two people having a conversation. You wouldn’t just jump in and say “She’s going to be late,” because the other person would have to ask “Who?”</p>
+
+<p>这个遵循一个两人交谈的时候，你不会只跳出来说“Ta要迟到了”，因为另一个人会问“谁”？</p>
+
+<p>Instead, you start by saying who’s talking. It’s a convention, and handily distinguishes query (data-source) from notification (delegate) methods.</p>
+
+<p>相反， 你会以在讨论谁作为开始，这是一个惯例可以轻松的区分数据源和委托。</p>
+
+<h3><strong>Rule 22: 如果打破公约，不如扔掉它If a convention is broken, throw it away</strong></h3>
+
+<p>Having said all of the above, remember that convention and consistency must at some point bow to superior judgement - in this case, yours. If a convention is broken, skip it without worrying. Rename things, if yours is truly better.</p>
+
+<p>上面说了这么多,记住,公约和一致性必须在某种程度上屈服于优秀的判断力——在这种情况下,你的。如果一个公约被打破,不必担心跳过它。重命名的事情,如果你做的更好。</p>
+
+<p>As an example, there’s a pre-existing convention for menu controls whereby you can enable or disable menu-items via the delegate, using a method called validateMenuItem:. For the sake of consistency, I was tempted to use that same method name as part of my delegate protocol. I decided not to, because:</p>
+
+<p>作为一个例子,有一个预先存在的公约菜单控件,您可以启用或禁用菜单项通过委托,使用了一种叫做validateMenuItem:。为了一致性,我想用同样的方法名称作为我的委托协议。我决定不去,因为:</p>
+
+<ul>
+<li>It has a horrible, horrible name. “Validate”? That doesn’t say “enable” to me.</li>
+<li>It’s imperative, where in my case I’m really asking a question.</li>
+<li><p>It broke the naming scheme of my other delegate methods.</p></li>
+<li><p>态有一个可怕的名字，““Validate””？不如叫做“enabled”</p></li>
+<li>这个势在必行，在我的使用中我真的提到了这个问题</li>
+<li>它打破了我以往的委托方法的命名规则</li>
+</ul>
+
+
+<p>Instead, I went for something simpler and more understandable, if unconventionally-named:</p>
+
+<p>相反，我用了一些简单容易理解，非公约的命名:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">isTileEnabled:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">tileNumber</span> <span class="nf">inMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">*</span><span class="p">)</span><span class="nv">tileMenu</span><span class="p">;</span> <span class="c1">// zero-based tileNumber</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We can debate the specific wording, but if you encountered that method you’d know what it was for and how to use it right away. To me, that’s better.</p>
+
+<p>我们可以讨论特定的措辞,但是如果你遇到了这个方法,你就可以懂得这是什么和如何立刻使用它。对我来说,这样更好。</p>
+
+<h3><strong>通知 Notifications</strong></h3>
+
+<p>Notifications are the other half of delegate protocols. My position is that, if you’re using a delegate protocol (you should, if it’s at all appropriate), then it’s incomplete until you add the notifications that naturally follow from it.</p>
+
+<p>通知是委托协议的另一部分，我的立场是。如果你在使用委托（你应该，如果他很恰当）那么它是不完整的，直到你自然的增加了通知。</p>
+
+<p>In MGTileMenu, you can find the notifications in the interface file for MGTileMenuController.</p>
+
+<p>在MGTileMenu中，你可以找到通知在[MGTileMenuController][https://github.com/mattgemmell/MGTileMenu/blob/master/MGTileMenu/MGTileMenuController.h]的接口文件中。</p>
+
+<h3><strong>Rule 23: 通知要遵循委托 Notifications follow delegate methods</strong></h3>
+
+<p>There’s a natural correspondence between delegate methods (proper; not data-source methods) and notifications. You use them in the same places in your code, and for exactly the same purpose.</p>
+
+<p>有一个自然的通信在委托（当然不是数据源方法）和通知之间。你在同样的为了同样的目的地方使用他们。</p>
+
+<p>If you have a delegate method that tells the delegate about something happening, you should usually provide a notification for that same purpose. Take your notification-like delegate methods, remove the interrogatory ones (the should methods), and you have your list of notifications to implement.</p>
+
+<p>如果你有一个委托方法告诉这个委托一些东西发生，通常情况下你提供一个通知为了相同的目的。让你的通知方法更像一个委托，消除疑问，并且你要罗列你要实现的通知。</p>
+
+<p>The delegate methods’ parameters should match up with the notifications’ userInfo contents, with the obvious exception that you pass the sender as the notification’s object, rather than bundled up in the info dictionary.</p>
+
+<p>委托方法的参数应该和通知的userInfo相对应，很明显的例外，你传入了sender当做通知的对象，而不是绑定在info字典中。</p>
+
+<p>Delegate methods:</p>
+
+<p>代理方法</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tileMenuWillDisplay:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">*</span><span class="p">)</span><span class="nv">tileMenu</span><span class="p">;</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tileMenuDidDisplay:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">*</span><span class="p">)</span><span class="nv">tileMenu</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>对应的通知</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">extern</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">MGTileMenuWillDisplayNotification</span><span class="p">;</span> <span class="c1">// menu will be shown</span>
+</span><span class='line'><span class="k">extern</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">MGTileMenuDidDisplayNotification</span><span class="p">;</span> <span class="c1">// menu has been shown</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3><strong>Rule 24: 慷慨的对待通知的userInfo Be generous with notifications’ userInfo</strong></h3>
+
+<p>Give a notification the information it requires in order to be useful. Remember that notification receivers may (and almost always will) not have anything to do with the delegate or data-source chain for your component.</p>
+
+<p>给一个通知它所需要的信息才会有用。记住,通知接收者可能(而且几乎总是会)没有任何委托或数据源组件链。</p>
+
+<p>Ask yourself what would be useful, and provide that information. At the very least, you must ensure that all arguments provided to the corresponding delegate method are wrapped up in the userInfo object.</p>
+
+<p>问问你自己什么是有用的，并且提供对应的的信息，在最后你应该确保所有的参数封装在userInfo并提供给了相应的委托方法。</p>
+
+<p>Delegate methods:
+代理方法:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tileMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">*</span><span class="p">)</span><span class="nv">tileMenu</span> <span class="nf">willSwitchToPage:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">pageNumber</span><span class="p">;</span> <span class="c1">// zero-based pageNumber</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tileMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">*</span><span class="p">)</span><span class="nv">tileMenu</span> <span class="nf">didSwitchToPage:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">pageNumber</span><span class="p">;</span> <span class="c1">// zero-based pageNumber</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And corresponding notifications:
+对应的通知</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="cp">// The following notifications have a user info key &quot;MGPageNumber&quot; with an NSNumber (integer, zero-based) value.</span>
+</span><span class='line'><span class="cp">#define MGPageNumberKey @&quot;MGPageNumber&quot;</span>
+</span><span class='line'><span class="k">extern</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">MGTileMenuWillSwitchToPageNotification</span><span class="p">;</span> <span class="c1">// menu will switch to the given page</span>
+</span><span class='line'><span class="k">extern</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">MGTileMenuDidSwitchToPageNotification</span><span class="p">;</span> <span class="c1">// menu did switch to the given page</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3><strong>Rule 25: 测试他们 Test the hell out of it</strong></h3>
+
+<p>Finally, something we all already know. Software engineering and professionalism 101: make sure it actually works.</p>
+
+<p>最后,我们都已经知道的东西。软件工程和专业101:确保它真的有用。</p>
+
+<p>Whether testing means formal TDD is up to you, but testing itself isn’t optional. Every optional delegate method. Every posted notification. Every point of customisation, in every possible combination. Components provide a thousand opportunities for subtle issues.</p>
+
+<p>测试是否意味着TDD则取决于你,但测试本身不是可选的。每一个可选的委托方法。每个发布通知。每一个点的定制,在每一个可能的组合。组件提供一千的微妙问题的机会。</p>
+
+<p>There will be bugs. Find them and fix them first. If you’re pushed for time, cut a feature and debug instead. Thou shalt suffer no bugs to ship.</p>
+
+<p>将会有bug。第一找到他们并修复它们。如果你正在争取时间,相反减少一个特性和调试。你必不会遭受到bug的威胁。</p>
+
+<h3><strong>最后的思考 Final thoughts</strong></h3>
+
+<p>I’ve formulated the above rules by learning the hard way, through years of making mistakes while creating components and their APIs. I do try to practise what I preach, though inevitably there will be a hundred examples of where I haven’t.</p>
+
+<p>我定制了以上这些规则在困难的学习的道路上，通过多年的犯过的错误在我建立的组件和APIs的时候，我试着联系遵循我的说法。虽然不可避免有上百个不同的例子出现。</p>
+
+<p>Whilst not all rules apply to all situations, and no rule applies in every case, following as many of these as you can will give you a better chance of producing flexible, well-designed, reusable components for yourself and others to enjoy.</p>
+
+<p>虽然并不是所有的规则适用于所有情况,没有规则适用于每一个案例中,如下,其中许多可以给你一个更好的机会产生灵活的、设计良好的、可重用的组件为自己和他人欣赏。</p>
+
+<p>You may want to grab a quick summary of the rules, as shown below; I have the full-size version hosted on Flickr.</p>
+
+<p>你可能想抓住的快速摘要规则,如下所示,我有全尺寸版本托管在Flickr。</p>
+
+<p><img src="http://farm9.staticflickr.com/8027/7263502878_a2ea0d4d53_o.jpg"></p>
 </div>
 
 <div class="meta">
@@ -609,7 +930,7 @@ MGTileMenu 有5个’required‘ 方法，其中4个数据源方法：</p>
 
 
 <script type="text/javascript">
-      var disqus_shortname = 'Dean_Woo';
+      var disqus_shortname = 'weekwood';
       
         
         // var disqus_developer = 1;
