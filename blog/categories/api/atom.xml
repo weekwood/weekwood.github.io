@@ -4,7 +4,7 @@
   <title><![CDATA[Category: API | Di Wu's blog]]></title>
   <link href="http://weekwood.github.com/blog/categories/api/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2013-01-13T19:22:26-08:00</updated>
+  <updated>2013-01-14T02:28:49-08:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
     <name><![CDATA[Di Wu's blog]]></name>
@@ -22,11 +22,11 @@
 
 <p>One of the development tasks I do most often is designing the API for a reusable component. The components are usually for iOS (though sometimes they’re for OS X), and are invariably GUI controls or views of some kind.</p>
 
-<p>设计可重用的API组件是我最常做的开发任务之一，这些组件一般用于iOS（一些时候也用在OS X）的GUI控件或者某些视图上</p>
+<p>我最常做的工作之一就是设计可重用的组件，这些组件一般用于iOS（一些时候也用在OS X）的GUI控件或者某些视图上。</p>
 
 <p>I’ve designed literally dozens of component APIs over the years, including for clients like Apple, and I’ve learned quite a bit about the process. I periodically release open source components too, and the feedback I’ve had has helped me put together a set of guidelines for API design that I’d like to share with you.</p>
 
-<p>多年来我设计了几十个API组件都已经成功出现在了大家的视线里，包括一些苹果风格的客户端，并且我对这个开发过程有了一定的了解。我也定期会发布一些开源的组件，并且获得了很多反馈，帮助我整理了一套API设计的指南，我想将成果和大家分享。</p>
+<p>多年来我设计了几十个API组件都已经成功出现在了大家的视线里，比如一些苹果风格的客户端，并且我对这个开发过程有了一定的了解。我定期也会发布一些开源的组件，并且从中获得了很多反馈让我受益良多，与此同时我整理了一套API设计的指南，现在我将成果分享给大家。</p>
 
 <!-- more -->
 
@@ -76,7 +76,7 @@
 
 <p>We have to design each of those, judiciously and deliberately, for human use. There are two key questions when you’re thinking about the API:</p>
 
-<p>我们将明智并且谨慎的设计他们。这里有2个关键的问题当你思考API的时候：</p>
+<p>以人为本的设计我们需要谨慎的考虑，当你思考API设计的时候有2个关键的问题：</p>
 
 <ul>
 <li><strong>What is the control?</strong></li>
@@ -85,7 +85,7 @@
 
 <p>This influences the interface and convenience methods. Is it a button? A slider? Your interface is obvious. Your convenience methods will follow the standard semantics of the control.</p>
 
-<p>它影响了界面和方法。它是一个按钮吗？一个滑块？您的界面是显而易见的。您的方法将遵循的标准语义的control。</p>
+<p>这个问题会影响界面和接口方法。它是一个按钮吗？一个滑块？您的接口是否可见。您的方法将遵循的标准语义的control。</p>
 
 <ul>
 <li><strong>What is the control like?</strong></li>
@@ -94,11 +94,11 @@
 
 <p>This influences the delegate and/or data-source model and notifications. If it’s a new type of control, is it essentially very similar to something else? An outline view is a linear table. A calendar widget is a date-picker. A collection of commands presented with a unified presentation is a menu.</p>
 
-<p>它会影响委托和/或数据源模型和通知。如果它是一个新型的control，它本质上是非常相似的别的东西吗？大纲视图是​​一个线性表。日历小工具是一个日期选择器。用一个统一的命令集合就是一个菜单。</p>
+<p>这个问题会影响委托和/或数据源模型和通知。如果它是一个新型的control，它本质上是非常相似的别的东西吗？大纲视图是​​一个线性表。日历小工具是一个日期选择器。用一个统一的命令集合就是一个菜单。</p>
 
 <p>Our core goal is consistency with existing components and models, so that we can turn an unfamiliar control into something the developer already understands. Use standard APIs, models, and patterns wherever possible (and that’s almost always). Familiarity and intuitiveness are just as important at code level as they are for the end user.</p>
 
-<p>我们的核心目标是与现有的组件和模型的保持一致性，因此，我们可以把一个陌生的control，变成开发人员已经知道的东西。使用标准的API，模型和模式，只要有可能的（这是几乎总是）。熟悉和直观性对最终用户也同样重要。</p>
+<p>我们的核心目标是与现有的组件和模型的保持一致，因此，我们可以把一个陌生的control，变成开发人员已经知道的东西。尽可能的使用标准的API，模型和模式，因为熟悉和直观对用户来说也相当重要。</p>
 
 <p>Let’s look at the four components of the component API mentioned above.</p>
 
@@ -116,7 +116,7 @@
 
 <p>One the most common mistakes I see in API design is the use of foreign conventions. APIs belong to a platform and a developer ecosystem. You simply can’t use whatever idioms and architectures you’re used to from a different platform; to do so is to pollute your current codebase and to damage the productivity of your fellow developers.</p>
 
-<p>我所看到最常见的错误是API的设计利用了外来的约定。APIs 属于固定平台和固定的开发者生态系统。你根本不能使用任何习语和你用过的不同平台的架构，这样做是污染您当前的代码库，并​​损害你的开发人员的生产力。</p>
+<p>我所看到最常见的错误是API的设计利用了外来的约定。APIs 属于固定平台和固定的开发者生态系统。你根本无法使用任何习语和你用过的其他平台的架构，这样做会污染您当前的代码库，并​​对其他开发人员的效率造成损害。</p>
 
 <p>Learn your target platform’s conventions before coding. For example, on iOS or OS X, don’t use exceptions for control flow. Name your methods in an appropriate manner (which usually means sufficiently verbose, but should also of course be sufficiently succinct).</p>
 
@@ -124,7 +124,7 @@
 
 <p>Learn what a protocol is, and a delegate, and a category. Use that terminology throughout your code. Learn the relevant naming schemes for constructors and destructors. Obey native memory management rules. The vocabulary and the grammar are indivisible, and you’re either developing for a given platform or you’re not.</p>
 
-<p>了解协议，和委托，类别分别是什么。在你的代码中使用该术语。学习相关的构造函数和析构函数的​​命名方案。请遵守内存管理规则。词汇和语法是不可分割的，你要么发展为一个固定的的平台，或者你跨平台。</p>
+<p>了解协议，和委托，类别分别是什么。在你的代码中使用他们。学习相关的构造函数和析构函数的​​命名方案。请遵守内存管理规则。词汇和语法是不可分割的，你要么发展为一个固定的的平台，或者你跨平台。</p>
 
 <h3><strong>Rule 2: 设计解耦（Design decoupled）</strong></h3>
 
