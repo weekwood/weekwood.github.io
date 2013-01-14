@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ObjC | Di Wu's blog]]></title>
   <link href="http://weekwood.github.com/blog/categories/objc/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2013-01-12T00:37:20-08:00</updated>
+  <updated>2013-01-13T19:22:26-08:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
     <name><![CDATA[Di Wu's blog]]></name>
@@ -51,14 +51,14 @@
 
 <ul>
 <li>直观（Intuitive）</li>
-<li>Forgiving</li>
-<li>Frictionless</li>
+<li>灵活 Forgiving</li>
+<li>松耦合 Frictionless</li>
 </ul>
 
 
 <p>As with any piece of software designed for use by humans, we have to think about the use cases. We have to make the most commonly-needed stuff easy, without undue configuration. Default behaviours should be useful as-is, and should be sensibly chosen. The software should be discoverable, and should allow the user to generalise from known paradigms. It’s all exactly the same set of principles as when we’re creating UIs.</p>
 
-<p>为人设计的软件，我们需要思考用户用例，让一些常用的东西使用起来更加容易，更少的配置。作为默认的行为，并且它应该做成明智的选择。软件应该是可发现的，并且可以让用户从已知的模式中概括出来。这套准则应该和创建UI的时候完全一致。</p>
+<p>以人为本的软件，我们需要思考实际用例，让一些常用的东西不需要过多的配置就可以容易使用。而你设计的默认行为应该是最实用最明智的那个。软件的功能应该是容易发现的，并且可以让用户从已知的行为模式中概括出来。这套准则应该和创建UI的时候完全一致。</p>
 
 <h2><strong>开发接口（The developer interface）</strong></h2>
 
