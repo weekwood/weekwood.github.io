@@ -3,10 +3,12 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Blog Archives - Di Wu's blog</title>
+	<title>About CocoaPods - Di Wu's blog</title>
     <meta name="author" content="Di Wu's blog">
     
-	<meta name="description" content="2013 About CocoaPods Jan 14 Comments Arc+blocks+llvm4 的时代2/3 Jan 11 Comments 2012 API Design 译文 Dec 30 API, ObjC Comments arc+blocks+llvm4 的时代1/3 &hellip;">
+	<meta name="description" content="什么是CocoaPods 每个做iOS开发的人或多或少会用到一些开源的源代码。我想你们也会有何我一样的经历 开源文件复制道项目中
+添加依赖的系统库
+手动管理依赖库更新 这简直是地狱！也许你和我一样需要CocoaPods, 它是一个负责管理iOS第三方开源代码的工具。 我们不在需要执行这些事情仅仅 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -86,100 +88,122 @@
 <div id="toload">
 <!-- begin toload --> 
     <div id="content" class="inner">
-        
+        <article class="post">
+	<h2 class="title">About CocoaPods</h2>
+	<div class="entry-content"><h3>什么是CocoaPods</h3>
+
+<p>每个做iOS开发的人或多或少会用到一些开源的源代码。我想你们也会有何我一样的经历</p>
+
+<ol>
+<li>开源文件复制道项目中</li>
+<li>添加依赖的系统库</li>
+<li>手动管理依赖库更新</li>
+</ol>
+
+
+<p>这简直是地狱！也许你和我一样需要CocoaPods, 它是一个负责管理iOS第三方开源代码的工具。</p>
+
+<p>我们不在需要执行这些事情仅仅</p>
+
+<blockquote><p>$ pod install</p></blockquote>
+
+<p>它会下载podfile 文件中的依赖库。</p>
+
+<p>就是这么简单</p>
+
+<!-- more -->
+
+
+<h3>为什么需要这个</h3>
+
+<p>并不是只有iOS有这个依赖惯例工具，他们同时也存在于</p>
+
+<ul>
+<li>java: maven</li>
+<li>Ruby: gems
+…</li>
+</ul>
+
+
+<p>语言发展到一定程度必然出现的。</p>
+
+<h3>CocoaPods安装</h3>
+
+<p>CocoaPods 是一个Ruby的Gem，而Mac自带Ruby，所以我们仅仅需要在Terminal下运行</p>
+
+<blockquote><p>$ [sudo] gem install cocoapods</p>
+
+<p>$ pod setup</p></blockquote>
+
+<p>现在你可以开始使用了~</p>
+
+<h4><strong>Search</strong></h4>
+
+<p>在Terminal 下运行  pod search + ‘GitHub’上的代码库名称就可以的到你想要的，例如 pod search nimbus</p>
+
+<h4><strong>Podfile</strong></h4>
+
+<p>在iOS项目下建立Podfile</p>
+
+<blockquote><p>$ vi Podfile</p>
+
+<p>platform :ios</p>
+
+<p>dependency ‘JSONKit’, ‘~> 1.4′</p>
+
+<p>dependency ‘Reachability’, ‘~> 3.0.0′</p></blockquote>
+
+<p>然后</p>
+
+<blockquote><p>$ pod install</p></blockquote>
+
+<p>打开看看吧 你想要的依赖已经整装待发了！</p>
+
+<h4><strong>加入Pod</strong></h4>
+
+<p>并不是所有时候都可以找到你想要的库，fork一份<a href="https://github.com/CocoaPods/Specs">CocoaPods</a>
+到你的项目开设对应的开源目录，编辑podspec，然后执行</p>
+
+<blockquote><p>pod spec lint yours.podspec
+然后pull request，CocoaPods团队会审核</p></blockquote>
+
+<h3>分享一个UI分享网站</h3>
+
+<p><a href="http://www.cocoacontrols.com/">CocoaControl</a>这里更新很快而且大部分的都CocoaPods</p>
+
+<h4><strong>Enjoy</strong></h4>
+</div>
+
+<div class="meta">
 	
-
-
+		<span class="comments"><a href="/2013/01/14/about-cocoapods/#disqus_thread">Comments</a></span>
 	
-	
-	<section class="archives"><h1 class="year">2013</h1>
-
-<article>
-	<h2 class="title"><a href="/2013/01/14/about-cocoapods/">About CocoaPods</a></h2>
-	<div class="meta">
-		<span class="date">Jan 14</span>
-		<span class="tags">
-
-</span>
-	    
-	    <span class="comments"><a href="/2013/01/14/about-cocoapods/#disqus_thread">Comments</a></span>
-	    
-	</div>
+</div>
 </article>
 
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
 	
-
-
-<article>
-	<h2 class="title"><a href="/2013/01/11/arc-plus-blocks-plus-llvm4-de-shi-dai-2-slash-3/">Arc+blocks+llvm4 的时代2/3</a></h2>
-	<div class="meta">
-		<span class="date">Jan 11</span>
-		<span class="tags">
-
-</span>
-	    
-	    <span class="comments"><a href="/2013/01/11/arc-plus-blocks-plus-llvm4-de-shi-dai-2-slash-3/#disqus_thread">Comments</a></span>
-	    
+	<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+	
+	<a class="addthis_counter addthis_pill_style"></a>
 	</div>
-</article>
-
-	
-
-
-	
-	
-		</section>
-	
-	<section class="archives"><h1 class="year">2012</h1>
-
-<article>
-	<h2 class="title"><a href="/2012/12/30/api-design-yi-wen/">API Design 译文</a></h2>
-	<div class="meta">
-		<span class="date">Dec 30</span>
-		<span class="tags">
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
 
 
-	<a class='category' href='/blog/categories/api/'>API</a>, <a class='category' href='/blog/categories/objc/'>ObjC</a>
 
-
-</span>
-	    
-	    <span class="comments"><a href="/2012/12/30/api-design-yi-wen/#disqus_thread">Comments</a></span>
-	    
-	</div>
-</article>
-
-	
-
-
-<article>
-	<h2 class="title"><a href="/2012/12/24/arc-plus-blocks-plus-llvm4-shi-dai-1/">arc+blocks+llvm4 的时代1/3</a></h2>
-	<div class="meta">
-		<span class="date">Dec 24</span>
-		<span class="tags">
-
-</span>
-	    
-	    <span class="comments"><a href="/2012/12/24/arc-plus-blocks-plus-llvm4-shi-dai-1/#disqus_thread">Comments</a></span>
-	    
-	</div>
-</article>
-
-	
-
-
-<article>
-	<h2 class="title"><a href="/2012/12/23/regex-to-catch-at-mention-number-hashtag-and-link-http-s-slash-slash/">Regex to catch @mention #hashtag and link http(s)://</a></h2>
-	<div class="meta">
-		<span class="date">Dec 23</span>
-		<span class="tags">
-
-</span>
-	    
-	    <span class="comments"><a href="/2012/12/23/regex-to-catch-at-mention-number-hashtag-and-link-http-s-slash-slash/#disqus_thread">Comments</a></span>
-	    
-	</div>
-</article>
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
 
     </div>
     <footer id="footer">
@@ -206,7 +230,10 @@
       var disqus_shortname = 'diwu';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://weekwood.github.com/2013/01/14/about-cocoapods/';
+        var disqus_url = 'http://weekwood.github.com/2013/01/14/about-cocoapods/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
