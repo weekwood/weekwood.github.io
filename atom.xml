@@ -4,7 +4,7 @@
   <title><![CDATA[Di Wu's blog]]></title>
   <link href="http://weekwood.github.com/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2013-01-15T01:38:20-08:00</updated>
+  <updated>2013-01-15T01:40:25-08:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
     <name><![CDATA[Di Wu's blog]]></name>
@@ -89,11 +89,16 @@
 
 <h4><strong>加入Pod</strong></h4>
 
-<p>并不是所有时候都可以找到你想要的库，fork一份<a href="https://github.com/CocoaPods/Specs">CocoaPods</a>
-到你的项目开设对应的开源目录，编辑podspec，然后执行</p>
+<p>并不是所有时候都可以找到你想要的库,这个时候你需要：</p>
 
-<blockquote><p>pod spec lint yours.podspec
-然后pull request，CocoaPods团队会审核</p></blockquote>
+<ol>
+<li>fork一份<a href="https://github.com/CocoaPods/Specs">CocoaPods</a></li>
+<li><p>到你的项目开设对应的开源目录，编辑podspec，然后执行</p>
+
+<blockquote><p>pod spec lint yours.podspec</p></blockquote></li>
+<li><p>然后pull request，CocoaPods团队会审核</p></li>
+</ol>
+
 
 <h3>分享一个UI分享网站</h3>
 
