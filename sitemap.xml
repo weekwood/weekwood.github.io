@@ -25,6 +25,10 @@
         <lastmod>2013-01-15T01:40:21-08:00</lastmod>
     </url>
     <url>
+        <loc>http://weekwood.github.com/about/</loc>
+        <lastmod>2013-01-16T02:01:28-08:00</lastmod>
+    </url>
+    <url>
         <loc>http://weekwood.github.com/archives/</loc>
         <lastmod>2013-01-15T01:40:21-08:00</lastmod>
     </url>
@@ -38,10 +42,6 @@
     </url>
     <url>
         <loc>http://weekwood.github.com/search.html</loc>
-        <lastmod>2013-01-11T15:27:17-08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://weekwood.github.com/super-awesome/</loc>
         <lastmod>2013-01-11T15:27:17-08:00</lastmod>
     </url>
 </urlset>
