@@ -4,7 +4,7 @@
   <title><![CDATA[Di Wu's blog]]></title>
   <link href="http://weekwood.github.com/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2013-01-24T21:15:15-08:00</updated>
+  <updated>2013-01-27T23:14:20-08:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
     <name><![CDATA[Di Wu's blog]]></name>
@@ -12,6 +12,52 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[一些程序员网站]]></title>
+    <link href="http://weekwood.github.com/2013/01/27/%5B%3F%5D-xie-cheng-xu-yuan-wang-zhan/"/>
+    <updated>2013-01-27T22:45:00-08:00</updated>
+    <id>http://weekwood.github.com/2013/01/27/[?]-xie-cheng-xu-yuan-wang-zhan</id>
+    <content type="html"><![CDATA[<p>整理了下经常去的一些网站，一些参考吧。</p>
+
+<h4><a href="https://github.com/">Github</a>:</h4>
+
+<p>目前最活跃的开源社区,每天要花很多时间在这里浏览一些的东西,学习源码.</p>
+
+<h4><a href="http://stackoverflow.com/">stackoverflow</a>:</h4>
+
+<p>技术社区</p>
+
+<h4><a href="http://www.raywenderlich.com/">raywenderlich</a>:</h4>
+
+<p>有很多的iOS的教程，值得学习，网站可以购买<strong>《iOS 6 By Tutorials》</strong>版本书籍，很不错</p>
+
+<h4><a href="http://maniacdev.com/">maniacdev</a>:</h4>
+
+<p>不错的网站更新很快收集了很多iOS相关的教程和最新的UI 控件推荐。个人比较喜欢里面有一个专门的收集了很多cocos2d的开源游戏。</p>
+
+<h4><a href="http://www.36kr.com/">36kr</a>:</h4>
+
+<p>关注互联网创业最好的新闻网站</p>
+
+<h4><a href="http://techcrunch.com/">TechCrunch</a>:</h4>
+
+<p>美国著名的互联网资讯更新极快</p>
+
+<h4><a href="http://www.aqee.net/">外刊 IT 评论</a>:</h4>
+
+<p>很有意思的咨询网站</p>
+
+<h4><a href="http://www.zhihu.com">知乎</a>:</h4>
+
+<p>能学习到很多东西的地方，也有一些blog收集的相关话题。
+http://www.zhihu.com/question/19618652
+http://www.zhihu.com/question/19550915
+http://www.zhihu.com/question/20072641</p>
+
+<p>待续。。。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[About CocoaPods]]></title>
