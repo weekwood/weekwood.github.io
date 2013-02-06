@@ -4,7 +4,7 @@
   <title><![CDATA[Di Wu's blog]]></title>
   <link href="http://weekwood.github.com/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2013-02-06T01:43:00-08:00</updated>
+  <updated>2013-02-06T01:45:08-08:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
     <name><![CDATA[Di Wu's blog]]></name>
@@ -18,7 +18,7 @@
     <link href="http://weekwood.github.com/2013/01/29/mobile-site-with-nginx/"/>
     <updated>2013-01-29T23:57:00-08:00</updated>
     <id>http://weekwood.github.com/2013/01/29/mobile-site-with-nginx</id>
-    <content type="html"><![CDATA[<p>有时候需要搭建mobile site，大部分时候</p>
+    <content type="html"><![CDATA[
 ]]></content>
   </entry>
   
