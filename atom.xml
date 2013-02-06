@@ -4,7 +4,7 @@
   <title><![CDATA[Di Wu's blog]]></title>
   <link href="http://weekwood.github.com/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2013-01-27T23:17:03-08:00</updated>
+  <updated>2013-02-06T01:43:00-08:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
     <name><![CDATA[Di Wu's blog]]></name>
@@ -14,10 +14,19 @@
 
   
   <entry>
+    <title type="html"><![CDATA[mobile site with nginx]]></title>
+    <link href="http://weekwood.github.com/2013/01/29/mobile-site-with-nginx/"/>
+    <updated>2013-01-29T23:57:00-08:00</updated>
+    <id>http://weekwood.github.com/2013/01/29/mobile-site-with-nginx</id>
+    <content type="html"><![CDATA[<p>有时候需要搭建mobile site，大部分时候</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[一些程序员网站]]></title>
-    <link href="http://weekwood.github.com/2013/01/27/%5B%3F%5D-xie-cheng-xu-yuan-wang-zhan/"/>
+    <link href="http://weekwood.github.com/2013/01/27/yi-xie-cheng-xu-yuan-wang-zhan/"/>
     <updated>2013-01-27T22:45:00-08:00</updated>
-    <id>http://weekwood.github.com/2013/01/27/[?]-xie-cheng-xu-yuan-wang-zhan</id>
+    <id>http://weekwood.github.com/2013/01/27/yi-xie-cheng-xu-yuan-wang-zhan</id>
     <content type="html"><![CDATA[<p>整理了下经常去的一些网站，一些参考吧。</p>
 
 <h4><a href="https://github.com/">Github</a>:</h4>
@@ -126,9 +135,9 @@
 
 <p>platform :ios</p>
 
-<p>dependency ‘JSONKit’, ‘~> 1.4′</p>
+<p>pod &#8216;JSONKit&#8217;, &#8216;~> 1.4&#8217;</p>
 
-<p>dependency ‘Reachability’, ‘~> 3.0.0′</p></blockquote>
+<p>pod &#8216;Reachability’, &#8216;~> 3.0.0&#8217;</p></blockquote>
 
 <p>然后</p>
 
