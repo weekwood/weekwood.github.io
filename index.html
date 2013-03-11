@@ -28,6 +28,20 @@
     <script src="/javascripts/ajaxify.js"></script>
    
     
+    
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-37603225-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
 </head>
 
 
@@ -68,12 +82,11 @@
 	<li id="ajax"><a href="/index.html">Home</a></li>
 	<li id="ajax"><a href="/blog/archives/index.html">Archives</a></li>
     <li><a href="/atom.xml">RSS</a></li>
-    <li><a href="/about/index.html">About</a></li>
     
     <li>
     <div id="dark">
         <form method="get" action="/search.html" id="search">
-            <input name="query" type="text" style="margin-top:20px;" size="40" placeholder="Search..." x-webkit-speech />
+            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
         </form>
     </div>
     </li>
@@ -134,52 +147,9 @@
 
 <p>⌃ + ⌘ + /  - Search help</p>
 
-<h3>文本编辑</h3>
-
-<h4>行移动</h4>
-
-<p>⌥ + ⌘ + [ - Move Line Up</p>
-
-<p>⌥ + ⌘ + ] - Move Line Down</p>
-
-<h4>全选编辑</h4>
-
-<p>⇧ + ⌘ + e - Edit All in Scope</p>
-
-<h4>Placeholder跳转</h4>
-
-<p>⌃ + / - Jump to next placeholder</p>
-
-<p>⌃ + ⇧ + / - Jump to previous placeholder</p>
-
-<h4>格式化</h4>
-
-<p>⌃ + i - Re-indent code</p>
-
-<p>选择你要格式化的行然后执行这个命令,you are all set</p>
-
-<h3>Debuggeging</h3>
-
-<h4>设置断点</h4>
-
-<p>⌘ + \ - Add Breakpoint at Current Line</p>
-
-<p>⌘ + \ - Remove Breakpoint at Current Line</p>
-
-<h4>清空debugger 窗口</h4>
-
-<p>⌘ + k - Clear Console</p>
-
-<h3>文件</h3>
-
-<h4>快速打开</h4>
-
-<p>⇧ + ⌘ + o - Open Quickly</p>
-
-<p>支持查询模糊搜索以及行搜索</p>
 
 		
-		
+		<a href="/2013/03/05/xcode-shortcuts/" class="more-link">Read on</a>
 	</div>
 
 <div class="meta">
@@ -216,10 +186,24 @@
 
 </div>
     </div>
-		
+		<p>整理下如何利用nginx让移动终端用户访问mobile site.</p>
+
+<p>需求类似如此:</p>
+
+<ul>
+<li>访问 <code>mysite.com</code> 或者 <code>www.mysite.com</code> 用户看到的是移动版本</li>
+<li>提供从移动版本到原始版本的转换</li>
+<li>可以轻松的返回移动版本</li>
+<li>提供移动域名<code>m.mysite.com</code></li>
+<li>可以在浏览器上测试移动版页面</li>
+<li>提供cache支持</li>
+<li>&#8230;</li>
+</ul>
+
+
 
 		
-		
+		<a href="/2013/01/29/mobile-site-with-nginx/" class="more-link">Read on</a>
 	</div>
 
 <div class="meta">
@@ -585,12 +569,12 @@
 
     </footer>
     <script src="/javascripts/fabric.js"></script>
-<!-- <script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
 (function($){
 	$('.fancybox').fancybox();
 })(jQuery);
-</script>  --><!-- Delete or comment this line to disable Fancybox -->
+</script> <!-- Delete or comment this line to disable Fancybox -->
 
 
 <script type="text/javascript">
@@ -605,20 +589,6 @@
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
-
-
-
-	<script type="text/javascript">
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', 'UA-37603225-1']);
-		_gaq.push(['_trackPageview']);
-
-		(function() {
-			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		})();
-	</script>
 
 
 

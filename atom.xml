@@ -4,7 +4,7 @@
   <title><![CDATA[Di Wu's blog]]></title>
   <link href="http://weekwood.github.com/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2013-03-11T13:45:47-07:00</updated>
+  <updated>2013-03-11T14:38:05-07:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
     <name><![CDATA[Di Wu's blog]]></name>
@@ -34,6 +34,9 @@
 <p>如果你只想学一个快捷键的话这个足以.</p>
 
 <p>⌃ + ⌘ + /  - Search help</p>
+
+<!-- more -->
+
 
 <h3>文本编辑</h3>
 
@@ -86,7 +89,142 @@
     <link href="http://weekwood.github.com/2013/01/29/mobile-site-with-nginx/"/>
     <updated>2013-01-29T23:57:00-08:00</updated>
     <id>http://weekwood.github.com/2013/01/29/mobile-site-with-nginx</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<p>整理下如何利用nginx让移动终端用户访问mobile site.</p>
+
+<p>需求类似如此:</p>
+
+<ul>
+<li>访问 <code>mysite.com</code> 或者 <code>www.mysite.com</code> 用户看到的是移动版本</li>
+<li>提供从移动版本到原始版本的转换</li>
+<li>可以轻松的返回移动版本</li>
+<li>提供移动域名<code>m.mysite.com</code></li>
+<li>可以在浏览器上测试移动版页面</li>
+<li>提供cache支持</li>
+<li>&#8230;</li>
+</ul>
+
+
+<!--More-->
+
+
+<h3>Nginx主站配置</h3>
+
+<div><script src='https://gist.github.com/5137721.js?file=gistfile1.nginxconf'></script>
+<noscript><pre><code>server {  
+  listen 80;
+  server_name www.mysite.com;
+
+  root /path/to/main_site;
+  # ...
+
+  location / {
+    proxy_set_header X-Real-IP $remote_addr;
+    # ...
+
+    if ($http_user_agent ~* '(iPhone|iPod)') {
+      set $iphone_request '1';
+    }
+    if ($http_cookie ~ 'iphone_mode=full') {
+      set $iphone_request '';
+    }
+    if ($iphone_request = '1') {
+      rewrite ^.+ http://m.mysite.com$uri;
+    }
+
+    # serve cached pages ...
+
+    if (!-f $request_filename) {
+      proxy_pass http://app_server;
+      break;
+    }
+  }
+}</code></pre></noscript></div>
+
+
+<h3>Nginx移动站配置</h3>
+
+<div><script src='https://gist.github.com/5137721.js?file=gistfile2.nginxconf'></script>
+<noscript><pre><code>upstream m_app_server {  
+  server 0.0.0.0:3001;
+}
+
+server {  
+  listen 80;
+  server_name m.mysite.com;
+
+  root /path/to/mobile_site;
+  # ...
+
+  location / {
+    proxy_set_header X-Real-IP $remote_addr;
+    # ...
+
+    if ($http_user_agent ~* '(iPhone|iPod)') {
+      set $iphone_request '1';
+      set $iphone_path_prefix '/iphone';
+    }
+    if ($uri ~ ^/iphone.*$) {
+      set $iphone_path_prefix '';
+    }
+    if ($uri ~ '(images|stylesheets|javascripts|\.css|\.js|\.ico|\.gif|\.jpg|\.png)') {
+      set $iphone_path_prefix '';
+    }
+    if ($iphone_request = '1') {
+      rewrite (.*) $iphone_path_prefix$1;
+    }
+
+    # serve cached pages ...
+
+    if (!-f $request_filename) {
+      proxy_pass http://m_app_server;
+      break;
+    }
+  }
+}</code></pre></noscript></div>
+
+
+<h3>cookie 支持</h3>
+
+<div><script src='https://gist.github.com/5137721.js?file=gistfile3.js'></script>
+<noscript><pre><code>function createCookie(name, value, days, domain, path) {  
+  var expires = '';
+  if (days) {
+    var d = new Date();
+    d.setTime(d.getTime() + (days*24*60*60*1000));
+    expires = '; expires=' + d.toGMTString();
+  }
+  domain = domain ? '; domain=' + domain : '';
+  path = '; path=' + (path ? path : '/');
+  document.cookie = name + '=' + value + expires + path + domain;
+}
+
+function readCookie(name) {  
+  var n = name + '=';
+  var cookies = document.cookie.split(';');
+  for (var i = 0; i &amp;lt; cookies.length; i++) {
+    var c = cookies[i].replace(/^\s+/, '');
+    if (c.indexOf(n) == 0) {
+      return c.substring(n.length);
+    }
+  }
+  return null;
+}
+
+function eraseCookie(name, domain, path) {  
+  setCookie(name, '', -1, domain, path);
+}</code></pre></noscript></div>
+
+
+<h3>移动到主站跳转</h3>
+
+<div><script src='https://gist.github.com/5137721.js?file=gistfile4.html'></script>
+<noscript><pre><code>&lt;a href=&quot;http://www.mysite.com&quot; onclick=&quot;createCookie('iphone_mode', 'full', (0.25/24), 'mysite.com')&quot;&gt;  
+  View full site
+&lt;/a&gt;
+</code></pre></noscript></div>
+
+
+
 ]]></content>
   </entry>
   
