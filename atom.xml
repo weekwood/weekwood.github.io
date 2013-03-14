@@ -4,7 +4,7 @@
   <title><![CDATA[Di Wu's blog]]></title>
   <link href="http://weekwood.github.com/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2013-03-11T14:38:05-07:00</updated>
+  <updated>2013-03-13T17:11:00-07:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
     <name><![CDATA[Di Wu's blog]]></name>
@@ -12,6 +12,56 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA['Hello Ruby 2 -- Ruby 2.0安装']]></title>
+    <link href="http://weekwood.github.com/2013/03/13/hello-ruby-2/"/>
+    <updated>2013-03-13T17:00:00-07:00</updated>
+    <id>http://weekwood.github.com/2013/03/13/hello-ruby-2</id>
+    <content type="html"><![CDATA[<p>更新博客才发现因为换了硬盘的关系 <a href="http://octopress.org/">octopress</a> 不能使用了所以顺手更新下Ruby 2.0</p>
+
+<p>使用了 <a href="https://rvm.io/">RVM</a> 以及 <a href="http://mxcl.github.com/homebrew/">Homebrew</a></p>
+
+<p>首先,我们需要安装一些依赖库</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ brew install autoconf
+</span><span class='line'>$ brew install pkg-config
+</span><span class='line'>$ brew install libyaml
+</span><span class='line'>$ brew install readline
+</span><span class='line'>$ brew install libxml2
+</span><span class='line'>$ brew install libxslt</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<!--more-->
+
+
+<p>不用担心会有一些遗漏或者一些已经安装过的依赖,当你运行下面的命令的时候你会发现你依然需要什么</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rvm install 2.0.0</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接下来</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rvm use ruby-2.0.0</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Ruby2 以及Rails</h3>
+
+<p>Ruby2.0 可以完全支持Rails3 目前还没发现有什么问题</p>
+
+<p><strong>Enjoy!</strong></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Xcode shortcuts]]></title>
