@@ -4,7 +4,7 @@
   <title><![CDATA[Di Wu's blog]]></title>
   <link href="http://weekwood.github.com/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2013-08-10T12:18:00+08:00</updated>
+  <updated>2013-08-10T13:26:12+08:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
     <name><![CDATA[Di Wu's blog]]></name>
@@ -12,6 +12,23 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Octopress Can not create new post on zsh]]></title>
+    <link href="http://weekwood.github.com/2013/08/10/octopress-can-not-create-new-post-on-zsh/"/>
+    <updated>2013-08-10T13:25:00+08:00</updated>
+    <id>http://weekwood.github.com/2013/08/10/octopress-can-not-create-new-post-on-zsh</id>
+    <content type="html"><![CDATA[<p>执行：$ rake new_post[&#8220;arch-linux-reinstall-glibc.markdown&#8221;]</p>
+
+<p>报错：zsh: no matches found: new_post[arch-linux-reinstall-glibc]</p>
+
+<p>原因：zsh中若出现‘*’, ‘(’, ‘|’, ‘&lt;’, ‘[’, or ‘?’符号，则将其识别为查找文件名的通配符</p>
+
+<p>快速解决：用引号括起来$ rake &#8220;new_post[arch-linux-reinstall-glibc.markdown]&#8221;</p>
+
+<p>彻底解决：取消zsh的通配(GLOB), 在.zshrc中加入alias rake=&#8221;noglob rake&#8221;</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[XcodeIncrement build number]]></title>

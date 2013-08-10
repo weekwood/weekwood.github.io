@@ -6,25 +6,7 @@
 	<title>Di Wu's blog</title>
     <meta name="author" content="Di Wu's blog">
     
-	<meta name="description" content="Published on: Aug 10th, 2013 Tags: 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-if [ $CONFIGURATION == Release ]; then echo "Bumping build number &hellip;">
+	<meta name="description" content="Published on: Aug 10th, 2013 Tags: 执行：$ rake new_post[&#8220;arch-linux-reinstall-glibc.markdown&#8221;] 报错：zsh: no matches found: new_post[arch- &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -119,6 +101,54 @@ if [ $CONFIGURATION == Release ]; then echo "Bumping build number &hellip;">
 <!-- begin toload --> 
     <div id="content" class="inner">
         
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/2013/08/10/octopress-can-not-create-new-post-on-zsh/">
+		
+			Octopress Can Not Create New Post on Zsh</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-10T13:25:00+08:00" pubdate data-updated="true">Aug 10<span>th</span>, 2013</time></div>
+      <div class="tags">Tags: 
+
+</div>
+    </div>
+		<p>执行：$ rake new_post[&#8220;arch-linux-reinstall-glibc.markdown&#8221;]</p>
+
+<p>报错：zsh: no matches found: new_post[arch-linux-reinstall-glibc]</p>
+
+<p>原因：zsh中若出现‘*’, ‘(’, ‘|’, ‘&lt;’, ‘[’, or ‘?’符号，则将其识别为查找文件名的通配符</p>
+
+<p>快速解决：用引号括起来$ rake &#8220;new_post[arch-linux-reinstall-glibc.markdown]&#8221;</p>
+
+<p>彻底解决：取消zsh的通配(GLOB), 在.zshrc中加入alias rake=&#8221;noglob rake&#8221;</p>
+
+		
+		
+	</div>
+
+<div class="meta">
+	
+		<span class="comments"><a href="/2013/08/10/octopress-can-not-create-new-post-on-zsh//index.html#disqus_thread">Comments</a></span>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -664,50 +694,10 @@ if [ $CONFIGURATION == Release ]; then echo "Bumping build number &hellip;">
 </div>
 </article>
 
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/2012/12/23/regex-to-catch-at-mention-number-hashtag-and-link-http-s-slash-slash/">
-		
-			Regex to Catch @mention #hashtag and Link Http(s)://</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-12-23T17:13:00+08:00" pubdate data-updated="true">Dec 23<span>rd</span>, 2012</time></div>
-      <div class="tags">Tags: 
-
-</div>
-    </div>
-		<p>在做tweet类文本的时候你需要解析以#开头的话题 @开头的昵称 http开头的连接
-以下这个就是一个很好的例子(核心代码：<a href="https://github.com/SebastienThiebaud/STTweetLabel">STTweetLabel</a>)</p>
-
-
-		
-		<a href="/2012/12/23/regex-to-catch-at-mention-number-hashtag-and-link-http-s-slash-slash/" class="more-link">Read on</a>
-	</div>
-
-<div class="meta">
-	
-		<span class="comments"><a href="/2012/12/23/regex-to-catch-at-mention-number-hashtag-and-link-http-s-slash-slash//index.html#disqus_thread">Comments</a></span>
-	
-</div>
-</article>
-
 <nav id="pagenavi">
     
+    
+        <a href="/blog/page/2/" class="next">Next</a>
     
     <div class="center"><a href="/blog/archives">Blog Archives</a></div>
 </nav>
