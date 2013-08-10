@@ -4,7 +4,7 @@
   <title><![CDATA[Di Wu's blog]]></title>
   <link href="http://weekwood.github.com/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2013-03-18T14:47:39-07:00</updated>
+  <updated>2013-08-10T12:18:00+08:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
     <name><![CDATA[Di Wu's blog]]></name>
@@ -14,9 +14,56 @@
 
   
   <entry>
+    <title type="html"><![CDATA[XcodeIncrement build number]]></title>
+    <link href="http://weekwood.github.com/2013/08/10/xcodeincrement-build-number/"/>
+    <updated>2013-08-10T12:12:00+08:00</updated>
+    <id>http://weekwood.github.com/2013/08/10/xcodeincrement-build-number</id>
+    <content type="html"><![CDATA[
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>if [ $CONFIGURATION == Release ]; then
+</span><span class='line'>    echo "Bumping build number..."
+</span><span class='line'>    plist=${PROJECT_DIR}/${INFOPLIST_FILE}
+</span><span class='line'>
+</span><span class='line'># increment the build number (ie 115 to 116)
+</span><span class='line'>    buildnum=$(/usr/libexec/PlistBuddy -c "Print CFBundleVersion" "${plist}")
+</span><span class='line'>    if [[ "${buildnum}" == "" ]]; then
+</span><span class='line'>        echo "No build number in $plist"
+</span><span class='line'>        exit 2
+</span><span class='line'>    fi
+</span><span class='line'>
+</span><span class='line'>    buildnum=$(expr $buildnum + 1)
+</span><span class='line'>    /usr/libexec/Plistbuddy -c "Set CFBundleVersion $buildnum" "${plist}"
+</span><span class='line'>    echo "Bumped build number to $buildnum"
+</span><span class='line'>
+</span><span class='line'>else
+</span><span class='line'>    echo $CONFIGURATION " build - Not bumping build number."
+</span><span class='line'>fi</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA['Hello Ruby 2 -- Ruby 2.0安装']]></title>
     <link href="http://weekwood.github.com/2013/03/13/hello-ruby-2/"/>
-    <updated>2013-03-13T17:00:00-07:00</updated>
+    <updated>2013-03-13T17:00:00+08:00</updated>
     <id>http://weekwood.github.com/2013/03/13/hello-ruby-2</id>
     <content type="html"><![CDATA[<p>更新博客才发现因为换了硬盘的关系 <a href="http://octopress.org/">octopress</a> 不能使用了所以顺手更新下Ruby 2.0</p>
 
@@ -66,7 +113,7 @@
   <entry>
     <title type="html"><![CDATA[Xcode shortcuts]]></title>
     <link href="http://weekwood.github.com/2013/03/05/xcode-shortcuts/"/>
-    <updated>2013-03-05T23:00:00-08:00</updated>
+    <updated>2013-03-05T23:00:00+08:00</updated>
     <id>http://weekwood.github.com/2013/03/05/xcode-shortcuts</id>
     <content type="html"><![CDATA[<p>换了机械键盘在享受打字快感的时候,也面临着难以控制触摸板的烦恼,也就是我整理快捷键的初衷.
 善用快捷键是提升效率的有效方式.</p>
@@ -137,7 +184,7 @@
   <entry>
     <title type="html"><![CDATA[mobile site with nginx]]></title>
     <link href="http://weekwood.github.com/2013/01/29/mobile-site-with-nginx/"/>
-    <updated>2013-01-29T23:57:00-08:00</updated>
+    <updated>2013-01-29T23:57:00+08:00</updated>
     <id>http://weekwood.github.com/2013/01/29/mobile-site-with-nginx</id>
     <content type="html"><![CDATA[<p>整理下如何利用nginx让移动终端用户访问mobile site.</p>
 
@@ -281,7 +328,7 @@ function eraseCookie(name, domain, path) {
   <entry>
     <title type="html"><![CDATA[一些程序员网站]]></title>
     <link href="http://weekwood.github.com/2013/01/27/yi-xie-cheng-xu-yuan-wang-zhan/"/>
-    <updated>2013-01-27T22:45:00-08:00</updated>
+    <updated>2013-01-27T22:45:00+08:00</updated>
     <id>http://weekwood.github.com/2013/01/27/yi-xie-cheng-xu-yuan-wang-zhan</id>
     <content type="html"><![CDATA[<p>整理了下经常去的一些网站，一些参考吧。</p>
 
@@ -330,7 +377,7 @@ function eraseCookie(name, domain, path) {
   <entry>
     <title type="html"><![CDATA[About CocoaPods]]></title>
     <link href="http://weekwood.github.com/2013/01/14/about-cocoapods/"/>
-    <updated>2013-01-14T14:18:00-08:00</updated>
+    <updated>2013-01-14T14:18:00+08:00</updated>
     <id>http://weekwood.github.com/2013/01/14/about-cocoapods</id>
     <content type="html"><![CDATA[<h3>什么是CocoaPods</h3>
 
@@ -425,7 +472,7 @@ function eraseCookie(name, domain, path) {
   <entry>
     <title type="html"><![CDATA[Arc+blocks+llvm4 的时代2/3]]></title>
     <link href="http://weekwood.github.com/2013/01/11/arc-plus-blocks-plus-llvm4-de-shi-dai-2-slash-3/"/>
-    <updated>2013-01-11T14:10:00-08:00</updated>
+    <updated>2013-01-11T14:10:00+08:00</updated>
     <id>http://weekwood.github.com/2013/01/11/arc-plus-blocks-plus-llvm4-de-shi-dai-2-slash-3</id>
     <content type="html"><![CDATA[<h1>Object Literals</h1>
 
@@ -532,7 +579,7 @@ function eraseCookie(name, domain, path) {
   <entry>
     <title type="html"><![CDATA[API Design 译文]]></title>
     <link href="http://weekwood.github.com/2012/12/30/api-design-yi-wen/"/>
-    <updated>2012-12-30T00:02:00-08:00</updated>
+    <updated>2012-12-30T00:02:00+08:00</updated>
     <id>http://weekwood.github.com/2012/12/30/api-design-yi-wen</id>
     <content type="html"><![CDATA[<p>本文来源于<a href="http://mattgemmell.com/2012/05/24/api-design/">matt gemmell</a>困于自己英语水平问题， 若有错误见谅。</p>
 
@@ -1329,7 +1376,7 @@ MGTileMenu 有5个’required‘ 方法，其中4个数据源方法：</p>
   <entry>
     <title type="html"><![CDATA[arc+blocks+llvm4 的时代1/3]]></title>
     <link href="http://weekwood.github.com/2012/12/24/arc-plus-blocks-plus-llvm4-shi-dai-1/"/>
-    <updated>2012-12-24T14:56:00-08:00</updated>
+    <updated>2012-12-24T14:56:00+08:00</updated>
     <id>http://weekwood.github.com/2012/12/24/arc-plus-blocks-plus-llvm4-shi-dai-1</id>
     <content type="html"><![CDATA[<h1>ARC</h1>
 
@@ -1395,7 +1442,7 @@ MGTileMenu 有5个’required‘ 方法，其中4个数据源方法：</p>
   <entry>
     <title type="html"><![CDATA[Regex to catch @mention #hashtag and link http(s)://]]></title>
     <link href="http://weekwood.github.com/2012/12/23/regex-to-catch-at-mention-number-hashtag-and-link-http-s-slash-slash/"/>
-    <updated>2012-12-23T17:13:00-08:00</updated>
+    <updated>2012-12-23T17:13:00+08:00</updated>
     <id>http://weekwood.github.com/2012/12/23/regex-to-catch-at-mention-number-hashtag-and-link-http-s-slash-slash</id>
     <content type="html"><![CDATA[<p>在做tweet类文本的时候你需要解析以#开头的话题 @开头的昵称 http开头的连接
 以下这个就是一个很好的例子(核心代码：<a href="https://github.com/SebastienThiebaud/STTweetLabel">STTweetLabel</a>)</p>
