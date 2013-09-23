@@ -1,348 +1,466 @@
 
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
-	<meta charset="utf-8">
-	<title>Blog Archives - Di Wu's blog</title>
-    <meta name="author" content="Di Wu's blog">
-    
-	<meta name="description" content="2013 iOS7界面过渡 Sep 23 Comments Objective-c Code Review Aug 11 Comments Octopress Can not create new post on zsh Aug 10 Comments XcodeIncrement build &hellip;">
-	
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta charset="utf-8">
+  <title>Blog Archive - Di Wu's blog</title>
+  <meta name="author" content="Di Wu's blog">
 
-	<link href="/atom.xml" rel="alternate" title="Di Wu's blog" type="application/atom+xml">
-	<link rel="canonical" href="">
-	<link href="/favicon.ico" rel="shortcut icon">
-    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-
-    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-
-    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
-
-    <!-- remove or comment it to disable ajaxification -->   
-    <script src="/javascripts/ajaxify.js"></script>
    
-    
-    
-	<script type="text/javascript">
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', 'UA-37603225-1']);
-		_gaq.push(['_trackPageview']);
+  <meta name="description" content="">
+  
+  <meta name="keywords" content="">
 
-		(function() {
-			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		})();
-	</script>
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://weekwood.github.com/blog/archives">
+  <link href="/favicon.png" rel="icon">
+  <link href='http://fonts.googleapis.com/css?family=Quicksand:300,400' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Di Wu's blog" type="application/atom+xml">
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap-collapse.js"></script>
+  <script src="/js/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/js/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-37603225-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
 
 
 </head>
 
-
-<body>
-    <div id="wrapper">
-    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
-<h1 class="animated bounceInDown">
-    <div id="headerbg">
-        Di Wu's blog
-    </div>
-</h1>
-<br>
-
-<ul id="social-links" style="text-align:center">
-  
-  <!-- GitHub -->
-  <li>
-  <a href="https://github.com/weekwood" class="github" title="Github"></a>
-  </li>
-  
-  
-  
-  
-  <!-- Twitter -->
-  <li>
-  <a href="http://www.twitter.com/Dean_Woo" class="twitter" title="Twitter"></a>
-  </li>
-  
-  
-  
-  
-  
-</ul>
-
-
-<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
-<ul id="nav">
-	<li id="ajax"><a href="/index.html">Home</a></li>
-	<li id="ajax"><a href="/blog/archives/index.html">Archives</a></li>
-    <li><a href="/atom.xml">RSS</a></li>
+<body   >
+  <div class="navbar navbar-inverse navbar-static-top">
+  	<div class="navbar-inner">
+  	  <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+          <span class="fui-menu-24"></span>
+        </a>
+  	  	<div class="nav-collapse collapse navbar-responsive-collapse" style="height:0;">
+  	      <ul class="nav">
     
-    <li>
-    <div id="dark">
-        <form method="get" action="/search.html" id="search">
-            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
-        </form>
-    </div>
-    </li>
-        
 </ul>
 
+<ul class="nav pull-right">
+    
+    <li><a href="http://github.com/weekwood" title="Github Profile"><i class="icon-github-sign social-navbar"></i></a></li>
+    
+    
+    
+    <li><a href="http://twitter.com/Dean_Woo" title="Twitter Profile"><i class="icon-twitter-sign social-navbar"></i></a></li>
+    
+    
+    
+    
+</ul>
 
-
-
-</header>
-
-<div id="toload">
-<!-- begin toload --> 
-    <div id="content" class="inner">
-        
-	
-
-
-	
-	
-	<section class="archives"><h1 class="year">2013</h1>
-
-<article>
-	<h2 class="title"><a href="/2013/09/23/ios7jie-mian-guo-du/">iOS7界面过渡</a></h2>
-	<div class="meta">
-		<span class="date">Sep 23</span>
-		<span class="tags">
-
-</span>
-	    
-	    <span class="comments"><a href="/2013/09/23/ios7jie-mian-guo-du/#disqus_thread">Comments</a></span>
-	    
-	</div>
-</article>
-
-	
-
-
-<article>
-	<h2 class="title"><a href="/2013/08/11/objective-c-code-review/">Objective-c Code Review</a></h2>
-	<div class="meta">
-		<span class="date">Aug 11</span>
-		<span class="tags">
-
-</span>
-	    
-	    <span class="comments"><a href="/2013/08/11/objective-c-code-review/#disqus_thread">Comments</a></span>
-	    
-	</div>
-</article>
-
-	
-
-
-<article>
-	<h2 class="title"><a href="/2013/08/10/octopress-can-not-create-new-post-on-zsh/">Octopress Can not create new post on zsh</a></h2>
-	<div class="meta">
-		<span class="date">Aug 10</span>
-		<span class="tags">
-
-</span>
-	    
-	    <span class="comments"><a href="/2013/08/10/octopress-can-not-create-new-post-on-zsh/#disqus_thread">Comments</a></span>
-	    
-	</div>
-</article>
-
-	
-
-
-<article>
-	<h2 class="title"><a href="/2013/08/10/xcodeincrement-build-number/">XcodeIncrement build number</a></h2>
-	<div class="meta">
-		<span class="date">Aug 10</span>
-		<span class="tags">
-
-</span>
-	    
-	    <span class="comments"><a href="/2013/08/10/xcodeincrement-build-number/#disqus_thread">Comments</a></span>
-	    
-	</div>
-</article>
-
-	
-
-
-<article>
-	<h2 class="title"><a href="/2013/03/13/hello-ruby-2/">&#8216;Hello Ruby 2 &#8211; Ruby 2.0安装&#8217;</a></h2>
-	<div class="meta">
-		<span class="date">Mar 13</span>
-		<span class="tags">
-
-</span>
-	    
-	    <span class="comments"><a href="/2013/03/13/hello-ruby-2/#disqus_thread">Comments</a></span>
-	    
-	</div>
-</article>
-
-	
-
-
-<article>
-	<h2 class="title"><a href="/2013/03/05/xcode-shortcuts/">Xcode shortcuts</a></h2>
-	<div class="meta">
-		<span class="date">Mar  5</span>
-		<span class="tags">
-
-</span>
-	    
-	    <span class="comments"><a href="/2013/03/05/xcode-shortcuts/#disqus_thread">Comments</a></span>
-	    
-	</div>
-</article>
-
-	
-
-
-<article>
-	<h2 class="title"><a href="/2013/01/29/mobile-site-with-nginx/">mobile site with nginx</a></h2>
-	<div class="meta">
-		<span class="date">Jan 29</span>
-		<span class="tags">
-
-</span>
-	    
-	    <span class="comments"><a href="/2013/01/29/mobile-site-with-nginx/#disqus_thread">Comments</a></span>
-	    
-	</div>
-</article>
-
-	
-
-
-<article>
-	<h2 class="title"><a href="/2013/01/27/yi-xie-cheng-xu-yuan-wang-zhan/">一些程序员网站</a></h2>
-	<div class="meta">
-		<span class="date">Jan 27</span>
-		<span class="tags">
-
-</span>
-	    
-	    <span class="comments"><a href="/2013/01/27/yi-xie-cheng-xu-yuan-wang-zhan/#disqus_thread">Comments</a></span>
-	    
-	</div>
-</article>
-
-	
-
-
-<article>
-	<h2 class="title"><a href="/2013/01/14/about-cocoapods/">About CocoaPods</a></h2>
-	<div class="meta">
-		<span class="date">Jan 14</span>
-		<span class="tags">
-
-</span>
-	    
-	    <span class="comments"><a href="/2013/01/14/about-cocoapods/#disqus_thread">Comments</a></span>
-	    
-	</div>
-</article>
-
-	
-
-
-<article>
-	<h2 class="title"><a href="/2013/01/11/arc-plus-blocks-plus-llvm4-de-shi-dai-2-slash-3/">Arc+blocks+llvm4 的时代2/3</a></h2>
-	<div class="meta">
-		<span class="date">Jan 11</span>
-		<span class="tags">
-
-</span>
-	    
-	    <span class="comments"><a href="/2013/01/11/arc-plus-blocks-plus-llvm4-de-shi-dai-2-slash-3/#disqus_thread">Comments</a></span>
-	    
-	</div>
-</article>
-
-	
-
-
-	
-	
-		</section>
-	
-	<section class="archives"><h1 class="year">2012</h1>
-
-<article>
-	<h2 class="title"><a href="/2012/12/30/api-design-yi-wen/">API Design 译文</a></h2>
-	<div class="meta">
-		<span class="date">Dec 30</span>
-		<span class="tags">
-
-
-	<a class='category' href='/blog/categories/api/'>API</a>, <a class='category' href='/blog/categories/objc/'>ObjC</a>
-
-
-</span>
-	    
-	    <span class="comments"><a href="/2012/12/30/api-design-yi-wen/#disqus_thread">Comments</a></span>
-	    
-	</div>
-</article>
-
-	
-
-
-<article>
-	<h2 class="title"><a href="/2012/12/24/arc-plus-blocks-plus-llvm4-shi-dai-1/">arc+blocks+llvm4 的时代1/3</a></h2>
-	<div class="meta">
-		<span class="date">Dec 24</span>
-		<span class="tags">
-
-</span>
-	    
-	    <span class="comments"><a href="/2012/12/24/arc-plus-blocks-plus-llvm4-shi-dai-1/#disqus_thread">Comments</a></span>
-	    
-	</div>
-</article>
-
-	
-
-
-<article>
-	<h2 class="title"><a href="/2012/12/23/regex-to-catch-at-mention-number-hashtag-and-link-http-s-slash-slash/">Regex to catch @mention #hashtag and link http(s)://</a></h2>
-	<div class="meta">
-		<span class="date">Dec 23</span>
-		<span class="tags">
-
-</span>
-	    
-	    <span class="comments"><a href="/2012/12/23/regex-to-catch-at-mention-number-hashtag-and-link-http-s-slash-slash/#disqus_thread">Comments</a></span>
-	    
-	</div>
-</article>
-
+  	    </div>
+  	  </div>
+  	</div>
+  </div>
+  <div class="container" id="main">
+    <div class="span12">
+      <div class="row-fluid">
+        <div id="content">
+          <article role="article">
+  
+  <header>
+    <div class="jumbotron">
+      Blog Archive
     </div>
-    <footer id="footer">
-    <div style="display:inline">
-    Copyright &copy; 2013
+    
+  </header>
+  
+  <div clas id="blog-archives">
 
-    Di Wu's blog
-. Powered by <a href="http://octopress.org">Octopress</a> | 
-    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	  
+	    <h1>2013</h1>
+	
+	</div>
+	
+	<div class="span11">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2013-09-23T22:18:00+08:00" pubdate><span class='month'>Sep</span> <span class='day'>23</span><span class='year'><!--2013--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/2013/09/23/ios7jie-mian-guo-du/">iOS7界面过渡</a></h1>
+	</div>
 </div>
 
 
-    </footer>
-    <script src="/javascripts/fabric.js"></script>
-<script src="/javascripts/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-	$('.fancybox').fancybox();
-})(jQuery);
-</script> <!-- Delete or comment this line to disable Fancybox -->
+	  </article>
+	</div>
+  </div>
 
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2013-08-11T12:14:00+08:00" pubdate><span class='month'>Aug</span> <span class='day'>11</span><span class='year'><!--2013--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/2013/08/11/objective-c-code-review/">Objective-c Code Review</a></h1>
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2013-08-10T13:25:00+08:00" pubdate><span class='month'>Aug</span> <span class='day'>10</span><span class='year'><!--2013--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/2013/08/10/octopress-can-not-create-new-post-on-zsh/">Octopress Can not create new post on zsh</a></h1>
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2013-08-10T12:12:00+08:00" pubdate><span class='month'>Aug</span> <span class='day'>10</span><span class='year'><!--2013--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/2013/08/10/xcodeincrement-build-number/">XcodeIncrement build number</a></h1>
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2013-03-13T17:00:00+08:00" pubdate><span class='month'>Mar</span> <span class='day'>13</span><span class='year'><!--2013--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/2013/03/13/hello-ruby-2/">&#8216;Hello Ruby 2 &#8211; Ruby 2.0安装&#8217;</a></h1>
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2013-03-05T23:00:00+08:00" pubdate><span class='month'>Mar</span> <span class='day'>05</span><span class='year'><!--2013--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/2013/03/05/xcode-shortcuts/">Xcode shortcuts</a></h1>
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2013-01-29T23:57:00+08:00" pubdate><span class='month'>Jan</span> <span class='day'>29</span><span class='year'><!--2013--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/2013/01/29/mobile-site-with-nginx/">mobile site with nginx</a></h1>
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2013-01-27T22:45:00+08:00" pubdate><span class='month'>Jan</span> <span class='day'>27</span><span class='year'><!--2013--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/2013/01/27/yi-xie-cheng-xu-yuan-wang-zhan/">一些程序员网站</a></h1>
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2013-01-14T14:18:00+08:00" pubdate><span class='month'>Jan</span> <span class='day'>14</span><span class='year'><!--2013--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/2013/01/14/about-cocoapods/">About CocoaPods</a></h1>
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2013-01-11T14:10:00+08:00" pubdate><span class='month'>Jan</span> <span class='day'>11</span><span class='year'><!--2013--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/2013/01/11/arc-plus-blocks-plus-llvm4-de-shi-dai-2-slash-3/">Arc+blocks+llvm4 的时代2/3</a></h1>
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	  
+	    <h1>2012</h1>
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2012-12-30T00:02:00+08:00" pubdate><span class='month'>Dec</span> <span class='day'>30</span><span class='year'><!--2012--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/2012/12/30/api-design-yi-wen/">API Design 译文</a></h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span1">
+	</div>
+	<div class="span10">
+		
+
+		<footer class="archive">
+		  <span class="categories">posted in <a class='category' href='/blog/categories/api/'>API</a>, <a class='category' href='/blog/categories/objc/'>ObjC</a></span>
+		</footer>
+		
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2012-12-24T14:56:00+08:00" pubdate><span class='month'>Dec</span> <span class='day'>24</span><span class='year'><!--2012--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/2012/12/24/arc-plus-blocks-plus-llvm4-shi-dai-1/">arc+blocks+llvm4 的时代1/3</a></h1>
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+  
+  <div class="row-fluid">
+	<div class="span1">
+	
+	</div>
+	
+	<div class="span11 border-top">
+	
+
+	  <article>
+	  
+<div class="row-fluid">
+	<div class="span1">
+		<h1 class="date-time"><time datetime="2012-12-23T17:13:00+08:00" pubdate><span class='month'>Dec</span> <span class='day'>23</span><span class='year'><!--2012--></span></time></h1>
+	</div>
+	<div class="span10">
+		<h1><a href="/2012/12/23/regex-to-catch-at-mention-number-hashtag-and-link-http-s-slash-slash/">Regex to catch @mention #hashtag and link http(s)://</a></h1>
+	</div>
+</div>
+
+
+	  </article>
+	</div>
+  </div>
+
+</div>
+
+</article>
+
+
+
+
+        </div>
+      </div>
+      <div class="row-fluid">
+        <footer class="footer-page" role="contentinfo">
+          <p>
+  Copyright &copy; 2013 - Di Wu's blog -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span> - Theme by <a href="http://alexgaribay.com">Alex Garibay</a>
+</p>
+
+
+        </footer>
+      </div>
+    </div>
+  </div>
+  
 
 <script type="text/javascript">
       var disqus_shortname = 'diwu';
@@ -359,16 +477,40 @@
 
 
 
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 
-<!-- end toload --> 
-</div>
-</div>
-<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
-<script type="text/javascript">
-/*<![CDATA[*/
-;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
-/*]]>*/
-</script><!-- remove it to remove the scroll to top button -->
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
 </body>
 </html>

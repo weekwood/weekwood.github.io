@@ -4,7 +4,7 @@
   <title><![CDATA[Di Wu's blog]]></title>
   <link href="http://weekwood.github.com/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2013-09-23T23:41:56+08:00</updated>
+  <updated>2013-09-24T00:18:01+08:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
     <name><![CDATA[Di Wu's blog]]></name>
@@ -450,13 +450,13 @@
     proxy_set_header X-Real-IP $remote_addr;
     # ...
 
-    if ($http_user_agent ~* '(iPhone|iPod)') {
-      set $iphone_request '1';
+    if ($http_user_agent ~* &#39;(iPhone|iPod)&#39;) {
+      set $iphone_request &#39;1&#39;;
     }
-    if ($http_cookie ~ 'iphone_mode=full') {
-      set $iphone_request '';
+    if ($http_cookie ~ &#39;iphone_mode=full&#39;) {
+      set $iphone_request &#39;&#39;;
     }
-    if ($iphone_request = '1') {
+    if ($iphone_request = &#39;1&#39;) {
       rewrite ^.+ http://m.mysite.com$uri;
     }
 
@@ -488,17 +488,17 @@ server {
     proxy_set_header X-Real-IP $remote_addr;
     # ...
 
-    if ($http_user_agent ~* '(iPhone|iPod)') {
-      set $iphone_request '1';
-      set $iphone_path_prefix '/iphone';
+    if ($http_user_agent ~* &#39;(iPhone|iPod)&#39;) {
+      set $iphone_request &#39;1&#39;;
+      set $iphone_path_prefix &#39;/iphone&#39;;
     }
     if ($uri ~ ^/iphone.*$) {
-      set $iphone_path_prefix '';
+      set $iphone_path_prefix &#39;&#39;;
     }
-    if ($uri ~ '(images|stylesheets|javascripts|\.css|\.js|\.ico|\.gif|\.jpg|\.png)') {
-      set $iphone_path_prefix '';
+    if ($uri ~ &#39;(images|stylesheets|javascripts|\.css|\.js|\.ico|\.gif|\.jpg|\.png)&#39;) {
+      set $iphone_path_prefix &#39;&#39;;
     }
-    if ($iphone_request = '1') {
+    if ($iphone_request = &#39;1&#39;) {
       rewrite (.*) $iphone_path_prefix$1;
     }
 
@@ -516,22 +516,22 @@ server {
 
 <div><script src='https://gist.github.com/5137721.js?file=gistfile3.js'></script>
 <noscript><pre><code>function createCookie(name, value, days, domain, path) {  
-  var expires = '';
+  var expires = &#39;&#39;;
   if (days) {
     var d = new Date();
     d.setTime(d.getTime() + (days*24*60*60*1000));
-    expires = '; expires=' + d.toGMTString();
+    expires = &#39;; expires=&#39; + d.toGMTString();
   }
-  domain = domain ? '; domain=' + domain : '';
-  path = '; path=' + (path ? path : '/');
-  document.cookie = name + '=' + value + expires + path + domain;
+  domain = domain ? &#39;; domain=&#39; + domain : &#39;&#39;;
+  path = &#39;; path=&#39; + (path ? path : &#39;/&#39;);
+  document.cookie = name + &#39;=&#39; + value + expires + path + domain;
 }
 
 function readCookie(name) {  
-  var n = name + '=';
-  var cookies = document.cookie.split(';');
+  var n = name + &#39;=&#39;;
+  var cookies = document.cookie.split(&#39;;&#39;);
   for (var i = 0; i &amp;lt; cookies.length; i++) {
-    var c = cookies[i].replace(/^\s+/, '');
+    var c = cookies[i].replace(/^\s+/, &#39;&#39;);
     if (c.indexOf(n) == 0) {
       return c.substring(n.length);
     }
@@ -540,14 +540,14 @@ function readCookie(name) {
 }
 
 function eraseCookie(name, domain, path) {  
-  setCookie(name, '', -1, domain, path);
+  setCookie(name, &#39;&#39;, -1, domain, path);
 }</code></pre></noscript></div>
 
 
 <h3>移动到主站跳转</h3>
 
 <div><script src='https://gist.github.com/5137721.js?file=gistfile4.html'></script>
-<noscript><pre><code>&lt;a href=&quot;http://www.mysite.com&quot; onclick=&quot;createCookie('iphone_mode', 'full', (0.25/24), 'mysite.com')&quot;&gt;  
+<noscript><pre><code>&lt;a href=&quot;http://www.mysite.com&quot; onclick=&quot;createCookie(&#39;iphone_mode&#39;, &#39;full&#39;, (0.25/24), &#39;mysite.com&#39;)&quot;&gt;  
   View full site
 &lt;/a&gt;
 </code></pre></noscript></div>
