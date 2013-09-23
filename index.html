@@ -126,10 +126,8 @@
           
     </div>
     <div class="span10">
-      <h1 class="link"><a href="/2013/09/23/ios7jie-mian-guo-du/">iOS7界面过渡</a></h1>
-      <h3>iOS7 兼容适配</h3>
-
-<h4>如何判断版本号</h4>
+      <h1 class="link"><a href="/2013/09/23/ios7jie-mian-guo-du/">iOS7 兼容适配</a></h1>
+      <h3>如何判断版本号</h3>
 
 <p>很多时候我们需要做不同版本的适配,所以首先要进行版本选择</p>
 
@@ -185,11 +183,11 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h4>新的barTintColor</h4>
+<h3>新的barTintColor</h3>
 
 <p>iOS7 中新增了<code>barTintColor</code> 来取代原有的 <code>tintColor</code>, 现在<code>barTintColor</code>表示对背景色的修改,<code>而原有的tintColor</code>只修改对应bar上的按钮</p>
 
-<h4>自定义 UIBarButtonItem 偏移</h4>
+<h3>自定义 UIBarButtonItem 偏移</h3>
 
 <p>在iOS7中自定义的 <code>UIBarButtonItem</code> 所有的item向中间偏移了5个像素,所以需要修改<code>alignmentRectInsets</code>来适配, 例如</p>
 
@@ -224,7 +222,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h4>edgesForExtendedLayout 是什么</h4>
+<h3>edgesForExtendedLayout 是什么</h3>
 
 <p>edgesForExtendedLayout是一个类型为UIExtendedEdge的属性，指定边缘要延伸的方向。
 因为iOS7鼓励全屏布局，它的默认值很自然地是UIRectEdgeAll，四周边缘均延伸，就是说，如果即使视图中上有navigationBar，下有tabBar，那么视图仍会延伸覆盖到四周的区域。</p>
@@ -252,7 +250,7 @@
 
 <p>最后一个介绍的新属性是extendedLayoutIncludesOpaqueBars，这个属性指定了当Bar使用了不透明图片时，视图是否延伸至Bar所在区域，默认值时NO。</p>
 
-<h4>grouped 的变化</h4>
+<h3>grouped 的变化</h3>
 
 <p>在iOS7 中UITableView的grouped延伸至两边变成了通栏.里面的控件用autolayout来兼容</p>
 
@@ -283,7 +281,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h4>一些情况下 window.tintColor 的使用</h4>
+<h3>一些情况下 window.tintColor 的使用</h3>
 
 <p>如果不为窗体指定着色，则会使用系统默认的颜色。</p>
 
@@ -291,15 +289,15 @@
 
 <p>总的来说，最好在视图还没有显示到屏幕上之前指定它的着色。想让视图继承上个层级的着色的话，就将着色设置为nil。</p>
 
-<h4>info.plist 中的View controller-based status bar appearance</h4>
+<h3>info.plist 中的View controller-based status bar appearance</h3>
 
 <p>如果你想要隐藏status bar, 或者用原来的方式修改status bar的颜色.在info.plist中增加这个属性,并且设置为<code>NO</code></p>
 
-<h4>UITextView 的改变</h4>
+<h3>UITextView 的改变</h3>
 
 <p>这个请参考 <a href="http://stackoverflow.com/questions/18368567/uitableviewcell-with-uitextview-height-in-ios-7">stackover flow</a></p>
 
-<h4>消失的search bar</h4>
+<h3>消失的search bar</h3>
 
 <p>PS: 另一个不是问题的问题,把searchBar 当做tableView的header的时候,如果含有UISearchDisplayController,有时候会导致search bar消失. 目前没有找到很好的办法,目前重新初始化可以解决.</p>
 
@@ -320,11 +318,11 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h4>参考资料</h4>
+<h3>参考资料</h3>
 
 <p><a href="http://mued.sohu.com/2013/06/ios-7-ui-transition-guide/">iOS 7用户界面过渡指南</a></p>
 
-<h5>未完待续…</h5>
+<h3>未完待续…</h3>
 
       
       
