@@ -4,10 +4,10 @@
   <title><![CDATA[Category: API | Di Wu's blog]]></title>
   <link href="http://weekwood.github.com/blog/categories/api/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2013-09-24T00:18:01+08:00</updated>
+  <updated>2013-09-24T00:25:04+08:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
-    <name><![CDATA[Di Wu's blog]]></name>
+    <name><![CDATA[Di Wu]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -146,9 +146,9 @@
 
 <p>如果有什么需要设置的，不要等待 -需要它了就去做，如果你没有得到的东西的立即返回nil。</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">initWithDelegate:</span><span class="p">(</span><span class="kt">id</span><span class="o">&lt;</span><span class="n">MGTileMenuDelegate</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">theDelegate</span><span class="p">;</span> <span class="c1">// required parameter; cannot be nil.</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:objc %}
+- (id)initWithDelegate:(id<MGTileMenuDelegate>)theDelegate; // required parameter; cannot be nil.
+{% endcodeblock%}</p>
 
 <h3>Rule 4: <strong>允许访问初始化参数（Allow access to initializer parameters）</strong></h3>
 
@@ -156,9 +156,9 @@
 
 <p>这个前一个结果的必然结果: 记住不要仅仅传入参数，应该可以通过属性或者赋值来访问他们，如果他们可以通过任何方式来一场“按摩”（修改，重写等）</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">weak</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="kt">id</span><span class="o">&lt;</span><span class="n">MGTileMenuDelegate</span><span class="o">&gt;</span> <span class="n">delegate</span><span class="p">;</span> <span class="c1">// must be specified via initializer method.</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:objc %}
+@property (nonatomic, weak, readonly) id<MGTileMenuDelegate> delegate; // must be specified via initializer method.
+{% endcodeblock%}</p>
 
 <p>These previous two examples raise a further general point.</p>
 
@@ -182,13 +182,11 @@
 
 <p>特别是,你应该简要注释在属性或访问器旁边;头文件扫描比在初始化实例的时候更容易。</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">CGGradientRef</span> <span class="n">tileGradient</span><span class="p">;</span> <span class="c1">// gradient to apply to tile backgrounds (default: a lovely blue)</span>
-</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSInteger</span> <span class="n">selectionBorderWidth</span><span class="p">;</span> <span class="c1">// default: 5 pixels</span>
-</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">CGGradientRef</span> <span class="n">selectionGradient</span><span class="p">;</span> <span class="c1">// default: a subtle white (top) to grey (bottom) gradient</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:objc %}
+@property (nonatomic) CGGradientRef tileGradient; // gradient to apply to tile backgrounds (default: a lovely blue)
+@property (nonatomic) NSInteger selectionBorderWidth; // default: 5 pixels
+@property (nonatomic) CGGradientRef selectionGradient; // default: a subtle white (top) to grey (bottom) gradient
+{% endcodeblock %}</p>
 
 <h3><strong>Rule 6: 三行内运行起来 Get up and running in 3 lines</strong></h3>
 
@@ -214,19 +212,14 @@
 
 <p>就是这样，这里是<a href="http://mattgemmell.com/2012/05/14/mgtilemenu/">MGTileMenu</a>中相应的代码:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// Instantiate. 初始化</span>
-</span><span class='line'><span class="n">tileController</span> <span class="o">=</span> <span class="p">[[</span><span class="n">MGTileMenuController</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithDelegate:</span><span class="n">self</span><span class="p">];</span>
-</span><span class='line'><span class="c1">// Configure. 配置</span>
-</span><span class='line'><span class="n">tileController</span><span class="p">.</span><span class="n">dismissAfterTileActivated</span> <span class="o">=</span> <span class="n">NO</span><span class="p">;</span> <span class="c1">// to make it easier to play with in the demo app.</span>
-</span><span class='line'><span class="c1">// Display. 显示</span>
-</span><span class='line'><span class="p">[</span><span class="n">tileController</span> <span class="nl">displayMenuCenteredOnPoint:</span><span class="n">loc</span> <span class="nl">inView:</span><span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:objc %}
+// Instantiate. 初始化
+tileController = [[MGTileMenuController alloc] initWithDelegate:self];
+// Configure. 配置
+tileController.dismissAfterTileActivated = NO; // to make it easier to play with in the demo app.
+// Display. 显示
+[tileController displayMenuCenteredOnPoint:loc inView:self.view];
+{% endcodeblock %}</p>
 
 <h3><strong>Rule 7: 臃肿的demo意味着不合格的component A fat demo usually means a broken component</strong></h3>
 
@@ -269,19 +262,14 @@
 <p>The specifics depend on the component, but just try to consider the relationships between properties, from the point of view of either appearance or functionality. Empathise with the developer. Be flexible, without abandoning the identity of the component.</p>
 
 <p>具体细节取决于component,但只尝试考虑属性之间的关系,要么外观或功能。对于开发者。是需要灵活的,没有放弃身份的component。
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="kt">BOOL</span> <span class="n">dismissAfterTileActivated</span><span class="p">;</span> <span class="c1">// automatically dismiss menu after a tile is activated (YES; default)</span>
-</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="kt">BOOL</span> <span class="n">rightHanded</span><span class="p">;</span> <span class="c1">// leave gap for right-handed finger (YES; default) or left-handed (NO)&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSInteger</span> <span class="n">tileSide</span><span class="p">;</span> <span class="c1">// width and height of each tile, in pixels (default 72 pixels)</span>
-</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSInteger</span> <span class="n">tileGap</span><span class="p">;</span> <span class="c1">// horizontal and vertical gaps between tiles, in pixels (default: 20 pixels)</span>
-</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">CGFloat</span> <span class="n">cornerRadius</span><span class="p">;</span> <span class="c1">// corner radius for bezel and all tiles, in pixels (default: 12.0 pixels)</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:objc %}
+@property (nonatomic) BOOL dismissAfterTileActivated; // automatically dismiss menu after a tile is activated (YES; default)
+@property (nonatomic) BOOL rightHanded; // leave gap for right-handed finger (YES; default) or left-handed (NO)</p>
+
+<p>@property (nonatomic) NSInteger tileSide; // width and height of each tile, in pixels (default 72 pixels)
+@property (nonatomic) NSInteger tileGap; // horizontal and vertical gaps between tiles, in pixels (default: 20 pixels)
+@property (nonatomic) CGFloat cornerRadius; // corner radius for bezel and all tiles, in pixels (default: 12.0 pixels)
+{% endcodeblock %}</p>
 
 <p>Let common sense be your guide. Decide what options will serve 70% or so of the usage situations you can think of, and provide those options. Let your delegate methods and code structure serve the rest.</p>
 
@@ -297,17 +285,12 @@
 
 <p>它几乎总是更多的属性,和更少的action”(再一次,这不是Interface Builder中的actions)。MGTileMenu有一个初始化器,和四个实际公共使用方法。在定制中,它达到4倍多。我认为这是一个好的比率,很简洁，但也很灵活去定制的component。</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">initWithDelegate:</span><span class="p">(</span><span class="kt">id</span><span class="o">&lt;</span><span class="n">MGTileMenuDelegate</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">theDelegate</span><span class="p">;</span> <span class="c1">// required parameter; cannot be nil.</span>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">CGPoint</span><span class="p">)</span><span class="nf">displayMenuPage:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">pageNum</span> <span class="nf">centeredOnPoint:</span><span class="p">(</span><span class="n">CGPoint</span><span class="p">)</span><span class="nv">centerPt</span> <span class="nf">inView:</span><span class="p">(</span><span class="n">UIView</span> <span class="o">*</span><span class="p">)</span><span class="nv">parentView</span><span class="p">;</span> <span class="c1">// zero-based pageNum</span>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">dismissMenu</span><span class="p">;</span>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">switchToPage:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">pageNum</span><span class="p">;</span> <span class="c1">// zero-based pageNum</span>
-</span><span class='line'>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:objc %}
+- (id)initWithDelegate:(id<MGTileMenuDelegate>)theDelegate; // required parameter; cannot be nil.
+- (CGPoint)displayMenuPage:(NSInteger)pageNum centeredOnPoint:(CGPoint)centerPt inView:(UIView *)parentView; // zero-based pageNum
+- (void)dismissMenu;
+- (void)switchToPage:(NSInteger)pageNum; // zero-based pageNum
+ {% endcodeblock %}</p>
 
 <h3><strong>Rule 10: 在你的控件中使用控件 Use controls in your controls</strong></h3>
 
@@ -336,13 +319,11 @@
 <p>For example, in MGTileMenu I created these convenience functions:</p>
 
 <p>例如， 在MGTileMenu中 我创建了一些便捷的函数：
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">CGRect</span> <span class="n">MGMinimallyOverlapRects</span><span class="p">(</span><span class="n">CGRect</span> <span class="n">inner</span><span class="p">,</span> <span class="n">CGRect</span> <span class="n">outer</span><span class="p">,</span> <span class="n">CGFloat</span> <span class="n">padding</span><span class="p">);</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">CGGradientRef</span> <span class="n">MGCreateGradientWithColors</span><span class="p">(</span><span class="n">UIColor</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">topColorRGB</span><span class="p">,</span> <span class="n">UIColor</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">bottomColorRGB</span><span class="p">);</span> <span class="c1">// assumes colors in RGB colorspace</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:objc %}
+CGRect MGMinimallyOverlapRects(CGRect inner, CGRect outer, CGFloat padding);</p>
+
+<p>CGGradientRef MGCreateGradientWithColors(UIColor <em>topColorRGB, UIColor </em>bottomColorRGB); // assumes colors in RGB colorspace
+{% endcodeblock %}</p>
 
 <p>The first helps me shift a tile menu so that it’s fully visible within its parent view (which might be handy for another developer, if they’re providing ancillary UI related to the menu), and the second returns a Core Graphics gradient from two UIColors, which I used when setting a default background for the tiles (and another developer may find handy when implementing MGTileMenu’s delegate protocol, to give tiles custom gradients).</p>
 
@@ -358,17 +339,12 @@
 
 <p>这个可以，诚实的来说也仅仅是OK，那什么是不OK，把一些不必要的神秘的原始值贯穿于你的代码中，尤其不正常的是把它暴露在API中。如果你想施展一些魔法，把他们包装起来再使用，用#defines 或者一个常量或者其他一些什么东西。让他们更像样，更容易理解。</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// Used for the page-switching tile in methods expecting a tile-number.&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">define</span> <span class="n">MG_PAGE_SWITCHING_TILE_INDEX</span> <span class="o">-</span><span class="mi">1</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:objc %}
+// Used for the page-switching tile in methods expecting a tile-number.</p>
+
+<h1>define MG_PAGE_SWITCHING_TILE_INDEX -1</h1>
+
+<p>{% endcodeblock %}</p>
 
 <h3><strong>委托和数据源 Delegate and data-source protocols</strong></h3>
 
@@ -439,19 +415,13 @@ This is also known as the </strong>Should<strong>, </strong>Will<strong>, </stro
 <p>MGTileMenu has five required methods, four of which are data-source methods:
 MGTileMenu 有5个’required‘ 方法，其中4个数据源方法：</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nf">numberOfTilesInMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">tileMenu</span><span class="p">;</span> <span class="c1">// in total (will be shown in groups of up to 5 per page)</span>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">UIImage</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nf">imageForTile:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">tileNumber</span> <span class="nf">inMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">tileMenu</span><span class="p">;</span> <span class="c1">// zero-based tileNumber</span>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">NSString</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nf">labelForTile:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">tileNumber</span> <span class="nf">inMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">tileMenu</span><span class="p">;</span> <span class="c1">// zero-based tileNumber</span>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">NSString</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nf">descriptionForTile:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">tileNumber</span> <span class="nf">inMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">*</span><span class="p">)</span><span class="nv">tileMenu</span><span class="p">;</span> <span class="c1">// zero-based tileNumber&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:objc %}
+- (NSInteger)numberOfTilesInMenu:(MGTileMenuController <em>)tileMenu; // in total (will be shown in groups of up to 5 per page)
+- (UIImage </em>)imageForTile:(NSInteger)tileNumber inMenu:(MGTileMenuController <em>)tileMenu; // zero-based tileNumber
+- (NSString </em>)labelForTile:(NSInteger)tileNumber inMenu:(MGTileMenuController <em>)tileMenu; // zero-based tileNumber
+- (NSString </em>)descriptionForTile:(NSInteger)tileNumber inMenu:(MGTileMenuController *)tileMenu; // zero-based tileNumber</p>
+
+<p>{% endcodeblock %}</p>
 
 <p>The first two follow the One True Data-Source Protocol. The third and fourth do too, but they also expose my politics: I think that software should be accessible, and I’m forcing you to supply a label and hint for each tile for VoiceOver to read. I’m comfortable with it.</p>
 
@@ -461,9 +431,9 @@ MGTileMenu 有5个’required‘ 方法，其中4个数据源方法：</p>
 
 <p>这里也有一个委托方法：</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tileMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">*</span><span class="p">)</span><span class="nv">tileMenu</span> <span class="nf">didActivateTile:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">tileNumber</span><span class="p">;</span> <span class="c1">// zero-based tileNumber</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:objc %}
+- (void)tileMenu:(MGTileMenuController *)tileMenu didActivateTile:(NSInteger)tileNumber; // zero-based tileNumber
+{% endcodeblock %}</p>
 
 <p>That one is required because it’s how you find out that a tile was activated. If you’re not willing to pay attention to that, MGTileMenu will do nothing useful, and you might as well not be using it at all. So, it’s required.</p>
 
@@ -555,11 +525,10 @@ MGTileMenu 有5个’required‘ 方法，其中4个数据源方法：</p>
 +一些其他不可预见的情况。
 高亮当然是一个示例的一组可选的委托方法,但它们很重要,而且几乎总是琐碎的实现。</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tileMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">tileMenu</span> <span class="nf">didSelectTile:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">tileNumber</span><span class="p">;</span> <span class="c1">// zero-based tileNumber</span>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tileMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">tileMenu</span> <span class="nf">didDeselectTile:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">tileNumber</span><span class="p">;</span> <span class="c1">// zero-based tileNumber</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:objc %}
+- (void)tileMenu:(MGTileMenuController <em>)tileMenu didSelectTile:(NSInteger)tileNumber; // zero-based tileNumber
+- (void)tileMenu:(MGTileMenuController </em>)tileMenu didDeselectTile:(NSInteger)tileNumber; // zero-based tileNumber
+{% endcodeblock%}</p>
 
 <h3><strong>Rule 18: Optional方法并不是一个承诺 Optional methods aren’t a commitment</strong></h3>
 
@@ -594,30 +563,29 @@ MGTileMenu 有5个’required‘ 方法，其中4个数据源方法：</p>
 <p>这是一个相对简单的规则，以及同样简单的错误，在你的委托方法中。你总要传入sender当做一个参数。即使是一个单例。即使你不能相像这个对象会同时超过一次使用。没有例外。</p>
 
 <p>像这样
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tileMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">*</span><span class="p">)</span><span class="nv">tileMenu</span> <span class="nf">didActivateTile:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">tileNumber</span><span class="p">;</span> <span class="c1">// zero-based tileNumber</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:objc %}
+- (void)tileMenu:(MGTileMenuController *)tileMenu didActivateTile:(NSInteger)tileNumber; // zero-based tileNumber
+{% endcodeblock%}</p>
 
 <p>不要像这样
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tileMenuDidActivateTile:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">tileNumber</span><span class="p">;</span> <span class="c1">// zero-based tileNumber</span>
-</span><span class='line'><span class="c1">// Um, WHICH menu?</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:objc %}
+- (void)tileMenuDidActivateTile:(NSInteger)tileNumber; // zero-based tileNumber
+// Um, WHICH menu?
+{% endcodeblock%}</p>
 
 <h3><strong>Rule 20:把有特点的参数放在前面 Put distinguishing params first in query methods</strong></h3>
 
 <p>The One True Data-Source Protocol should always have query methods such that the most interesting thing goes first. The specific quality or property you’re requesting a value for. Like this:</p>
 
 <p>一个真正的数据源协议应该总是有这样的查询方法,最容易让人感兴趣的总是是第一个，特定的质量或属性你请求一个值像这样:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">UIImage</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nf">imageForTile:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">tileNumber</span> <span class="nf">inMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">tileMenu</span><span class="p">;</span> <span class="c1">// zero-based tileNumber</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:objc %}
+- (UIImage <em>)imageForTile:(NSInteger)tileNumber inMenu:(MGTileMenuController </em>)tileMenu; // zero-based tileNumber
+{% endcodeblock%}</p>
 
 <p>不要像这样:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">UIImage</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nf">tileMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">tileMenu</span> <span class="nf">imageForTile:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">tileNumber</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:objc %}
+- (UIImage <em>)tileMenu:(MGTileMenuController </em>)tileMenu imageForTile:(NSInteger)tileNumber;
+{% endcodeblock%}</p>
 
 <p>The return type should flow naturally into the first part of the method name, without causing surprise. Data-source protocols often have many similarly-named methods, so keep the unique and interesting parts at the very start. Easier to read, and easier to autocomplete.</p>
 
@@ -626,9 +594,9 @@ MGTileMenu 有5个’required‘ 方法，其中4个数据源方法：</p>
 <p>Some people have pointed out that Apple’s UITableViewDataSource protocol doesn’t do it that way, and instead puts the sender first, for example:</p>
 
 <p>一些人指出,苹果UITableViewDataSource协议并不这样做,相反让发送者首先,例如:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nf">tableView:</span><span class="p">(</span><span class="n">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="nv">tableView</span> <span class="nf">numberOfRowsInSection:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">section</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:objc %}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{% endcodeblock%}</p>
 
 <p>All I can say is: I’m aware of the difference. I stand by my argument.
 我能说的就是，我知道区别，但是我固执己见。</p>
@@ -639,9 +607,9 @@ MGTileMenu 有5个’required‘ 方法，其中4个数据源方法：</p>
 
 <p>一个真正的委托，不是为查询而是通知。在这种情况下,你把发送放在第一位(遵守我们的习惯上的“谁”在说话的规则)。</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tileMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">*</span><span class="p">)</span><span class="nv">tileMenu</span> <span class="nf">willSwitchToPage:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">pageNumber</span><span class="p">;</span> <span class="c1">// zero-based pageNumber</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock lang:objc %}
+- (void)tileMenu:(MGTileMenuController *)tileMenu willSwitchToPage:(NSInteger)pageNumber; // zero-based pageNumber
+{% endcodeblock%}</p>
 
 <p>This follows how an interaction would go between two people having a conversation. You wouldn’t just jump in and say “She’s going to be late,” because the other person would have to ask “Who?”</p>
 
@@ -674,9 +642,9 @@ MGTileMenu 有5个’required‘ 方法，其中4个数据源方法：</p>
 <p>Instead, I went for something simpler and more understandable, if unconventionally-named:</p>
 
 <p>相反，我用了一些简单容易理解，非公约的命名:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">isTileEnabled:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">tileNumber</span> <span class="nf">inMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">*</span><span class="p">)</span><span class="nv">tileMenu</span><span class="p">;</span> <span class="c1">// zero-based tileNumber</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:objc %}
+- (BOOL)isTileEnabled:(NSInteger)tileNumber inMenu:(MGTileMenuController *)tileMenu; // zero-based tileNumber
+{% endcodeblock %}</p>
 
 <p>We can debate the specific wording, but if you encountered that method you’d know what it was for and how to use it right away. To me, that’s better.</p>
 
@@ -709,18 +677,16 @@ MGTileMenu 有5个’required‘ 方法，其中4个数据源方法：</p>
 <p>Delegate methods:</p>
 
 <p>代理方法
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tileMenuWillDisplay:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">tileMenu</span><span class="p">;</span>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tileMenuDidDisplay:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">tileMenu</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:objc %}
+- (void)tileMenuWillDisplay:(MGTileMenuController <em>)tileMenu;
+- (void)tileMenuDidDisplay:(MGTileMenuController </em>)tileMenu;
+{% endcodeblock %}</p>
 
 <p>对应的通知
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">extern</span> <span class="n">NSString</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">MGTileMenuWillDisplayNotification</span><span class="p">;</span> <span class="c1">// menu will be shown</span>
-</span><span class='line'><span class="k">extern</span> <span class="n">NSString</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">MGTileMenuDidDisplayNotification</span><span class="p">;</span> <span class="c1">// menu has been shown</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:objc %}
+extern NSString <em>MGTileMenuWillDisplayNotification; // menu will be shown
+extern NSString </em>MGTileMenuDidDisplayNotification; // menu has been shown
+{% endcodeblock %}</p>
 
 <h3><strong>Rule 24: 慷慨的对待通知的userInfo Be generous with notifications’ userInfo</strong></h3>
 
@@ -734,27 +700,21 @@ MGTileMenu 有5个’required‘ 方法，其中4个数据源方法：</p>
 
 <p>Delegate methods:
 代理方法:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tileMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">tileMenu</span> <span class="nf">willSwitchToPage:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">pageNumber</span><span class="p">;</span> <span class="c1">// zero-based pageNumber</span>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tileMenu:</span><span class="p">(</span><span class="n">MGTileMenuController</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">tileMenu</span> <span class="nf">didSwitchToPage:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">pageNumber</span><span class="p">;</span> <span class="c1">// zero-based pageNumber</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:objc %}
+- (void)tileMenu:(MGTileMenuController <em>)tileMenu willSwitchToPage:(NSInteger)pageNumber; // zero-based pageNumber
+- (void)tileMenu:(MGTileMenuController </em>)tileMenu didSwitchToPage:(NSInteger)pageNumber; // zero-based pageNumber
+{% endcodeblock %}</p>
 
 <p>And corresponding notifications:
 对应的通知
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// The following notifications have a user info key &quot;MGPageNumber&quot; with an NSNumber (integer, zero-based) value.&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">define</span> <span class="n">MGPageNumberKey</span> <span class="s">@&quot;MGPageNumber&quot;</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">extern</span> <span class="n">NSString</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">MGTileMenuWillSwitchToPageNotification</span><span class="p">;</span> <span class="c1">// menu will switch to the given page</span>
-</span><span class='line'><span class="k">extern</span> <span class="n">NSString</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">MGTileMenuDidSwitchToPageNotification</span><span class="p">;</span> <span class="c1">// menu did switch to the given page</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% codeblock lang:objc %}
+// The following notifications have a user info key "MGPageNumber" with an NSNumber (integer, zero-based) value.</p>
+
+<h1>define MGPageNumberKey @"MGPageNumber"</h1>
+
+<p>extern NSString <em>MGTileMenuWillSwitchToPageNotification; // menu will switch to the given page
+extern NSString </em>MGTileMenuDidSwitchToPageNotification; // menu did switch to the given page
+{% endcodeblock %}</p>
 
 <h3><strong>Rule 25: 测试他们 Test the hell out of it</strong></h3>
 
@@ -784,7 +744,7 @@ MGTileMenu 有5个’required‘ 方法，其中4个数据源方法：</p>
 
 <p>你可能想抓住的快速摘要规则,如下所示,我有全尺寸版本托管在Flickr。</p>
 
-<p><img src="http://farm9.staticflickr.com/8027/7263502878_a2ea0d4d53_o.jpg"></p>
+<p>{% img http://farm9.staticflickr.com/8027/7263502878_a2ea0d4d53_o.jpg%}</p>
 
 <p>磕磕碰碰终于结束了，如果你们发现错误请留言告诉我，谢谢！</p>
 ]]></content>
