@@ -299,6 +299,45 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
+<h3>新的UITableViewCellScrollView</h3>
+
+<p>在iOS7之前UITablleViewCell中得contentView得superView就是UITableViewCell。但是在iOS7得时候，contentView得superView确实UITableViewCellScrollView.可以用以下代码来获取</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">@implementation</span> <span class="nc">UIView</span> <span class="nl">(GetCellFromContentviewSubview)</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">UITableViewCell</span> <span class="o">*</span><span class="p">)</span><span class="nf">getCellFromContentviewSubview</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">([[[</span><span class="n">self</span> <span class="n">superview</span><span class="p">]</span> <span class="n">superview</span><span class="p">]</span> <span class="nl">isKindOfClass:</span><span class="p">[</span><span class="n">UITableViewCell</span> <span class="n">class</span><span class="p">]])</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="p">(</span><span class="n">UITableViewCell</span> <span class="o">*</span><span class="p">)[[</span><span class="n">self</span> <span class="n">superview</span><span class="p">]</span> <span class="n">superview</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">else</span> <span class="k">if</span> <span class="p">([[[[</span><span class="n">self</span> <span class="n">superview</span><span class="p">]</span> <span class="n">superview</span><span class="p">]</span> <span class="n">superview</span><span class="p">]</span> <span class="nl">isKindOfClass:</span><span class="p">[</span><span class="n">UITableViewCell</span> <span class="n">class</span><span class="p">]])</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="p">(</span><span class="n">UITableViewCell</span> <span class="o">*</span><span class="p">)[[[</span><span class="n">self</span> <span class="n">superview</span><span class="p">]</span> <span class="n">superview</span><span class="p">]</span> <span class="n">superview</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">else</span><span class="p">{</span>
+</span><span class='line'>         <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;something Panic happens&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
 <h3>参考资料</h3>
 
 <p><a href="http://mued.sohu.com/2013/06/ios-7-ui-transition-guide/">iOS 7用户界面过渡指南</a></p>
