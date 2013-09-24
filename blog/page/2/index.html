@@ -61,6 +61,8 @@
   	  	<div class="nav-collapse collapse navbar-responsive-collapse" style="height:0;">
   	      <ul class="nav">
     
+        <li ><a href="/index.html">Home</a></li>
+    
 </ul>
 
 <ul class="nav pull-right">
@@ -94,6 +96,98 @@
 
 <div class="blog-index">
   
+  
+  
+    <article>
+      
+
+  <div class="row-fluid">
+    <div class="span2">
+		<h1 class="date-time">
+
+
+
+
+
+
+
+
+  
+
+
+<i class="icon-calendar-empty"></i> <time datetime="2013-01-11T14:10:00+08:00" pubdate data-updated="true">Jan 11<span>th</span>, 2013</time></h5>
+          <div class="row-fluid">
+          
+          <a href="http://weekwood.github.com/2013/01/11/arc-plus-blocks-plus-llvm4-de-shi-dai-2-slash-3/#disqus_thread">Comments </a> <span class="fui-bubble-16"></span>
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          </div>
+          
+    </div>
+    <div class="span10">
+      <h1 class="link"><a href="/2013/01/11/arc-plus-blocks-plus-llvm4-de-shi-dai-2-slash-3/">Arc+blocks+llvm4 的时代2/3</a></h1>
+      <h1>Object Literals</h1>
+
+<h3>NSNumber Literals</h3>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">//NSNumber Creation</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">value</span><span class="p">;</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithChar:</span><span class="sc">&#39;X&#39;</span><span class="p">];</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithInt:</span><span class="mi">12345</span><span class="p">];</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithUnsignedLong:</span><span class="mi">12345</span><span class="n">ul</span><span class="p">];</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithLongLong:</span><span class="mi">12345l</span><span class="n">l</span><span class="p">];</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithFloat:</span><span class="mf">123.45f</span><span class="p">];</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithDouble:</span><span class="mf">123.45</span><span class="p">];</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithBool:</span><span class="n">YES</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//NSNumber Literals</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">value</span><span class="p">;</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="sc">@&#39;X&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="err">@</span><span class="mi">12345</span><span class="p">;</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="err">@</span><span class="mi">12345</span><span class="n">ul</span><span class="p">;</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="err">@</span><span class="mi">12345l</span><span class="n">l</span><span class="p">;</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="err">@</span><span class="mf">123.45f</span><span class="p">;</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="err">@</span><span class="mf">123.45</span><span class="p">;</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="err">@</span><span class="n">YES</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+
+      
+       <a href="/2013/01/11/arc-plus-blocks-plus-llvm4-de-shi-dai-2-slash-3/">Read on</a> 
+    </div>
+  </div>
+
+
+
+    </article>
+    
+    <hr>
+    
   
   
     <article>
