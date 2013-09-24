@@ -4,7 +4,7 @@
   <title><![CDATA[Di Wu's blog]]></title>
   <link href="http://weekwood.github.com/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2013-09-24T22:59:28+08:00</updated>
+  <updated>2013-09-24T23:10:41+08:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
     <name><![CDATA[Di Wu]]></name>
@@ -223,8 +223,6 @@
 <p>让我们来根据指示一步一步安装</p>
 
 <p><a href="https://github.com/node-inspector/node-inspector">https://github.com/node-inspector/node-inspector</a></p>
-
-<p>Tip 4: Nodefly</p>
 
 <h3>贴士 4: Nodeflyo</h3>
 
