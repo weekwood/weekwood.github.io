@@ -4,7 +4,7 @@
   <title><![CDATA[Di Wu's blog]]></title>
   <link href="http://weekwood.github.com/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2013-09-24T22:58:19+08:00</updated>
+  <updated>2013-09-24T22:59:28+08:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
     <name><![CDATA[Di Wu]]></name>
@@ -284,8 +284,9 @@
 
 <p>长期和复杂的代码行里面，这样做会节省几个小时的调试。</p>
 
-<p>翻译自
-<a href="https://medium.com/tech-talk/e7c0b0e5ce3c">https://medium.com/tech-talk/e7c0b0e5ce3c</a> by Dynamatik</p>
+<h3>翻译自</h3>
+
+<p><a href="https://medium.com/tech-talk/e7c0b0e5ce3c">https://medium.com/tech-talk/e7c0b0e5ce3c</a> by Dynamatik</p>
 ]]></content>
   </entry>
   
