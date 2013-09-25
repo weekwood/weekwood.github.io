@@ -4,7 +4,7 @@
   <title><![CDATA[Di Wu's blog]]></title>
   <link href="http://weekwood.github.com/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2013-09-25T13:04:07+08:00</updated>
+  <updated>2013-09-25T13:12:12+08:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
     <name><![CDATA[Di Wu]]></name>
@@ -329,6 +329,11 @@
 </span><span class='line'><span class="cp"> #define MY_MACRO_NAME (DeviceSystemMajorVersion() &lt; 7)</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<!-- more -->
 
 
 <ul>
