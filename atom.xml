@@ -4,7 +4,7 @@
   <title><![CDATA[Di Wu's blog]]></title>
   <link href="http://weekwood.github.com/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2014-05-27T11:06:53+08:00</updated>
+  <updated>2014-06-03T12:18:44+08:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
     <name><![CDATA[Di Wu]]></name>
@@ -12,6 +12,799 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Issue 12 5 Weekwood]]></title>
+    <link href="http://weekwood.github.com/2014/05/27/issue-12-5-weekwood/"/>
+    <updated>2014-05-27T00:00:00+08:00</updated>
+    <id>http://weekwood.github.com/2014/05/27/issue-12-5-weekwood</id>
+    <content type="html"><![CDATA[<p><code>UICollectionView</code> 和相关类的设置非常灵活和强大。但是灵活性一旦增强，某种程度上也增加了其复杂性： <code>UICollectionView</code> 比老式的 <code>UITableView</code> 更有深度，适用性也更强。</p>
+
+<p>Collection View 深入太多了，事实上，<a href="http://oleb.net">Ole Begeman</a> 和 <a href="https://twitter.com/ashfurrow">Ash Furrow</a> 之前曾在 objc.io 上发表过 <a href="http://objccn.io/issue-3-3/">自定义 Collection View 布局</a> 和 <a href="http://objccn.io/issue-5-2/">UICollectionView + UIKit 力学</a>，但是我依然有一些他们没有提及的内容可以写。在这篇文章中，我假设你已经非常熟悉 <code>UICollectionView</code> 的基本布局，并且至少阅读了苹果精彩的<a href="https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/CollectionViewPGforIOS/Introduction/Introduction.html#//apple_ref/doc/uid/TP40012334">编程指南</a>以及 Ole 之前的<a href="http://objccn.io/issue-3-3/">文章</a>。</p>
+
+<p>本文的第一部分将集中讨论并举例说明如何用不同的类和方法来共同帮助实现一些常见的 <code>UICollectionView</code> 动画。在第二部分，我们将看一下带有 collection views 的 view controller 转场动画以及在 <code>useLayoutToLayoutNavigationTransitions</code> 可用时使用其进行转场，如果不可用时，我们会实现一个自定义转场动画。</p>
+
+<p>你可以在 GitHub 中找到本文提到的两个示例工程:</p>
+
+<ul>
+<li><a href="https://github.com/objcio/issue-12-CollectionViewAnimations">布局动画</a></li>
+<li><a href="https://github.com/objcio/issue-12-CustomCollectionViewTransition">自定义 collection view 转场动画</a></li>
+</ul>
+
+
+<h2>Collection View 布局动画</h2>
+
+<p>标准 <code>UICollectionViewFlowLayout</code> 除了动画是非常容易自定义的，苹果选择了一种安全的途径去实现一个简单的淡入淡出动画作为所有布局的默认动画。如果你想实现自定义动画，最好的办法是子类化 <code>UICollectionViewFlowLayout</code> 并且在适当的地方实现你的动画。让我们通过一些例子来了解 <code>UICollectionViewFlowLayout</code> 子类中的一些方法如何协助完成自定义动画。</p>
+
+<h3>插入删除元素</h3>
+
+<p>一般来说，我们对布局属性从初始状态到结束状态进行线性插值来计算 collection view 的动画参数。然而，新插入或者删除的元素并没有最初或最终状态来进行插值。要计算这样的 cells 的动画，collection view 将通过  <code>initialLayoutAttributesForAppearingItemAtIndexPath:</code> 以及 <code>finalLayoutAttributesForAppearingItemAtIndexPath:</code> 方法来询问其布局对象，以获取最初的和最后的属性。苹果默认的实现中，对于特定的某个 indexPath，返回的是它的通常的位置，但 <code>alpha</code> 值为 0.0，这就产生了一个淡入或淡出动画。如果你想要更漂亮的效果，比如你的新的 cells 从屏幕底部发射并且旋转飞到对应位置，你可以如下实现这样的布局子类：</p>
+
+<pre><code>- (UICollectionViewLayoutAttributes*)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath
+{
+    UICollectionViewLayoutAttributes *attr = [self layoutAttributesForItemAtIndexPath:itemIndexPath];
+
+    attr.transform = CGAffineTransformRotate(CGAffineTransformMakeScale(0.2, 0.2), M_PI);
+    attr.center = CGPointMake(CGRectGetMidX(self.collectionView.bounds), CGRectGetMaxY(self.collectionView.bounds));
+
+    return attr;
+}
+</code></pre>
+
+<p>结果如下：</p>
+
+<p><img src="http://img.objccn.io/issue-12/2014-05-01-collectionview-animations-1-insertion.gif" alt="Insertion and Deletion" /></p>
+
+<p>对应的 <code>finalLayoutAttributesForAppearingItemAtIndexPath:</code> 方法中，除了设定了不同的 transform 以外，其他都很相似。</p>
+
+<h3>响应设备旋转</h3>
+
+<p>设备方向变化通常会导致 collection view 的 bounds 变化。如果通过 <code>shouldInvalidateLayoutForBoundsChange:</code> 判定为布局需要被无效化并重新计算的时候，布局对象会被询问以提供新的布局。<code>UICollectionViewFlowLayout</code> 的默认实现正确地处理了这个情况，但是如果你子类化 <code>UICollectionViewLayout</code> 的话，你需要在边界变化时返回 <code>YES</code>：</p>
+
+<pre><code>- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
+{
+    CGRect oldBounds = self.collectionView.bounds;
+    if (!CGSizeEqualToSize(oldBounds.size, newBounds.size)) {
+        return YES;
+    }
+    return NO;
+}
+</code></pre>
+
+<p>在 bounds 变化的动画中，collection view 表现得像当前显示的元素被移除然后又在新的 bounds 中被被重新插入，这会对每个 IndexPath 产生一系列的 <code>finalLayoutAttributesForAppearingItemAtIndexPath:</code> 和 <code>initialLayoutAttributesForAppearingItemAtIndexPath:</code> 的调用。</p>
+
+<p>如果你在插入和删除的时候加入了非常炫的动画，现在你应该看看为何苹果明智的使用简单的淡入淡出动画作为默认效果：</p>
+
+<p><img src="http://img.objccn.io/issue-12/2014-05-01-collectionview-animations-2-wrong-rotation.gif" alt="设备旋转的错误反应" /></p>
+
+<p>啊哦&#8230;</p>
+
+<p>为了防止这种不想要的动画，初始化位置 -> 删除动画 -> 插入动画 -> 最终位置的顺序必须完全匹配 collection view 的每一项，以便最终呈现出一个平滑动画。换句话说，<code>finalLayoutAttributesForAppearingItemAtIndexPath:</code> 以及 <code>initialLayoutAttributesForAppearingItemAtIndexPath:</code> 应该针对元素到底是真的在显示或者消失，还是 collection view 正在经历的边界改变动画的不同情况，做出不同反应，并返回不同的布局属性。</p>
+
+<p>幸运的是，collection view 会告知布局对象哪一种动画将被执行。它分别通过调用 <code>prepareForAnimatedBoundsChange:</code> 和 <code>prepareForCollectionViewUpdates:</code> 来对应 bounds 变化以及元素更新。出于本实例的说明目的，我们可以使用 <code>prepareForCollectionViewUpdates:</code> 来跟踪更新对象：</p>
+
+<pre><code>- (void)prepareForCollectionViewUpdates:(NSArray *)updateItems
+{
+    [super prepareForCollectionViewUpdates:updateItems];
+    NSMutableArray *indexPaths = [NSMutableArray array];
+    for (UICollectionViewUpdateItem *updateItem in updateItems) {
+        switch (updateItem.updateAction) {
+            case UICollectionUpdateActionInsert:
+                [indexPaths addObject:updateItem.indexPathAfterUpdate];
+                break;
+            case UICollectionUpdateActionDelete:
+                [indexPaths addObject:updateItem.indexPathBeforeUpdate];
+                break;
+            case UICollectionUpdateActionMove:
+                [indexPaths addObject:updateItem.indexPathBeforeUpdate];
+                [indexPaths addObject:updateItem.indexPathAfterUpdate];
+                break;
+            default:
+                NSLog(@"unhandled case: %@", updateItem);
+                break;
+        }
+    }  
+    self.indexPathsToAnimate = indexPaths;
+}
+</code></pre>
+
+<p>以及修改我们元素的插入动画，让元素只在其正在被插入 collection view 时进行发射：</p>
+
+<pre><code>- (UICollectionViewLayoutAttributes*)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath
+{
+    UICollectionViewLayoutAttributes *attr = [self layoutAttributesForItemAtIndexPath:itemIndexPath];
+
+    if ([_indexPathsToAnimate containsObject:itemIndexPath]) {
+        attr.transform = CGAffineTransformRotate(CGAffineTransformMakeScale(0.2, 0.2), M_PI);
+        attr.center = CGPointMake(CGRectGetMidX(self.collectionView.bounds), CGRectGetMaxY(self.collectionView.bounds));
+        [_indexPathsToAnimate removeObject:itemIndexPath];
+    }
+
+    return attr;
+}
+</code></pre>
+
+<p>如果这个元素没有正在被插入，那么将通过 <code>layoutAttributesForItemAtIndexPath</code> 来返回一个普通的属性，以此取消特殊的外观动画。结合 <code>finalLayoutAttributesForAppearingItemAtIndexPath:</code> 中相应的逻辑，最终将会使元素能够在 bounds 变化时，从初始位置到最终位置以很流畅的动画形式实现，从而建立一个简单但很酷的动画效果：</p>
+
+<p><img src="http://img.objccn.io/issue-12/2014-05-01-collectionview-animations-3-correct-rotation.gif" alt="Wrong reaction to device rotation" /></p>
+
+<h3>交互式布局动画</h3>
+
+<p>Collection views 让用户通过手势实现与布局交互这件事变得很容易。如苹果<a href="https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/CollectionViewPGforIOS/IncorporatingGestureSupport/IncorporatingGestureSupport.html#//apple_ref/doc/uid/TP40012334-CH4-SW1">建议</a>的那样，为 collection view 布局添加交互的途径一般会遵循以下步骤：</p>
+
+<ol>
+<li>创建手势识别</li>
+<li>将手势识别添加给 collection view</li>
+<li>通过手势来驱动布局动画</li>
+</ol>
+
+
+<p>让我们来看看我们如何可以建立一些用户可缩放捏合的元素，以及一旦用户释放他们的捏合手势元素返回到原始大小。</p>
+
+<p>我们的处理方式可能会是这样：</p>
+
+<pre><code>- (void)handlePinch:(UIPinchGestureRecognizer *)sender {
+    if ([sender numberOfTouches] != 2)
+        return;
+
+
+    if (sender.state == UIGestureRecognizerStateBegan ||
+        sender.state == UIGestureRecognizerStateChanged) {
+        // 获取捏合的点
+        CGPoint p1 = [sender locationOfTouch:0 inView:[self collectionView]];
+        CGPoint p2 = [sender locationOfTouch:1 inView:[self collectionView]];
+
+        // 计算扩展距离
+        CGFloat xd = p1.x - p2.x;
+        CGFloat yd = p1.y - p2.y;
+        CGFloat distance = sqrt(xd*xd + yd*yd);
+
+        // 更新自定义布局参数以及无效化
+        FJAnimatedFlowLayout* layout = (FJAnimatedFlowLayout*)[[self collectionView] collectionViewLayout];
+
+        NSIndexPath *pinchedItem = [self.collectionView indexPathForItemAtPoint:CGPointMake(0.5*(p1.x+p2.x), 0.5*(p1.y+p2.y))];
+        [layout resizeItemAtIndexPath:pinchedItem withPinchDistance:distance];
+        [layout invalidateLayout];
+
+    }
+    else if (sender.state == UIGestureRecognizerStateCancelled ||
+             sender.state == UIGestureRecognizerStateEnded){
+        FJAnimatedFlowLayout* layout = (FJAnimatedFlowLayout*)[[self collectionView] collectionViewLayout];
+        [self.collectionView
+         performBatchUpdates:^{
+            [layout resetPinchedItem];
+         }
+         completion:nil];
+    }
+}
+</code></pre>
+
+<p>这个捏合操作需要计算捏合距离并找出被捏合的元素，并且在用户捏合的时候通知布局以实现自身更新。当捏合手势结束的时候，布局会做一个批量更新动画返回原始尺寸。</p>
+
+<p>另一方面，我们的布局始终在跟踪捏合的元素以及期望尺寸，并在需要的时候提供正确的属性：</p>
+
+<pre><code>- (NSArray*)layoutAttributesForElementsInRect:(CGRect)rect
+{
+    NSArray *attrs = [super layoutAttributesForElementsInRect:rect];
+
+    if (_pinchedItem) {
+        UICollectionViewLayoutAttributes *attr = [[attrs filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"indexPath == %@", _pinchedItem]] firstObject];
+
+        attr.size = _pinchedItemSize;
+        attr.zIndex = 100;
+    }
+    return attrs;
+}
+</code></pre>
+
+<h3>小结</h3>
+
+<p>我们通过一些例子来说明了如何在 collection view 布局中创建自定义动画。虽然 <code>UICollectionViewFlowLayout</code> 并不直接允许定制动画，但是苹果工程师提供了清晰的架构让你可以子类化并实现各种自定义行为。从本质来说，在你的 <code>UICollectionViewLayout</code> 子类中正确地响应以下信号，并对那些要求返回 <code>UICollectionViewLayoutAttributes</code> 的方法返回合适的属性，那么实现自定义布局和动画的唯一约束就是你的想象力：</p>
+
+<ul>
+<li><code>prepareLayout</code></li>
+<li><code>prepareForCollectionViewUpdates:</code></li>
+<li><code>finalizeCollectionViewUpdates</code></li>
+<li><code>prepareForAnimatedBoundsChange:</code></li>
+<li><code>finalizeAnimatedBoundsChange</code></li>
+<li><code>shouldInvalidateLayoutForBoundsChange:</code></li>
+</ul>
+
+
+<p>更引人入胜的动画可以结合像在 objc.io <a href="http://objccn.io/issue-5-2/">话题 #5</a> 中 UIKit 力学这样的技术来实现。</p>
+
+<h2>带有 Collection views 的 View controller 转场</h2>
+
+<p>就如 <a href="https://twitter.com/chriseidhof">Chris</a> 之前在 objc.io 的<a href="http://objccn.io/issue-5-3/">文章</a>中所说的那样，iOS 7 中的一个重大更新是自定义 view controller 转场动画。与自定义转场动画相呼应，苹果也在 <code>UICollectionViewController</code> 添加了 <code>useLayoutToLayoutNavigationTransitions</code> 标记来在可复用的单个 collection view 间启用导航转场。苹果自己的照片和日历应用就是这类转场动画的非常好的代表作。</p>
+
+<h3>UICollectionViewController 实例之间的转场动画</h3>
+
+<p>让我们来看看我们如何能够利用上一节相同的示例项目达到类似的效果：</p>
+
+<p><img src="http://img.objccn.io/issue-12/2014-05-01-collectionview-animations-4-layout2layout.gif" alt="Layout to Layout Navigation Transitions" /></p>
+
+<p>为了使布局到布局的转场动画工作，navigation controller 的 root view controller 必须是一个 <code>useLayoutToLayoutNavigationTransitions</code> 设置为 <code>NO</code> 的 collection view controller。当另一个 <code>useLayoutToLayoutNavigationTransitions</code> 设置为 <code>YES</code> 的 <code>UICollectionViewController</code> 实例被 push 到根视图控制器之上时，navigation controller 会用布局转场动画来代替标准的 push 转场动画。这里要注意一个重要的细节，根视图控制器的 collection view 实例被回收用于在导航栈上 push 进来的 collection 控制器中，如果你试图在 <code>viewDidLoad</code> 之类的方法中中设置 collection view 属性， 它们将不会有任何反应，你也不会收到任何警告。</p>
+
+<p>这个行为可能最常见的陷阱是期望回收的 collection view 根据顶层的 collection 视图控制器来更新数据源和委托。它当然不会这样：根 collection 视图控制器会保持数据源和委托，除非我们做点什么。</p>
+
+<p>解决此问题的方法是实现 navigation controller 的委托方法，并根据导航堆栈顶部的当前视图控制器的需要正确设置 collection view 的数据源和委托。在我们简单的例子中，这可以通过以下方式实现：</p>
+
+<pre><code>- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    if ([viewController isKindOfClass:[FJDetailViewController class]]) {
+        FJDetailViewController *dvc = (FJDetailViewController*)viewController;
+        dvc.collectionView.dataSource = dvc;
+        dvc.collectionView.delegate = dvc;
+        [dvc.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:_selectedItem inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+    }
+    else if (viewController == self){
+        self.collectionView.dataSource = self;
+        self.collectionView.delegate = self;
+    }
+}
+</code></pre>
+
+<p>当详细页面的 collection view 被推入导航栈时，我们重新设置 collection view 的数据源到详细视图控制器，确保只有被选择的 cell 颜色显示在详细页面的 collection view 中。如果我们不打算这样做，布局依然可以正确过渡，但是collection 将显示所有的 cells。在实际应用中，detail 的数据源通常负责在转场动画过程中显示更详细的数据。</p>
+
+<h3>用于常规转换的 Collection View 布局动画</h3>
+
+<p>使用了 <code>useLayoutToLayoutNavigationTransitions</code> 的布局和布局间导航转换是很有用的，但却局限于仅在 两个 view controller 都是 <code>UICollectionViewController</code> 的实例，并且转场的必须发生在顶级 collection views 之间。为了达到在任意视图控制器的任意 collection view 之间都能实现相似的过渡，我们需要自定义一个 view collection 的转场动画。</p>
+
+<p><img src="http://img.objccn.io/issue-12/2014-05-01-collectionview-animations-5-custom-transitions.gif" alt="Custom Collection View Transition" /></p>
+
+<p>针对此类自定义过渡的动画控制器，需要遵循以下步骤进行设计：</p>
+
+<ol>
+<li>对初始的 collection view 中的所有可见元素制作截图</li>
+<li>将截图添加到转场上下文的 container view 中</li>
+<li>运用目标 collection view 的布局计算最终位置</li>
+<li>制作动画使快照到正确的位置</li>
+<li>当目标 collection view 可见时删除截图</li>
+</ol>
+
+
+<p>一个这样的动画设计有两重缺陷：它只能对初始的 collection view 的可见元素制作动画，因为<a href="https://developer.apple.com/library/ios/documentation/uikit/reference/uiview_class/UIView/UIView.html#//apple_ref/doc/uid/TP40006816-CH3-SW198">快照 APIs </a> 只能工作于屏幕上可见的 view，另外，依赖于可见的元素数量，可能会有很多的 views 需要进行正确的跟踪并为其制作动画。但另一方面，这种设计又具有一个明显的优势，那就是它可以为所有类型的 <code>UICollectionViewLayout</code> 组合所使用。这样一个系统的实现就留给读者们去进行练习吧。</p>
+
+<p>在附带的演示项目中我们用另一种途径进行了实现，它依赖于一些 <code>UICollectionViewFlowLayout</code> 的巧合。</p>
+
+<p>基本的想法是，因为源 collection view 和目标 collection view 都拥有有效的 flow layouts，因此源 layout 的布局属性正好可以用作目标 collection view 的布局中的初始布局属性，以此驱动转场动画。一旦正确建立，就算对于那些一开始在屏幕上不可见的元素，collection view 的机制都将为我们追踪它们并进行动画。下面是我们的动画控制器中的 <code>animateTransition:</code> 的核心代码：</p>
+
+<pre><code>    CGRect initialRect = [inView.window convertRect:_fromCollectionView.frame fromView:_fromCollectionView.superview];
+    CGRect finalRect   = [transitionContext finalFrameForViewController:toVC];
+
+    UICollectionViewFlowLayout *toLayout = (UICollectionViewFlowLayout*) _toCollectionView.collectionViewLayout;
+
+    UICollectionViewFlowLayout *currentLayout = (UICollectionViewFlowLayout*) _fromCollectionView.collectionViewLayout;
+
+    //制作原来布局的拷贝
+    UICollectionViewFlowLayout *currentLayoutCopy = [[UICollectionViewFlowLayout alloc] init];
+
+    currentLayoutCopy.itemSize = currentLayout.itemSize;
+    currentLayoutCopy.sectionInset = currentLayout.sectionInset;
+    currentLayoutCopy.minimumLineSpacing = currentLayout.minimumLineSpacing;
+    currentLayoutCopy.minimumInteritemSpacing = currentLayout.minimumInteritemSpacing;
+    currentLayoutCopy.scrollDirection = currentLayout.scrollDirection;
+
+    //将拷贝赋值给源 collection view
+    [self.fromCollectionView setCollectionViewLayout:currentLayoutCopy animated:NO];
+
+    UIEdgeInsets contentInset = _toCollectionView.contentInset;
+
+    CGFloat oldBottomInset = contentInset.bottom;
+
+    //强制在目标 collection view 中设定一个很大的 bottom inset
+    contentInset.bottom = CGRectGetHeight(finalRect)-(toLayout.itemSize.height+toLayout.sectionInset.bottom+toLayout.sectionInset.top);
+    self.toCollectionView.contentInset = contentInset;
+
+    //将源布局设置给目标 collection view
+    [self.toCollectionView setCollectionViewLayout:currentLayout animated:NO];
+
+    toView.frame = initialRect;
+
+    [inView insertSubview:toView aboveSubview:fromView];
+
+    [UIView
+     animateWithDuration:[self transitionDuration:transitionContext]
+     delay:0
+     options:UIViewAnimationOptionBeginFromCurrentState
+     animations:^{
+       //使用最终 frame 制作动画
+         toView.frame = finalRect;
+         //在 performUpdates 中设定最终的布局
+         [_toCollectionView
+          performBatchUpdates:^{
+              [_toCollectionView setCollectionViewLayout:toLayout animated:NO];
+          }
+          completion:^(BOOL finished) {
+              _toCollectionView.contentInset = UIEdgeInsetsMake(contentInset.top,
+                                                                contentInset.left,
+                                                                oldBottomInset,
+                                                                contentInset.right);
+          }];
+
+     } completion:^(BOOL finished) {
+         [transitionContext completeTransition:YES];
+     }];
+</code></pre>
+
+<p>首先，动画控制器确保目标 collection view 以与原来的 collection view 完全相同的框架和布局作为开始。接着，它将源 collection view 的布局设定给目标 collection view，以确保其不会失效。与此同时，该布局已经复制到另一个新的布局对象中，而这个布局对象则是为防止在导航回原始视图控制器时出现奇怪的布局 bug。我们还会强制在目标 collection view 的底部设定一个很大的 content inset，来确保布局在动画的初始位置时保持在一行上。观察日志的话，你会发现由于元素的尺寸加上 inset 的尺寸会比 collection view 的非滚动维度要大，因此 collection view 会在控制台警告。在这样的情况下，collection view 的行为是没有定义的，我们也只是使用这样一个不稳定的状态来作为我们转换动画的初始状态。最后，复杂的动画 block 将展现它的魅力，首先将目标 collection view 的框架设定到最终位置，然后在 <code>performBatchUpdates:completion:</code> 的 update block 中执行一个无动画的布局来改变至最终布局，紧随其后便是在 completion block 中将 content insets 重置为原始值。</p>
+
+<h3>小结</h3>
+
+<p>我们讨论了两种可以在 collection view 之间实现布局转场的途径。一种使用了内置的 <code>useLayoutToLayoutNavigationTransitions</code>，看起来令人印象深刻并且极其容易实现，缺点就是可以使用的范围较为局限。由于 <code>useLayoutToLayoutNavigationTransitions</code> 在一些案例中不能使用，想驱动自定义的过渡动画的话，就需要一个自定义的 animator。这篇文章中，我们看到了如何实现这样一个 animator，然而，由于你的应用程序大概肯定会需要在两个和本例完全不同的 view 结构中实现完全不同的动画，所以正如此例中做的那样，不要吝于尝试不同的方法来探究其是否能够工作。</p>
+
+<hr />
+
+<p><a href="http://objccn.io/issue-12">话题 #12 下的更多文章</a></p>
+
+<p>原文 <a href="http://www.objc.io/issue-12/collectionview-animations.html">Animating Collection Views</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Issue 8 2 Weekwood]]></title>
+    <link href="http://weekwood.github.com/2014/05/10/issue-8-2-weekwood/"/>
+    <updated>2014-05-10T00:00:00+08:00</updated>
+    <id>http://weekwood.github.com/2014/05/10/issue-8-2-weekwood</id>
+    <content type="html"><![CDATA[<p><a href="http://ardrone2.parrot.com/">AR Drone</a> <a href="https://en.wikipedia.org/wiki/Quadcopter">无人机</a>是一台小型的 Linux，当我们加入它提供的 WiFi 热点的时候，我们就可以通过 192.168.1.1 来访问无人机。</p>
+
+<h2>用户数据报协议（UDP）</h2>
+
+<p>无人机的通讯采用了 <a href="https://en.wikipedia.org/wiki/User_Datagram_Protocol">UDP 协议</a>，UDP 是至今沿用并占有主导地位的<a href="https://en.wikipedia.org/wiki/Transport_layer">传输层</a>协议之一，而另一个是 TCP 协议。</p>
+
+<p>我们暂且先聊聊 TCP 协议，或者我们称之为<a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol">传输控制协议</a>，基于它操作和使用起来极其方便，现在几乎所有的网络连接都是通过 TCP 来完成。 使用 TCP 协议的 API 非常直截了当，当你需要从一个设备传输数据到另一个硬件设备的时候，TCP 可以被所有硬件设备支持。使用 TCP 有多简单？一旦建立连接，你把数据写入 socket，另一台设备将从 socket 读取数据，TCP 会确保数据正确的写入并且传输给另一个设备。 许多复杂的细节隐匿其中。TCP 是基于 IP 层之上的，所有低级 IP 数据都不能按照其发送的顺序到达，事实上，甚至有可能永远都等不到它。但是 TCP 隐藏了这个玄机，它在 Unix 管道上建模，TCP 同时也管理着吞吐量；它不断的适应并达到最大的带宽利用率。它似乎确实有着神奇的魔力可以变出三册总页数超过2556页的书来阐述它的魅力。 TCP/IP Illustrated: <a href="http://www.amazon.com/dp/0321336313">The Protocols</a>，<a href="http://www.amazon.com/dp/020163354X">The Implementation</a>, <a href="http://www.amazon.com/dp/0201634953">TCP for Transactions</a>。</p>
+
+<p>UDP，是传输层的另一个重要组成部分，也是一个相对简单的协议，但是使用 UDP 对开发者来说很痛苦，当你通过 UDP 发送数据的时候，无法得知数据是否成功被接收，也不知道数据到达的顺序，同样得不到（在不被带宽变化影响而丢失数据的情况下）我们发送数据可达的最大速度。</p>
+
+<p>就是说，UDP 是一个非常简单的模型：UDP 允许你在设备之间发送所谓的数据包。这些数据包 (分组) 在另一端以同样格式的数据包被接收（除非他们已经在路上消失了）。</p>
+
+<p>为了使用 UDP，一个应用需要使用<a href="https://en.wikipedia.org/wiki/Datagram_socket">数据报 socket</a>，它在通讯两端绑定了一个 IP 地址和<a href="https://en.wikipedia.org/wiki/Port_number">服务端口</a>，并且因此建立了一个主机到主机的通讯，发送数据给一个指定的 socket 可以从匹配的另一端 socket 接收。</p>
+
+<p>注意，UDP 是一个无连接协议，这里不需要设置连接，socket 对从哪里发送数据和数据何时到达进行简单的跟踪，当然，建立在数据能够被 socket 捕捉的基础上。</p>
+
+<h2>UDP 以及 AR DRONE</h2>
+
+<p>AR Drone 的接口建立在三个 UDP 端口上， 通过上面的讨论我们知道 UDP 是一个还有待讨论的设计方案，但是 <a href="http://www.parrot.com/usa/">Parrot</a> 选择了去实现它。</p>
+
+<p>无人机的 IP 地址是 192.168.1.1， 并且这里有三个端口我们可以用来连接 UDP</p>
+
+<p>导航控制数据端口 = 5554</p>
+
+<p>机载视频端口 = 5555</p>
+
+<p>AT 指令端口 = 5556</p>
+
+<p>我们需要利用 <em>AT 指令集端口</em>来发送命令到无人机，用导航数据端口来接收无人机返回的数据。其工作原理完全不同，因此只能分开讨论两者，即便如此，它们都依赖于 UDP socket 的。我们来看看这是如何实现的。</p>
+
+<h2>UDP API</h2>
+
+<p>首先非常奇怪的是，Apple 没有为 UDP 的运行提供 Objective-C helper 封装。毕竟，这个协议甚至可以追溯到 1980 年，主因是几乎没有使用 UDP 的应用，如果我们使用 UDP，至少访问 UDP 的 Unix C API 将成为我们担忧的一部分。因此大多数情况下我们会使用 TCP，而且对其来说，有很多 API 可供选择。
+C 语言的 API 我们使用了高级研究计划署（发明互联网的地方）定义在 <code>sys/socket.h</code>，<code>netinet/in.h</code>，<code>arpa/inet.h</code> 的方法。</p>
+
+<h2>创建 UDP socket</h2>
+
+<p>首先，用下面的语句来创建 socket</p>
+
+<pre><code>int nativeSocket = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
+</code></pre>
+
+<p><code>PF_INET</code> 是 socket 的域名，在这个例子中是互联网，<code>SOCK_DGRAM</code> 定义了数据报的格式（相对于流式套接字）。最后，<code>IPPROTO_UDP</code> 定义了传输协议 UDP。socket 的工作方式类似于调用 <a href="http://man7.org/linux/man-pages/man2/open.2.html">open(2) 方法</a></p>
+
+<p>接下来，我们创建了一个结构体，包括我们的地址和无人机的地址，结构体中的 <code>sockaddr_in</code> 是套接字的地址，我们使用 <code>sin_me</code> 来定义自己的地址，以及 <code>sin_other</code> 来定义另一端的地址</p>
+
+<pre><code>struct sockaddr_in sin_me = {};
+sin_me.sin_len = (__uint8_t) sizeof(sin);
+sin_me.sin_family = AF_INET;
+sin_me.sin_port = htons(0);
+sin_me.sin_addr.s_addr = htonl(INADDR_ANY);
+
+struct sockaddr_in sin_other = {};
+sin_other.sin_len = (__uint8_t) sizeof(sin_other);
+sin_other.sin_family = AF_INET;
+sin_other.sin_port = htons(self.port);
+int r = inet_aton([self.address UTF8String], &amp;sin_other.sin_addr)
+</code></pre>
+
+<p>用 <code>={}</code> 来初始化结构体总体来说是一个最佳实践，可以不用考虑你使用什么结构，因为它确保一切开始时为零的。否则这些值无论在堆栈上的任何情况下都将是不确定的，我们会很容易碰到奇怪而又少见的 bug。</p>
+
+<p>接下来，我们要给 <code>sockaddr_in</code> 赋值，并且指定 <code>sin_len</code> 来让其可用，这样允许多个地址，<code>sin_family</code> 就是地址类型的一种。有一种一长串的地址协议簇，当我们通过 internet 连接时候，总是用 <a href="https://en.wikipedia.org/wiki/Ipv4">IPv4</a> 的 <code>AF_INET</code> 或者<a href="https://en.wikipedia.org/wiki/Ipv6">IPv6</a> 的 <code>AF_INET6</code>，然后我们设置端口和 <code>IP</code> 地址。</p>
+
+<p>在我们这边，我们指定端口为 0，并且地址是 <code>INADDR_ANY</code>，0 端口意思是一个随机的端口将会分配给我们的设备。 <code>INADDR_ANY</code> 则可以导入传送路由数据包到另一端的地址（无人机）。</p>
+
+<p>无人机的地址指定为 <code>inet_aton(3)</code>, 它将转换 C 字符串 192.168.1.1 成相应的四字节 0xc0, 0xa2, 0x1, 0x1 - 作为无人机的IP地址。注意我们我们对地址和端口号调用了 <code>htons(3)</code> 和 <code>htonl(3)</code>。htons 是 host-to-network-short 的缩写，htonl 是 host-to-network-long 的缩写。 大多数数据网络 (包括 IP) 是<a href="https://en.wikipedia.org/wiki/Endianness">字节序</a>是使用大端序 (big-endian)。为了确保数据按照正确的字节序发送我们需要调用这两个功能。</p>
+
+<p>现在我们绑定 socket 到我们的 socket 地址。</p>
+
+<pre><code>int r2 = bind(nativeSocket, (struct sockaddr *) &amp;sin_me, sizeof(sin_me));
+</code></pre>
+
+<p>最后,我们通过下面的 socket 连到另一端 socket 地址:</p>
+
+<pre><code>int r3 = connect(nativeSocket, (struct sockaddr *) &amp;sin_other, sizeof(sin_other));
+</code></pre>
+
+<p>最后一步是可选的，在每次发送数据包的时候我们也可以指定目的地址。</p>
+
+<p>在我们示例代码中，这是在 <code>-[DatagramSocket configureIPv4WithError:]</code> 方法中实现的，这个方法同时还进行了一些错误处理的操作。</p>
+
+<h2>发送数据</h2>
+
+<p>当我们有一个可用的 socket 时，发送数据就很简单了。比如我们要发送一个叫做 <code>data</code> 的 <code>NSData</code> 对象时，我们需要调用：</p>
+
+<pre><code>ssize_t const result = sendto(nativeSocket, [data bytes], data.length, 0, NULL, 0);
+if (result &lt; 0) {
+    NSLog(@"sendto() failed: %s (%d)", strerror(errno), errno);
+} else if (result != data.length) {
+    NSLog(@"sendto() failed to send all bytes. Sent %ld of %lu bytes.", result, (unsigned long) data.length);
+}
+</code></pre>
+
+<p>注意，<a href="https://en.wikipedia.org/wiki/User_Datagram_Protocol">UDP</a> 从设计的上就是不可靠的，一旦调用 <code>sendto(2)</code>，接下来网上数据传输过程就不是我们可以控制的了。</p>
+
+<h2>接收数据</h2>
+
+<p>接收数据的核心非常简单，这个方法叫做 <code>recvfrom(2)</code>， 包括两个参数，第一个是 <code>sin_other</code> 指定了我们希望接受的数据的发送方，第二个参数是指向一个缓冲区的指针，的数据将被写入其中。如果成功，这个方法返回读取的字节数：</p>
+
+<pre><code>NSMutableData *data  = [NSMutableData dataWithLength:65535];
+ssize_t count = recvfrom(nativeSocket, [data mutableBytes], [data length], 0, (struct sockaddr *) &amp;sin_other, &amp;length);
+if (count &lt; 0) {
+    NSLog(@"recvfrom() failed: %s (%d)", strerror(errno), errno);
+    data = nil;
+} else {
+    data.length = count;
+}
+</code></pre>
+
+<p>一个值得注意的事情， <code>recvfrom(2)</code> 是一个阻塞方法，线程一旦调用这个方法，则会等待直到数据全部读完。正常情况下这都不是我们想要的。运用 <a href="https://developer.apple.com/library/ios/documentation/Performance/Reference/GCD_libdispatch_Ref">GCD</a>，我们可以设置一个事件源，每当 socket 有要读取的数据它都能进行初始化。对于读取来自 socket 的数据来说这是一个推荐的做法。</p>
+
+<p>在我们的例子中，<code>DatagramSocket</code> 类运用了这个方法来设置事件源：</p>
+
+<pre><code>- (void)createReadSource
+{
+    self.readEventSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_READ, self.nativeSocket, 0, self.readEventQueue);
+    __weak DatagramSocket *weakSelf = self;
+    dispatch_source_set_event_handler(self.readEventSource, ^{
+        [weakSelf socketHasBytesAvailable];
+    });
+    dispatch_resume(self.readEventSource);
+}
+</code></pre>
+
+<p>数据源开始时处于暂停状态，这就是为什么我们必须使用 <code>dispatch_resume(3)</code>。 否则，将不会有事件传到数据源，<code>-socketHasBytesAvailable</code> 之后会对 <code>recvfrom(2)</code> 进行调用。</p>
+
+<h2>默认值</h2>
+
+<p>为了避免一个小问题，我们要重写 <code>nativeSocket</code> 的属性方法。</p>
+
+<pre><code>@property (nonatomic) int nativeSocket;
+</code></pre>
+
+<p>这样来实现</p>
+
+<pre><code>@synthesize nativeSocket = _nativeSocket;
+- (void)setNativeSocket:(int)nativeSocket;
+{
+    _nativeSocket = nativeSocket + 1;
+}
+
+- (int)nativeSocket
+{
+    return _nativeSocket - 1;
+}
+</code></pre>
+
+<p>我们从内部的实例变量里减 1，首先因为 Objective-C 运行时保证在调用 <code>-alloc</code> 后所有实例变量初始值 0。其次，socket 只要为非负就被认为是有效的，比如大于 0 的均为有效的 socket 数字。</p>
+
+<p>通过这样的偏移，即使 <code>-init</code> 没有被调用，我们仍然可以安全地检查 socket 值是否已经被设定。</p>
+
+<h2>整合在一起</h2>
+
+<p>在 <a href="https://github.com/objcio/issue-8-quadcopter-navigator/blob/master/DatagramSocket.m">DatagramSocket 类</a> 中我们封装了所有低级的 UDP socket 的工作。DroneCommunicator 类用来和无人机的<em>导航数据端口 5554</em> 和 <em>AT 指令集端口 5556</em> 的通讯，就像这样：</p>
+
+<pre><code>NSError *error = nil;
+self.commandSocket = [DatagramSocket ipv4socketWithAddress:DroneAddress
+                                                      port:ATCommandPort
+                                           receiveDelegate:self
+                                              receiveQueue:[NSOperationQueue mainQueue]
+                                                     error:&amp;error];
+
+self.navigationDataSocket = [DatagramSocket ipv4socketWithAddress:DroneAddress
+                                                             port:NavigationDataPort
+                                                  receiveDelegate:self
+                                                     receiveQueue:[NSOperationQueue mainQueue]
+                                                            error:&amp;error];
+</code></pre>
+
+<p>委托方法基于 socket 实现</p>
+
+<pre><code>- (void)datagramSocket:(DatagramSocket *)datagramSocket didReceiveData:(NSData *)data;
+{
+    if (datagramSocket == self.navigationDataSocket) {
+        [self didReceiveNavigationData:data];
+    } else if (datagramSocket == self.commandSocket) {
+        [self didReceiveCommandResponseData:data];
+    }
+}
+</code></pre>
+
+<p>在我们的示例 app 里需要处理的只有导航数据，它被 <code>DroneNavigationState</code> 处理：</p>
+
+<pre><code>- (void)didReceiveNavigationData:(NSData *)data;
+{
+    DroneNavigationState *state = [DroneNavigationState stateFromNavigationData:data];
+    if (state != nil) {
+        self.navigationState = state;
+    }
+}
+</code></pre>
+
+<h2>发送命令</h2>
+
+<p>当 UDP socket 创建并运行后，发送的命令相对来说很很直接了。所谓的命令端口接受可以纯 ASCII 命令， 看起来就像这样：</p>
+
+<pre><code>AT*CONFIG=1,"general:navdata_demo","FALSE"
+AT*CONFIG=2,"control:altitude_max","1600"
+AT*CONFIG=3,"control:flying_mode","1000"
+AT*COMWDG=4
+AT*FTRIM=5
+</code></pre>
+
+<p><a href="https://projects.ardrone.org/projects/show/ardrone-api">AR Drone SDK</a> 包含了一个叫做 <em>ARDrone Developer Guide</em> 的 PDF 文档，里面详细介绍了所有的AT指令集。</p>
+
+<p>我们在 <code>DroneCommunicator</code> 类中创造了一系列 helper 方法，使上述可以被发送：</p>
+
+<pre><code>[self setConfigurationKey:@"general:navdata_demo" toString:@"FALSE"];
+[self setConfigurationKey:@"control:altitude_max" toString:@"1600"];
+[self setConfigurationKey:@"control:flying_mode" toString:@"1000"];
+[self sendCommand:@"COMWDG" arguments:nil];
+[self sendCommand:@"FTRIM" arguments:nil];
+</code></pre>
+
+<p>所有的无人机指令以 AT* 开头，跟着加上指令名以及 =，然后是被逗号隔开的参数，第一个参数是命令的序列号。</p>
+
+<p>为了方便使用，这里我们创建了一个叫做 <code>-sendCommand:arguments:</code> 的方法，它会在索引的开始 (index 0) 的地方插入命令序列号</p>
+
+<pre><code>- (int)sendCommand:(NSString *)command arguments:(NSArray *)arguments;
+{
+    NSMutableArray *args2 = [NSMutableArray arrayWithArray:arguments];
+    self.commandSequence++;
+    NSString *seq = [NSString stringWithFormat:@"%d", self.commandSequence];
+    [args2 insertObject:seq atIndex:0];
+    [self sendCommandWithoutSequenceNumber:command arguments:args2];
+    return self.commandSequence;
+}
+</code></pre>
+
+<p>这里调用了 <code>-sendCommandWithoutSequenceNumber:arguments:</code>，这个方法加上了 AT* 前缀并且将命令和参数串接起来：</p>
+
+<pre><code>- (void)sendCommandWithoutSequenceNumber:(NSString *)command arguments:(NSArray *)arguments;
+{
+    NSMutableString *atString = [NSMutableString stringWithString:@"AT*"];
+    [atString appendString:command];
+    NSArray* processedArgs = [arguments valueForKey:@"description"];
+    if (0 &lt; arguments.count) {
+        [atString appendString:@"="];
+        [atString appendString:[processedArgs componentsJoinedByString:@","]];
+    }
+    [atString appendString:@"\r"];
+    [self sendString:atString];
+}
+</code></pre>
+
+<p>最后，将完成的字符串转换为 NSData 并且传给 socket：</p>
+
+<pre><code>- (void)sendString:(NSString*)string
+{
+    NSData *data = [string dataUsingEncoding:NSASCIIStringEncoding];
+    if (data != nil) {
+        [self.commandSocket asynchronouslySendData:data];
+    } else {
+        NSLog(@"Unable to convert string to ASCII: %@", string);
+    }
+}
+</code></pre>
+
+<h2>浮点字符串编码</h2>
+
+<p>因为一些奇怪的原因，设计无人机协议的人规定了浮点值应当作为具有相同位模式的整数来发送。这确实蛮奇怪的，但我们只能遵守协议。</p>
+
+<p>比如说我们需要让无人机的前进的相对速度是 0.5，浮点数 0.5 在二进制看起来是：</p>
+
+<pre><code>0011 1111 0000 0000 0000 0000 0000 0000
+</code></pre>
+
+<p>我们在 32 位整形中重新解释这个数的话，它是 1056964608，所以我们发送到无人机的命令是：</p>
+
+<pre><code>AT*PCMD=6,1,0,1056964608,0,0 
+</code></pre>
+
+<p>在我们的例子中，我们用一个 <code>NSNumber</code> 的封装来完成，这个代码最终看起来像：</p>
+
+<pre><code>NSNumber *number = (id) self.flightState[i];
+union {
+    float f;
+    int i;
+} u;
+u.f = number.floatValue;
+[result addObject:@(u.i)];
+</code></pre>
+
+<p>这里的技巧是使用 union - C 语言的一个鲜为人知的部分。union 允许多个不同的类型（在这种情况下，是整数和浮点型）驻留在同一存储区域。然后，我们将浮点值存储到 u.f 并从 u.i 读取整数值。</p>
+
+<p>注意：使用像 <code>int i = *((int *) &amp;f)</code> 这样的代码是不合法的，这不是正确的 C 代码，并且会导致未定义的行为。生成的代码有时会工作，但有时候不会。所以不要做无谓的尝试。你可以通过多阅读 <a href="http://blog.llvm.org/2011/05/what-every-c-programmer-should-know.html">llvm 博客</a>中 <em>Violating Type Rules</em> 下的文章来了解更多。悲剧的是 <em>AR Drone Developer Guide</em> 就是把这里弄错了。</p>
+
+<hr />
+
+<p><a href="http://objccn.io/issue-8">话题 #8 下的更多文章</a></p>
+
+<p>原文 <a href="http://www.objc.io/issue-8/communicating-with-the-quadcopter.html">Communicating with the Quadcopter</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Issue 8 3 Weekwood]]></title>
+    <link href="http://weekwood.github.com/2014/04/06/issue-8-3-weekwood/"/>
+    <updated>2014-04-06T00:00:00+08:00</updated>
+    <id>http://weekwood.github.com/2014/04/06/issue-8-3-weekwood</id>
+    <content type="html"><![CDATA[<p>在这篇文章中，我们将把前面提到过的内容组织起来构成我们的导航器应用，这个 iPhone 应用将装载在我们的的无人机上，你可以在 <a href="https://github.com/objcio/issue-8-quadcopter-navigator">Github</a> 下载应用的源码，尽管这个应用是计划在没有直接的交互操作下来使用的，但在测试过程中我们做了一个简单的 UI 界面来显示其无人机状态并方便我们手动操作。</p>
+
+<h2>概要</h2>
+
+<p>在我们的应用中，我们有几个类它们分别是:</p>
+
+<ul>
+<li><p><code>DroneCommunicator</code> 这个类关注于利用 UDP 和无人机通讯。这个话题全部在 <a href="http://objccn.io/issue-8-2">Daniel 的文章</a>中详细介绍过</p></li>
+<li><p><code>RemoteClient</code> 使用 <a href="https://developer.apple.com/library/ios/documentation/MultipeerConnectivity/Reference/MultipeerConnectivityFramework/_index.html">Multipeer Connectivity</a> 技术和我们的远程客户端进行交互，具体客户端的操作，请看 <a href="http://objccn.io/issue-8-4">Florian 的文章</a>。</p></li>
+<li><code>Navigator</code> 用来设定目标位置，计算飞行航线，以及飞行距离。</li>
+<li><code>DroneController</code> 用来把从 <code>Navigator</code> 获取的导航的距离和方向发送命令到<code>DroneCommunicator</code>。</li>
+<li><code>ViewController</code> 有一个简单的界面，用来初始化其他的类并把它们连接起来，这部分应该用不同的类来完成，但是在我们的设想中，我们的app足够简单所以放到一个类就可以了。</li>
+</ul>
+
+
+<h2>View Controller</h2>
+
+<p>View Controller 中最重要的一个部分是初始化方法，在这里我们创建了 <code>DroneCommunicator</code>， <code>Navigator</code>， <code>DroneController</code> 以及<code>RemoteClient</code> 的实例化对象，换句话说：我们建立了无人机和我们的客户端应用沟通的整个桥梁。</p>
+
+<pre><code>- (void)setup
+{
+    self.communicator = [[DroneCommunicator alloc] init];
+    [self.communicator setupDefaults];
+
+    self.navigator = [[Navigator alloc] init];
+    self.droneController = [[DroneController alloc] initWithCommunicator:self.communicator navigator:self.navigator];
+    self.droneController.delegate = self;
+    self.remoteClient = [[RemoteClient alloc] init];
+    [self.remoteClient startBrowsing];
+    self.remoteClient.delegate = self;
+}
+</code></pre>
+
+<p>View Controller 同时是 <code>RemoteClient</code> 的委托。 这就说明无论我们的客户端发送了一个新位置或者着陆，重置以及关机的命令，我们都需要在这里处理它。举个例子，当我们收到一个新的位置的命令的时候，我们这样来做:</p>
+
+<pre><code>- (void)remoteClient:(RemoteClient *)client didReceiveTargetLocation:(CLLocation *)location
+    {
+        self.droneController.droneActivity = DroneActivityFlyToTarget;
+        self.navigator.targetLocation = location;
+    }
+</code></pre>
+
+<p>这段代码是用来确保无人机开始飞行（而不是徘徊）并且更新目标位置。</p>
+
+<h2>Navigator</h2>
+
+<p>导航类用来指定目标位置，并且计算从当前位置到目标位置的距离，为了完成整个工作我们首先需要监听 core location 的改变：</p>
+
+<pre><code>- (void)startCoreLocation
+{
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+
+    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
+    [self.locationManager startUpdatingLocation];
+    [self.locationManager startUpdatingHeading];
+}
+</code></pre>
+
+<p>在我们的导航类中，我们有两种方向，绝对和相对方向，绝对方向是两个地点之间的方向。比如说，阿姆斯特丹和柏林间的绝对方向几乎处于同一纬度，相对位置则是我们在参考指南针后可以得出的路线方向，要从阿姆斯特丹一直向东到柏林，两地之间的相对方向为零。在操作无人机的时候我们就需要使用相对方向。方向值为零，飞机直行；方向角度小于零，飞机向右倾斜转弯；方向角度大于零，飞机则向左倾斜转弯。</p>
+
+<p>计算到目的地的绝对方向，我们需要创建一个基于 <code>CLLocation</code> 的Helper方法用来计算两个点的方向:</p>
+
+<pre><code>- (OBJDirection *)directionToLocation:(CLLocation *)otherLocation;
+{
+    return [[OBJDirection alloc] initWithFromLocation:self toLocation:otherLocation];
+}
+</code></pre>
+
+<p>由于我们的无人机只能飞很小的距离（电池只能支持10分钟），所以我们需要一个几何的假设，我们是在一个平面而不是在地球表面:</p>
+
+<pre><code>- (double)heading;
+{
+    double y = self.toLocation.coordinate.longitude - self.fromLocation.coordinate.longitude;
+    double x = self.toLocation.coordinate.latitude - self.fromLocation.coordinate.latitude;
+
+    double degree = radiansToDegrees(atan2(y, x));
+    return fmod(degree + 360., 360.);
+}
+</code></pre>
+
+<p>在导航器中，我们将得到位置和航向的回调，然后我们把这两个值存到属性中，比如，计算我们需要飞行的两点之间的距离，我们需要将绝对航向减去当前航向（这与你看到指南针上的值是一样的意思），然后将结果换算到 -180 度和 180  度之间。如果你希望知道为什么我们要减去 90 度，那是因为我们 iPhone 和无人机之间有 90 度的夹角。</p>
+
+<pre><code>- (CLLocationDirection)directionDifferenceToTarget;
+{
+    CLLocationDirection result = (self.direction.heading - self.lastKnownSelfHeading.trueHeading - 90);
+    // Make sure the result is in the range -180 -&gt; 180
+    result = fmod(result + 180. + 360., 360.) - 180.;
+    return result;
+}
+</code></pre>
+
+<p>这就是我们导航做的事情。基于当前的位置和航向，计算出到目标的距离和无人机应当飞行的方向。并且监听这两个属性。</p>
+
+<h2>Drone Controller</h2>
+
+<p>Drone controller 用来初始化 navigator 和 communicator，并且发送距离和方向的命令到无人机，因为命令需要持续发送，所以我们创建一个计时器：</p>
+
+<pre><code>self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:0.25
+                                                    target:self
+                                                  selector:@selector(updateTimerFired:)
+                                                  userInfo:nil
+                                                   repeats:YES];
+</code></pre>
+
+<p>当计时器触发后，假设我们飞向一个目标，我们需要发送给无人机适当的指令，如果我们足够近，无人机盘旋，否则，我们转向目标，在大致方向正确的情况下飞过去！</p>
+
+<pre><code>- (void)updateDroneCommands;
+{
+    if (self.navigator.distanceToTarget &lt; 1) {
+        self.droneActivity = DroneActivityHover;
+    } else {
+        static double const rotationSpeedScale = 0.01;
+        self.communicator.rotationSpeed = self.navigator.directionDifferenceToTarget * rotationSpeedScale;
+        BOOL roughlyInRightDirection = fabs(self.navigator.directionDifferenceToTarget) &lt; 45.;
+        self.communicator.forwardSpeed = roughlyInRightDirection ? 0.2 : 0;
+    }
+}
+</code></pre>
+
+<h2>Remote Client</h2>
+
+<p>Remote Client 类关注于和我们的<a href="http://objccn.io/issue-8-4">客户端通讯</a>，我们利用了一个很方便 <a href="https://developer.apple.com/library/ios/documentation/MultipeerConnectivity/Reference/MultipeerConnectivityFramework/_index.html">Multipeer Connectivity 框架</a>。首先，我们需要和附近的创建一个会话以及 <code>MCNearbyServiceBrowser</code> :</p>
+
+<pre><code>- (void)startBrowsing
+{
+    MCPeerID* peerId = [[MCPeerID alloc] initWithDisplayName:@"Drone"];
+
+    self.browser = [[MCNearbyServiceBrowser alloc] initWithPeer:peerId serviceType:@"loc-broadcaster"];
+    self.browser.delegate = self;
+    [self.browser startBrowsingForPeers];
+
+    self.session = [[MCSession alloc] initWithPeer:peerId];
+    self.session.delegate = self;
+}
+</code></pre>
+
+<p>在我们的项目中，我们不需要处理单独设备的安全问题，因为我们总是邀请所有的对等网络的设备。</p>
+
+<pre><code>- (void)browser:(MCNearbyServiceBrowser *)browser foundPeer:(MCPeerID *)peerID withDiscoveryInfo:(NSDictionary *)info
+{
+    [browser invitePeer:peerID toSession:self.session withContext:nil timeout:0];
+}
+</code></pre>
+
+<p>我们需要加入 <code>MCNearbyServiceBrowserDelegate</code> 和 <code>MCSessionDelegate</code> 全部的协议方法，否则这个应用将会崩溃。唯一一个方法我们需要实现的是 <code>session:didReceiveData:fromPeer:</code> 。我们解析对等客户端发送来的命令并且调用合适的委托方法，在我们简易的应用中，View Controller 实现了这些委托，当我们接收到了新的位置我们更新导航，并且让无人机飞向新的位置。</p>
+
+<h2>总结</h2>
+
+<p>这篇文章描述了这个简易的 app ，最初我们把所有的委托和代码都加入到了 View Controller 中，这是被证明最简单的编码和测试方式，其实写代码是一个容易的事情，但是阅读代码非常困难。因此我们需要重构所有的代码让其合理的分配到不同类中。</p>
+
+<p>硬件方面的工作，测试非常的耗时，比如，在我们的 quadcopter 项目中，需要一段时间来启动设备，发送命令，并让它飞起来。因此我们尽可能多在离线状况下测试。我们还添加了大量的的日志语句，这样我们调试起来更加方便。</p>
+
+<p><a href="http://objccn.io/issue-8">话题 #8 下的更多文章</a></p>
+
+<p>原文 <a href="http://www.objc.io/issue-8/the-quadcopter-navigator-app.html">The Navigator App</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[7 tips for a Node.js padawan]]></title>
