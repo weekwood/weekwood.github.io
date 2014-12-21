@@ -4,7 +4,7 @@
   <title><![CDATA[Di Wu's blog]]></title>
   <link href="http://weekwood.github.com/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2014-07-02T10:00:10+09:00</updated>
+  <updated>2014-12-21T14:16:41+08:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
     <name><![CDATA[Di Wu]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[objc.io #issue 13 使用 VIPER 构建 iOS 应用]]></title>
     <link href="http://weekwood.github.com/2014/07/02/issue-13-5-weekwood/"/>
-    <updated>2014-07-02T09:56:00+09:00</updated>
+    <updated>2014-07-02T09:56:00+08:00</updated>
     <id>http://weekwood.github.com/2014/07/02/issue-13-5-weekwood</id>
     <content type="html"><![CDATA[<p>建筑领域流行这样一句话，“我们虽然在营造建筑，但建筑也会重新塑造我们”。正如所有开发者最终领悟到的，这句话同样适用于构建软件。</p>
 
@@ -579,7 +579,7 @@ func == (leftSide: UpcomingDisplayItem, rightSide: UpcomingDisplayItem) -&gt; Bo
   <entry>
     <title type="html"><![CDATA[2014-04-12-issue-10-2-weekwood]]></title>
     <link href="http://weekwood.github.com/2014/06/03/issue-10-2-weekwood/"/>
-    <updated>2014-06-03T12:27:00+09:00</updated>
+    <updated>2014-06-03T12:27:00+08:00</updated>
     <id>http://weekwood.github.com/2014/06/03/issue-10-2-weekwood</id>
     <content type="html"><![CDATA[<p>当乔布斯第一次在苹果全球开发大会上介绍 <a href="http://en.wikipedia.org/wiki/ICloud">iCloud</a> 的时候，他将无缝同步的功能描述的太过完美，以至于让人怀疑其是否真的能实现。但当你在 <a href="http://adcdownload.apple.com//videos/wwdc_2011__hd/session_303__whats_new_in_core_data_on_ios.m4v">iOS 5</a> 和 <a href="http://adcdownload.apple.com//videos/wwdc_2012__hd/session_227__using_icloud_with_core_data.mov">iOS 6</a> 系统中尝试使用 iCloud <a href="http://www.objc.io/issue-4/core-data-overview.html">Core Data</a> 同步的时候你会对其真实情况了如指掌。</p>
 
@@ -816,7 +816,7 @@ func == (leftSide: UpcomingDisplayItem, rightSide: UpcomingDisplayItem) -&gt; Bo
   <entry>
     <title type="html"><![CDATA[objc.o #issue 12 Collection View 动画]]></title>
     <link href="http://weekwood.github.com/2014/05/27/issue-12-5-weekwood/"/>
-    <updated>2014-05-27T09:56:00+09:00</updated>
+    <updated>2014-05-27T09:56:00+08:00</updated>
     <id>http://weekwood.github.com/2014/05/27/issue-12-5-weekwood</id>
     <content type="html"><![CDATA[<p><code>UICollectionView</code> 和相关类的设置非常灵活和强大。但是灵活性一旦增强，某种程度上也增加了其复杂性： <code>UICollectionView</code> 比老式的 <code>UITableView</code> 更有深度，适用性也更强。</p>
 
@@ -1144,7 +1144,7 @@ func == (leftSide: UpcomingDisplayItem, rightSide: UpcomingDisplayItem) -&gt; Bo
   <entry>
     <title type="html"><![CDATA[objc.io #issue8 导航应用[翻译]]]></title>
     <link href="http://weekwood.github.com/2014/05/10/issue-8-3-weekwood/"/>
-    <updated>2014-05-10T09:56:00+09:00</updated>
+    <updated>2014-05-10T09:56:00+08:00</updated>
     <id>http://weekwood.github.com/2014/05/10/issue-8-3-weekwood</id>
     <content type="html"><![CDATA[<p>在这篇文章中，我们将把前面提到过的内容组织起来构成我们的导航器应用，这个 iPhone 应用将装载在我们的的无人机上，你可以在 <a href="https://github.com/objcio/issue-8-quadcopter-navigator">Github</a> 下载应用的源码，尽管这个应用是计划在没有直接的交互操作下来使用的，但在测试过程中我们做了一个简单的 UI 界面来显示其无人机状态并方便我们手动操作。</p>
 
@@ -1309,7 +1309,7 @@ func == (leftSide: UpcomingDisplayItem, rightSide: UpcomingDisplayItem) -&gt; Bo
   <entry>
     <title type="html"><![CDATA[objc.io #issue 8 与四轴无人机的通讯[翻译]]]></title>
     <link href="http://weekwood.github.com/2014/05/10/issue-8-2-weekwood/"/>
-    <updated>2014-05-10T09:56:00+09:00</updated>
+    <updated>2014-05-10T09:56:00+08:00</updated>
     <id>http://weekwood.github.com/2014/05/10/issue-8-2-weekwood</id>
     <content type="html"><![CDATA[<p><a href="http://ardrone2.parrot.com/">AR Drone</a> <a href="https://en.wikipedia.org/wiki/Quadcopter">无人机</a>是一台小型的 Linux，当我们加入它提供的 WiFi 热点的时候，我们就可以通过 192.168.1.1 来访问无人机。</p>
 
@@ -1609,7 +1609,7 @@ u.f = number.floatValue;
   <entry>
     <title type="html"><![CDATA[7 tips for a Node.js padawan]]></title>
     <link href="http://weekwood.github.com/2013/09/24/7-tips-for-a-node-dot-js-padawan/"/>
-    <updated>2013-09-24T14:52:00+09:00</updated>
+    <updated>2013-09-24T14:52:00+08:00</updated>
     <id>http://weekwood.github.com/2013/09/24/7-tips-for-a-node-dot-js-padawan</id>
     <content type="html"><![CDATA[<h2>一些我更愿意在开始就知道东西</h2>
 
@@ -1884,7 +1884,7 @@ u.f = number.floatValue;
   <entry>
     <title type="html"><![CDATA[iOS7 兼容适配]]></title>
     <link href="http://weekwood.github.com/2013/09/23/ios7jie-mian-guo-du/"/>
-    <updated>2013-09-23T22:18:00+09:00</updated>
+    <updated>2013-09-23T22:18:00+08:00</updated>
     <id>http://weekwood.github.com/2013/09/23/ios7jie-mian-guo-du</id>
     <content type="html"><![CDATA[<h3>如何判断版本号</h3>
 
@@ -2133,7 +2133,7 @@ u.f = number.floatValue;
   <entry>
     <title type="html"><![CDATA[Objective-c Code Review]]></title>
     <link href="http://weekwood.github.com/2013/08/11/objective-c-code-review/"/>
-    <updated>2013-08-11T12:14:00+09:00</updated>
+    <updated>2013-08-11T12:14:00+08:00</updated>
     <id>http://weekwood.github.com/2013/08/11/objective-c-code-review</id>
     <content type="html"><![CDATA[<h3>参考资料</h3>
 
@@ -2144,7 +2144,7 @@ u.f = number.floatValue;
   <entry>
     <title type="html"><![CDATA[Octopress Can not create new post on zsh]]></title>
     <link href="http://weekwood.github.com/2013/08/10/octopress-can-not-create-new-post-on-zsh/"/>
-    <updated>2013-08-10T13:25:00+09:00</updated>
+    <updated>2013-08-10T13:25:00+08:00</updated>
     <id>http://weekwood.github.com/2013/08/10/octopress-can-not-create-new-post-on-zsh</id>
     <content type="html"><![CDATA[<p>执行：$ rake new_post[&#8220;arch-linux-reinstall-glibc.markdown&#8221;]</p>
 
@@ -2161,7 +2161,7 @@ u.f = number.floatValue;
   <entry>
     <title type="html"><![CDATA[XcodeIncrement build number]]></title>
     <link href="http://weekwood.github.com/2013/08/10/xcodeincrement-build-number/"/>
-    <updated>2013-08-10T12:12:00+09:00</updated>
+    <updated>2013-08-10T12:12:00+08:00</updated>
     <id>http://weekwood.github.com/2013/08/10/xcodeincrement-build-number</id>
     <content type="html"><![CDATA[
 
@@ -2208,7 +2208,7 @@ u.f = number.floatValue;
   <entry>
     <title type="html"><![CDATA['Hello Ruby 2 -- Ruby 2.0安装']]></title>
     <link href="http://weekwood.github.com/2013/03/13/hello-ruby-2/"/>
-    <updated>2013-03-13T17:00:00+09:00</updated>
+    <updated>2013-03-13T17:00:00+08:00</updated>
     <id>http://weekwood.github.com/2013/03/13/hello-ruby-2</id>
     <content type="html"><![CDATA[<p>更新博客才发现因为换了硬盘的关系 <a href="http://octopress.org/">octopress</a> 不能使用了所以顺手更新下Ruby 2.0</p>
 
@@ -2258,7 +2258,7 @@ u.f = number.floatValue;
   <entry>
     <title type="html"><![CDATA[Xcode shortcuts]]></title>
     <link href="http://weekwood.github.com/2013/03/05/xcode-shortcuts/"/>
-    <updated>2013-03-05T23:00:00+09:00</updated>
+    <updated>2013-03-05T23:00:00+08:00</updated>
     <id>http://weekwood.github.com/2013/03/05/xcode-shortcuts</id>
     <content type="html"><![CDATA[<p>换了机械键盘在享受打字快感的时候,也面临着难以控制触摸板的烦恼,也就是我整理快捷键的初衷.
 善用快捷键是提升效率的有效方式.</p>
@@ -2329,7 +2329,7 @@ u.f = number.floatValue;
   <entry>
     <title type="html"><![CDATA[mobile site with nginx]]></title>
     <link href="http://weekwood.github.com/2013/01/29/mobile-site-with-nginx/"/>
-    <updated>2013-01-29T23:57:00+09:00</updated>
+    <updated>2013-01-29T23:57:00+08:00</updated>
     <id>http://weekwood.github.com/2013/01/29/mobile-site-with-nginx</id>
     <content type="html"><![CDATA[<p>整理下如何利用nginx让移动终端用户访问mobile site.</p>
 
@@ -2473,7 +2473,7 @@ function eraseCookie(name, domain, path) {
   <entry>
     <title type="html"><![CDATA[一些程序员网站]]></title>
     <link href="http://weekwood.github.com/2013/01/27/yi-xie-cheng-xu-yuan-wang-zhan/"/>
-    <updated>2013-01-27T22:45:00+09:00</updated>
+    <updated>2013-01-27T22:45:00+08:00</updated>
     <id>http://weekwood.github.com/2013/01/27/yi-xie-cheng-xu-yuan-wang-zhan</id>
     <content type="html"><![CDATA[<p>整理了下经常去的一些网站，一些参考吧。</p>
 
@@ -2522,7 +2522,7 @@ function eraseCookie(name, domain, path) {
   <entry>
     <title type="html"><![CDATA[About CocoaPods]]></title>
     <link href="http://weekwood.github.com/2013/01/14/about-cocoapods/"/>
-    <updated>2013-01-14T14:18:00+09:00</updated>
+    <updated>2013-01-14T14:18:00+08:00</updated>
     <id>http://weekwood.github.com/2013/01/14/about-cocoapods</id>
     <content type="html"><![CDATA[<h3>什么是CocoaPods</h3>
 
@@ -2617,7 +2617,7 @@ function eraseCookie(name, domain, path) {
   <entry>
     <title type="html"><![CDATA[Arc+blocks+llvm4 的时代2/3]]></title>
     <link href="http://weekwood.github.com/2013/01/11/arc-plus-blocks-plus-llvm4-de-shi-dai-2-slash-3/"/>
-    <updated>2013-01-11T14:10:00+09:00</updated>
+    <updated>2013-01-11T14:10:00+08:00</updated>
     <id>http://weekwood.github.com/2013/01/11/arc-plus-blocks-plus-llvm4-de-shi-dai-2-slash-3</id>
     <content type="html"><![CDATA[<h1>Object Literals</h1>
 
@@ -2724,7 +2724,7 @@ function eraseCookie(name, domain, path) {
   <entry>
     <title type="html"><![CDATA[API Design 译文]]></title>
     <link href="http://weekwood.github.com/2012/12/30/api-design-yi-wen/"/>
-    <updated>2012-12-30T00:02:00+09:00</updated>
+    <updated>2012-12-30T00:02:00+08:00</updated>
     <id>http://weekwood.github.com/2012/12/30/api-design-yi-wen</id>
     <content type="html"><![CDATA[<p>本文来源于<a href="http://mattgemmell.com/2012/05/24/api-design/">matt gemmell</a>困于自己英语水平问题， 若有错误见谅。</p>
 
@@ -3521,7 +3521,7 @@ MGTileMenu 有5个’required‘ 方法，其中4个数据源方法：</p>
   <entry>
     <title type="html"><![CDATA[arc+blocks+llvm4 的时代1/3]]></title>
     <link href="http://weekwood.github.com/2012/12/24/arc-plus-blocks-plus-llvm4-shi-dai-1/"/>
-    <updated>2012-12-24T14:56:00+09:00</updated>
+    <updated>2012-12-24T14:56:00+08:00</updated>
     <id>http://weekwood.github.com/2012/12/24/arc-plus-blocks-plus-llvm4-shi-dai-1</id>
     <content type="html"><![CDATA[<h1>ARC</h1>
 
@@ -3587,7 +3587,7 @@ MGTileMenu 有5个’required‘ 方法，其中4个数据源方法：</p>
   <entry>
     <title type="html"><![CDATA[Regex to catch @mention #hashtag and link http(s)://]]></title>
     <link href="http://weekwood.github.com/2012/12/23/regex-to-catch-at-mention-number-hashtag-and-link-http-s-slash-slash/"/>
-    <updated>2012-12-23T17:13:00+09:00</updated>
+    <updated>2012-12-23T17:13:00+08:00</updated>
     <id>http://weekwood.github.com/2012/12/23/regex-to-catch-at-mention-number-hashtag-and-link-http-s-slash-slash</id>
     <content type="html"><![CDATA[<p>在做tweet类文本的时候你需要解析以#开头的话题 @开头的昵称 http开头的连接
 以下这个就是一个很好的例子(核心代码：<a href="https://github.com/SebastienThiebaud/STTweetLabel">STTweetLabel</a>)</p>
