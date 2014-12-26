@@ -120,6 +120,9 @@
 
 <p>无人机的通讯采用了 <a href="https://en.wikipedia.org/wiki/User_Datagram_Protocol">UDP 协议</a>，UDP 是至今沿用并占有主导地位的<a href="https://en.wikipedia.org/wiki/Transport_layer">传输层</a>协议之一，而另一个是 TCP 协议。</p>
 
+<!-- more -->
+
+
 <p>我们暂且先聊聊 TCP 协议，或者我们称之为<a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol">传输控制协议</a>，基于它操作和使用起来极其方便，现在几乎所有的网络连接都是通过 TCP 来完成。 使用 TCP 协议的 API 非常直截了当，当你需要从一个设备传输数据到另一个硬件设备的时候，TCP 可以被所有硬件设备支持。使用 TCP 有多简单？一旦建立连接，你把数据写入 socket，另一台设备将从 socket 读取数据，TCP 会确保数据正确的写入并且传输给另一个设备。 许多复杂的细节隐匿其中。TCP 是基于 IP 层之上的，所有低级 IP 数据都不能按照其发送的顺序到达，事实上，甚至有可能永远都等不到它。但是 TCP 隐藏了这个玄机，它在 Unix 管道上建模，TCP 同时也管理着吞吐量；它不断的适应并达到最大的带宽利用率。它似乎确实有着神奇的魔力可以变出三册总页数超过2556页的书来阐述它的魅力。 TCP/IP Illustrated: <a href="http://www.amazon.com/dp/0321336313">The Protocols</a>，<a href="http://www.amazon.com/dp/020163354X">The Implementation</a>, <a href="http://www.amazon.com/dp/0201634953">TCP for Transactions</a>。</p>
 
 <p>UDP，是传输层的另一个重要组成部分，也是一个相对简单的协议，但是使用 UDP 对开发者来说很痛苦，当你通过 UDP 发送数据的时候，无法得知数据是否成功被接收，也不知道数据到达的顺序，同样得不到（在不被带宽变化影响而丢失数据的情况下）我们发送数据可达的最大速度。</p>

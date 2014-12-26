@@ -4,7 +4,7 @@
   <title><![CDATA[Di Wu's blog]]></title>
   <link href="http://weekwood.github.com/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2014-12-24T09:37:46+08:00</updated>
+  <updated>2014-12-26T21:06:01+08:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
     <name><![CDATA[Di Wu]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Bootstrap]]></title>
+    <link href="http://weekwood.github.com/2014/12/26/Bootstrap/"/>
+    <updated>2014-12-26T21:04:00+08:00</updated>
+    <id>http://weekwood.github.com/2014/12/26/Bootstrap</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[objc.io #issue 13 使用 VIPER 构建 iOS 应用]]></title>
@@ -27,6 +36,9 @@
 <p><video style="display:block;max-width:316px;height:auto;border:0;" poster="/issue-13/2014-06-07-viper-screenshot.png" controls="1">
   <source src="http://img.objccn.io//issue-13/2014-06-07-viper-preview.mp4"></source>
 </video></p>
+
+<!-- more -->
+
 
 <h2>什么是 VIPER？</h2>
 
@@ -587,6 +599,9 @@ func == (leftSide: UpcomingDisplayItem, rightSide: UpcomingDisplayItem) -&gt; Bo
 
 <p>2013年初，在苹果公司不透明及充满 bug 的 iCloud Core Data 同步实现中挣扎多年后，开发者终于公开批判了这项服务的重大缺陷并将这个话题推上了<a href="http://arstechnica.com/apple/2013/03/frustrated-with-icloud-apples-developer-community-speaks-up-en-masse/">风口浪尖</a>。 最终被 Ellis Hamburger 在一篇<a href="http://www.theverge.com/2013/3/26/4148628/why-doesnt-icloud-just-work">尖锐文章</a>提出。</p>
 
+<!-- more -->
+
+
 <h2>WWDC</h2>
 
 <p>苹果也注意到了，很明显这些事情必须改变。在 WWDC 2013，<a href="http://about.me/nickgillett">Nick Gillett</a> 宣布 Core Data 团队花了一年时间专注于在 iOS 7 中解决一些 iCloud 最令人挫败的漏洞，承诺大幅改善问题并且让开发者更简单的使用。“我们明显减少了开发者所需要编写的复杂代码的数量。” Nick Gillett在 [“What’s New in Core Data and iCloud”] 舞台上讲到。 在 iOS 7 中，Apple 专注于 iCloud 的速度，可靠性，和性能，事实上这卓有成效。</p>
@@ -821,6 +836,9 @@ func == (leftSide: UpcomingDisplayItem, rightSide: UpcomingDisplayItem) -&gt; Bo
     <content type="html"><![CDATA[<p><code>UICollectionView</code> 和相关类的设置非常灵活和强大。但是灵活性一旦增强，某种程度上也增加了其复杂性： <code>UICollectionView</code> 比老式的 <code>UITableView</code> 更有深度，适用性也更强。</p>
 
 <p>Collection View 深入太多了，事实上，<a href="http://oleb.net">Ole Begeman</a> 和 <a href="https://twitter.com/ashfurrow">Ash Furrow</a> 之前曾在 objc.io 上发表过 <a href="http://objccn.io/issue-3-3/">自定义 Collection View 布局</a> 和 <a href="http://objccn.io/issue-5-2/">UICollectionView + UIKit 力学</a>，但是我依然有一些他们没有提及的内容可以写。在这篇文章中，我假设你已经非常熟悉 <code>UICollectionView</code> 的基本布局，并且至少阅读了苹果精彩的<a href="https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/CollectionViewPGforIOS/Introduction/Introduction.html#//apple_ref/doc/uid/TP40012334">编程指南</a>以及 Ole 之前的<a href="http://objccn.io/issue-3-3/">文章</a>。</p>
+
+<!-- more -->
+
 
 <p>本文的第一部分将集中讨论并举例说明如何用不同的类和方法来共同帮助实现一些常见的 <code>UICollectionView</code> 动画。在第二部分，我们将看一下带有 collection views 的 view controller 转场动画以及在 <code>useLayoutToLayoutNavigationTransitions</code> 可用时使用其进行转场，如果不可用时，我们会实现一个自定义转场动画。</p>
 
@@ -1161,6 +1179,9 @@ func == (leftSide: UpcomingDisplayItem, rightSide: UpcomingDisplayItem) -&gt; Bo
 </ul>
 
 
+<!-- more -->
+
+
 <h2>View Controller</h2>
 
 <p>View Controller 中最重要的一个部分是初始化方法，在这里我们创建了 <code>DroneCommunicator</code>， <code>Navigator</code>， <code>DroneController</code> 以及<code>RemoteClient</code> 的实例化对象，换句话说：我们建立了无人机和我们的客户端应用沟通的整个桥梁。</p>
@@ -1316,6 +1337,9 @@ func == (leftSide: UpcomingDisplayItem, rightSide: UpcomingDisplayItem) -&gt; Bo
 <h2>用户数据报协议（UDP）</h2>
 
 <p>无人机的通讯采用了 <a href="https://en.wikipedia.org/wiki/User_Datagram_Protocol">UDP 协议</a>，UDP 是至今沿用并占有主导地位的<a href="https://en.wikipedia.org/wiki/Transport_layer">传输层</a>协议之一，而另一个是 TCP 协议。</p>
+
+<!-- more -->
+
 
 <p>我们暂且先聊聊 TCP 协议，或者我们称之为<a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol">传输控制协议</a>，基于它操作和使用起来极其方便，现在几乎所有的网络连接都是通过 TCP 来完成。 使用 TCP 协议的 API 非常直截了当，当你需要从一个设备传输数据到另一个硬件设备的时候，TCP 可以被所有硬件设备支持。使用 TCP 有多简单？一旦建立连接，你把数据写入 socket，另一台设备将从 socket 读取数据，TCP 会确保数据正确的写入并且传输给另一个设备。 许多复杂的细节隐匿其中。TCP 是基于 IP 层之上的，所有低级 IP 数据都不能按照其发送的顺序到达，事实上，甚至有可能永远都等不到它。但是 TCP 隐藏了这个玄机，它在 Unix 管道上建模，TCP 同时也管理着吞吐量；它不断的适应并达到最大的带宽利用率。它似乎确实有着神奇的魔力可以变出三册总页数超过2556页的书来阐述它的魅力。 TCP/IP Illustrated: <a href="http://www.amazon.com/dp/0321336313">The Protocols</a>，<a href="http://www.amazon.com/dp/020163354X">The Implementation</a>, <a href="http://www.amazon.com/dp/0201634953">TCP for Transactions</a>。</p>
 
