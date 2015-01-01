@@ -4,7 +4,7 @@
   <title><![CDATA[Di Wu's blog]]></title>
   <link href="http://weekwood.github.com/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2015-01-01T17:47:46+08:00</updated>
+  <updated>2015-01-01T21:31:45+08:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
     <name><![CDATA[Di Wu]]></name>
@@ -18,7 +18,10 @@
     <link href="http://weekwood.github.com/2014/12/26/Bootstrap/"/>
     <updated>2014-12-26T21:04:00+08:00</updated>
     <id>http://weekwood.github.com/2014/12/26/Bootstrap</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<p>准备为2015年制作自己的脚本</p>
+
+<!-- more -->
+
 ]]></content>
   </entry>
   
@@ -33,12 +36,12 @@
 
 <p>在这篇文章中，我们介绍了一种称之为 <a href="http://mutualmobile.github.io/blog/2013/12/04/viper-introduction/">VIPER</a> 的 iOS 应用架构的方式。VIPER 已经在很多大型的项目上成功实践，但是出于本文的目的我们将通过一个待办事项清单 (to-do app) 来介绍 VIPER 。你可以在 <a href="https://github.com/objcio/issue-13-viper">GitHub</a> 上关注这个项目。</p>
 
+<!-- more -->
+
+
 <p><video style="display:block;max-width:316px;height:auto;border:0;" poster="/issue-13/2014-06-07-viper-screenshot.png" controls="1">
   <source src="http://img.objccn.io//issue-13/2014-06-07-viper-preview.mp4"></source>
 </video></p>
-
-<!-- more -->
-
 
 <h2>什么是 VIPER？</h2>
 
