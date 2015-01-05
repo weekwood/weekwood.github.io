@@ -4,7 +4,7 @@
   <title><![CDATA[Di Wu's blog]]></title>
   <link href="http://weekwood.github.com/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2015-01-03T14:15:33+08:00</updated>
+  <updated>2015-01-05T22:18:00+08:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
     <name><![CDATA[Di Wu]]></name>
@@ -94,16 +94,26 @@
 
 <p>以下是来自 VTDListInteractor 的对应方法：</p>
 
-<pre><code>- (void)findUpcomingItems
-{
-    __weak typeof(self) welf = self;
-    NSDate* today = [self.clock today];
-    NSDate* endOfNextWeek = [[NSCalendar currentCalendar] dateForEndOfFollowingWeekWithDate:today];
-    [self.dataManager todoItemsBetweenStartDate:today endDate:endOfNextWeek completionBlock:^(NSArray* todoItems) {
-        [welf.output foundUpcomingItems:[welf upcomingItemsFromToDoItems:todoItems]];
-    }];
-}
-</code></pre>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">findUpcomingItems</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">__weak</span> <span class="n">typeof</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="n">welf</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">NSDate</span><span class="o">*</span> <span class="n">today</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">clock</span> <span class="n">today</span><span class="p">];</span>
+</span><span class='line'>        <span class="n">NSDate</span><span class="o">*</span> <span class="n">endOfNextWeek</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSCalendar</span> <span class="n">currentCalendar</span><span class="p">]</span> <span class="nl">dateForEndOfFollowingWeekWithDate:</span><span class="n">today</span><span class="p">];</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">dataManager</span> <span class="nl">todoItemsBetweenStartDate:</span><span class="n">today</span> <span class="nl">endDate:</span><span class="n">endOfNextWeek</span> <span class="nl">completionBlock:</span><span class="o">^</span><span class="p">(</span><span class="n">NSArray</span><span class="o">*</span> <span class="n">todoItems</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="p">[</span><span class="n">welf</span><span class="p">.</span><span class="n">output</span> <span class="nl">foundUpcomingItems:</span><span class="p">[</span><span class="n">welf</span> <span class="nl">upcomingItemsFromToDoItems:</span><span class="n">todoItems</span><span class="p">]];</span>
+</span><span class='line'>        <span class="p">}];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <h3>实体</h3>
 
@@ -113,15 +123,24 @@
 
 <p>这里是我们的待办事项服务的实体：</p>
 
-<pre><code>@interface VTDTodoItem : NSObject
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'>    <span class="k">@interface</span> <span class="nc">VTDTodoItem</span> : <span class="nc">NSObject</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">)</span>   <span class="n">NSDate</span><span class="o">*</span>     <span class="n">dueDate</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">copy</span><span class="p">)</span>     <span class="n">NSString</span><span class="o">*</span>   <span class="n">name</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">+</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nl">todoItemWithDueDate:</span><span class="p">(</span><span class="n">NSDate</span><span class="o">*</span><span class="p">)</span><span class="n">dueDate</span> <span class="nl">name:</span><span class="p">(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="n">name</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
 
-@property (nonatomic, strong)   NSDate*     dueDate;
-@property (nonatomic, copy)     NSString*   name;
-
-+ (instancetype)todoItemWithDueDate:(NSDate*)dueDate name:(NSString*)name;
-
-@end
-</code></pre>
 
 <p>不要诧异于你的实体仅仅是数据结构，任何依赖于应用的逻辑都应该放到交互器中。</p>
 
@@ -131,28 +150,45 @@
 
 <p>当用户点击 “+” 键新建待办事项时，<code>addNewEntry</code> 被调用。对于此项操作，展示器会要求 <code>wireframe</code> 显示用户界面以增加新项目：</p>
 
-<pre><code>- (void)addNewEntry
-{
-    [self.listWireframe presentAddInterface];
-}
-</code></pre>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">addNewEntry</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">listWireframe</span> <span class="n">presentAddInterface</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>展示器还会从交互器接收结果并将结果转换成能够在视图中有效显示的形式。</p>
 
 <p>下面是如何从交互器接受待办事项的过程，其中包含了处理数据的过程并决定展现给用户哪些内容：</p>
 
-<pre><code>- (void)foundUpcomingItems:(NSArray*)upcomingItems
-{
-    if ([upcomingItems count] == 0)
-    {
-        [self.userInterface showNoContentMessage];
-    }
-    else
-    {
-        [self updateUserInterfaceWithUpcomingItems:upcomingItems];
-    }
-}
-</code></pre>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nl">foundUpcomingItems:</span><span class="p">(</span><span class="n">NSArray</span><span class="o">*</span><span class="p">)</span><span class="n">upcomingItems</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">([</span><span class="n">upcomingItems</span> <span class="n">count</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">userInterface</span> <span class="n">showNoContentMessage</span><span class="p">];</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="k">else</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="p">[</span><span class="n">self</span> <span class="nl">updateUserInterfaceWithUpcomingItems:</span><span class="n">upcomingItems</span><span class="p">];</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>实体永远不会由交互器传输给展示器，取而代之，那些无行为的简单数据结构会从交互器传输到展示器那里。这就防止了那些“真正的工作”在展示器那里进行，展示器只能负责准备那些在视图里显示的数据。</p>
 
@@ -162,25 +198,39 @@
 
 <p>视图是一个抽象的接口 (Interface)，在 Objective-C 中使用协议被定义。一个 <code>UIViewController</code> 或者它的一个子类会实现视图协议。比如我们的示例中 “添加” 界面会有以下接口：</p>
 
-<pre><code>@protocol VTDAddViewInterface &lt;NSObject&gt;
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'>    <span class="k">@protocol</span> <span class="nc">VTDAddViewInterface</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nl">setEntryName:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">name</span><span class="p">;</span>
+</span><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nl">setEntryDueDate:</span><span class="p">(</span><span class="n">NSDate</span> <span class="o">*</span><span class="p">)</span><span class="n">date</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
 
-- (void)setEntryName:(NSString *)name;
-- (void)setEntryDueDate:(NSDate *)date;
-
-@end
-</code></pre>
 
 <p>视图和视图控制器同样会操纵用户界面和相关输入。因为通常来说视图控制器是最容易处理这些输入和执行某些操作的地方，所以也就不难理解为什么视图控制器总是这么大了。为了使视图控制器保持苗条，我们需要使它们在用户进行相关操作的时候可以有途径来通知相关部分。视图控制器不应当根据这些行为进行相关决定，但是它应当将发生的事件传递到能够做决定的部分。</p>
 
 <p>在我们的例子中，Add View Controller 有一个事件处理的属性，它实现了如下接口：</p>
 
-<pre><code>@protocol VTDAddModuleInterface &lt;NSObject&gt;
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'>    <span class="k">@protocol</span> <span class="nc">VTDAddModuleInterface</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">cancelAddAction</span><span class="p">;</span>
+</span><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nl">saveAddActionWithName:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">name</span> <span class="nl">dueDate:</span><span class="p">(</span><span class="n">NSDate</span> <span class="o">*</span><span class="p">)</span><span class="n">dueDate</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
 
-- (void)cancelAddAction;
-- (void)saveAddActionWithName:(NSString *)name dueDate:(NSDate *)dueDate
-
-@end
-</code></pre>
 
 <p>当用户点击取消键的时候，视图控制器告知这个事件处理程序用户需要其取消这次添加的动作。这样一来，事件处理程序便可以处理关闭 add view controller 并告知列表视图进行更新。</p>
 
@@ -194,36 +244,66 @@
 
 <p>线框同时也明显是一个处理导航转场动画的地方。来看看这个 add wireframe 中的例子吧：</p>
 
-<pre><code>@implementation VTDAddWireframe
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'>    <span class="k">@implementation</span> <span class="nc">VTDAddWireframe</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nl">presentAddInterfaceFromViewController:</span><span class="p">(</span><span class="n">UIViewController</span> <span class="o">*</span><span class="p">)</span><span class="n">viewController</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">VTDAddViewController</span> <span class="o">*</span><span class="n">addViewController</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="n">addViewController</span><span class="p">];</span>
+</span><span class='line'>        <span class="n">addViewController</span><span class="p">.</span><span class="n">eventHandler</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">addPresenter</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">addViewController</span><span class="p">.</span><span class="n">modalPresentationStyle</span> <span class="o">=</span> <span class="n">UIModalPresentationCustom</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">addViewController</span><span class="p">.</span><span class="n">transitioningDelegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="p">[</span><span class="n">viewController</span> <span class="nl">presentViewController:</span><span class="n">addViewController</span> <span class="nl">animated:</span><span class="n">YES</span> <span class="nl">completion:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">presentedViewController</span> <span class="o">=</span> <span class="n">viewController</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="cp">    </span>
+</span><span class='line'><span class="cp">    #pragma mark - UIViewControllerTransitioningDelegate Methods</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">id</span><span class="o">&lt;</span><span class="n">UIViewControllerAnimatedTransitioning</span><span class="o">&gt;</span><span class="p">)</span><span class="nl">animationControllerForDismissedController:</span><span class="p">(</span><span class="n">UIViewController</span> <span class="o">*</span><span class="p">)</span><span class="n">dismissed</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="p">[[</span><span class="n">VTDAddDismissalTransition</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">id</span><span class="o">&lt;</span><span class="n">UIViewControllerAnimatedTransitioning</span><span class="o">&gt;</span><span class="p">)</span><span class="nl">animationControllerForPresentedController:</span><span class="p">(</span><span class="n">UIViewController</span> <span class="o">*</span><span class="p">)</span><span class="n">presented</span>
+</span><span class='line'>                                                                      <span class="nl">presentingController:</span><span class="p">(</span><span class="n">UIViewController</span> <span class="o">*</span><span class="p">)</span><span class="n">presenting</span>
+</span><span class='line'>                                                                          <span class="nl">sourceController:</span><span class="p">(</span><span class="n">UIViewController</span> <span class="o">*</span><span class="p">)</span><span class="n">source</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="p">[[</span><span class="n">VTDAddPresentationTransition</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
 
-- (void)presentAddInterfaceFromViewController:(UIViewController *)viewController 
-{
-    VTDAddViewController *addViewController = [self addViewController];
-    addViewController.eventHandler = self.addPresenter;
-    addViewController.modalPresentationStyle = UIModalPresentationCustom;
-    addViewController.transitioningDelegate = self;
-
-    [viewController presentViewController:addViewController animated:YES completion:nil];
-
-    self.presentedViewController = viewController;
-}
-
-#pragma mark - UIViewControllerTransitioningDelegate Methods
-
-- (id&lt;UIViewControllerAnimatedTransitioning&gt;)animationControllerForDismissedController:(UIViewController *)dismissed 
-{
-    return [[VTDAddDismissalTransition alloc] init];
-}
-
-- (id&lt;UIViewControllerAnimatedTransitioning&gt;)animationControllerForPresentedController:(UIViewController *)presented
-                                                                  presentingController:(UIViewController *)presenting
-                                                                      sourceController:(UIViewController *)source 
-{
-    return [[VTDAddPresentationTransition alloc] init];
-}
-
-@end
-</code></pre>
 
 <p>应用使用了自定义的视图控制器转场来呈现 add view controller。因为线框部件负责实施这个转场，所以它成为了 add view controller 转场的委托，并且返回适当的转场动画。</p>
 
@@ -235,56 +315,106 @@
 
 <p>有了 VIPER，视图控制器便就能真正的做它本来应该做的事情了，那就是控制视图。 我们的待办事项应拥有两个视图控制器，一个是列表视图，另一个是新建待办。因为 add view controller 要做的所有事情就是控制视图，所以实现起来非常的简单基础：</p>
 
-<pre><code>@implementation VTDAddViewController
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'>    <span class="k">@implementation</span> <span class="nc">VTDAddViewController</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nl">viewDidAppear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="n">animated</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">super</span> <span class="nl">viewDidAppear:</span><span class="n">animated</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">UITapGestureRecognizer</span> <span class="o">*</span><span class="n">gestureRecognizer</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UITapGestureRecognizer</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithTarget:</span><span class="n">self</span>
+</span><span class='line'>                                                                                            <span class="nl">action:</span><span class="k">@selector</span><span class="p">(</span><span class="n">dismiss</span><span class="p">)];</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">transitioningBackgroundView</span> <span class="nl">addGestureRecognizer:</span><span class="n">gestureRecognizer</span><span class="p">];</span>
+</span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">transitioningBackgroundView</span><span class="p">.</span><span class="n">userInteractionEnabled</span> <span class="o">=</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">dismiss</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">eventHandler</span> <span class="n">cancelAddAction</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nl">setEntryName:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">name</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">nameTextField</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">name</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nl">setEntryDueDate:</span><span class="p">(</span><span class="n">NSDate</span> <span class="o">*</span><span class="p">)</span><span class="n">date</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">datePicker</span> <span class="nl">setDate:</span><span class="n">date</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nl">save:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="n">sender</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">eventHandler</span> <span class="nl">saveAddActionWithName:</span><span class="n">self</span><span class="p">.</span><span class="n">nameTextField</span><span class="p">.</span><span class="n">text</span>
+</span><span class='line'>                                         <span class="nl">dueDate:</span><span class="n">self</span><span class="p">.</span><span class="n">datePicker</span><span class="p">.</span><span class="n">date</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nl">cancel:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="n">sender</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">eventHandler</span> <span class="n">cancelAddAction</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="cp">    </span>
+</span><span class='line'><span class="cp">    </span>
+</span><span class='line'><span class="cp">    #pragma mark - UITextFieldDelegate Methods</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nl">textFieldShouldReturn:</span><span class="p">(</span><span class="n">UITextField</span> <span class="o">*</span><span class="p">)</span><span class="n">textField</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">textField</span> <span class="n">resignFirstResponder</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
 
-- (void)viewDidAppear:(BOOL)animated 
-{
-    [super viewDidAppear:animated];
-
-    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                        action:@selector(dismiss)];
-    [self.transitioningBackgroundView addGestureRecognizer:gestureRecognizer];
-    self.transitioningBackgroundView.userInteractionEnabled = YES;
-}
-
-- (void)dismiss 
-{
-    [self.eventHandler cancelAddAction];
-}
-
-- (void)setEntryName:(NSString *)name 
-{
-    self.nameTextField.text = name;
-}
-
-- (void)setEntryDueDate:(NSDate *)date 
-{
-    [self.datePicker setDate:date];
-}
-
-- (IBAction)save:(id)sender 
-{
-    [self.eventHandler saveAddActionWithName:self.nameTextField.text
-                                     dueDate:self.datePicker.date];
-}
-
-- (IBAction)cancel:(id)sender 
-{
-    [self.eventHandler cancelAddAction];
-}
-
-
-#pragma mark - UITextFieldDelegate Methods
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField 
-{
-    [textField resignFirstResponder];
-
-    return YES;
-}
-
-@end
-</code></pre>
 
 <p>应用在接入网络以后会变得更有用处，但是究竟该在什么时候联网呢？又由谁来负责启动网络连接呢？典型的情况下，由交互器来启动网络连接操作的项目，但是它不会直接处理网络代码。它会寻找一个像是 network manager 或者 API client 这样的依赖项。交互器可能聚合来自多个源的数据来提供所需的信息，从而完成一个用例。最终，就由展示器来采集交互器反馈的数据，然后组织并进行展示。</p>
 
@@ -292,14 +422,22 @@
 
 <p>交互器同样不需要知道如何将实体持久化，有时交互器更希望使用一个 data manager 来使其与数据存储的交互变得容易。Data manager 可以处理更多的针对存储的操作，比如创建获取请求，构建查询等等。这就使交互器能够将更多的注意力放在应用逻辑上，而不必再了解实体是如何被聚集或持久化的。下面我们举一个例子来说明使用 data manager 有意义的，这个例子假设你在使用 Core Data。这是示例应用程序的 data manager 的接口：</p>
 
-<pre><code>@interface VTDListDataManager : NSObject
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'>    <span class="k">@interface</span> <span class="nc">VTDListDataManager</span> : <span class="nc">NSObject</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">)</span> <span class="n">VTDCoreDataStore</span> <span class="o">*</span><span class="n">dataStore</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nl">todoItemsBetweenStartDate:</span><span class="p">(</span><span class="n">NSDate</span> <span class="o">*</span><span class="p">)</span><span class="n">startDate</span> <span class="nl">endDate:</span><span class="p">(</span><span class="n">NSDate</span> <span class="o">*</span><span class="p">)</span><span class="n">endDate</span> <span class="nl">completionBlock:</span><span class="p">(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">NSArray</span> <span class="o">*</span><span class="n">todoItems</span><span class="p">))</span><span class="n">completionBlock</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
 
-@property (nonatomic, strong) VTDCoreDataStore *dataStore;
-
-- (void)todoItemsBetweenStartDate:(NSDate *)startDate endDate:(NSDate *)endDate completionBlock:(void (^)(NSArray *todoItems))completionBlock;
-
-@end
-</code></pre>
 
 <p>当使用 TDD 来开发一个交互器时，是可以用一个测试用的模拟存储来代替生产环境的数据存储的。避免与远程服务器通讯（网络服务）以及避免读取磁盘（数据库）可以加快你测试的速度并加强其可重复性。</p>
 
@@ -311,36 +449,66 @@
 
 <p>在通过请求访问 Core Data 存储时，data manager 中看起来是这样的：</p>
 
-<pre><code>@implementation VTDListDataManager
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'>    <span class="k">@implementation</span> <span class="nc">VTDListDataManager</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nl">todoItemsBetweenStartDate:</span><span class="p">(</span><span class="n">NSDate</span> <span class="o">*</span><span class="p">)</span><span class="n">startDate</span> <span class="nl">endDate:</span><span class="p">(</span><span class="n">NSDate</span><span class="o">*</span><span class="p">)</span><span class="n">endDate</span> <span class="nl">completionBlock:</span><span class="p">(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">NSArray</span> <span class="o">*</span><span class="n">todoItems</span><span class="p">))</span><span class="n">completionBlock</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">NSCalendar</span> <span class="o">*</span><span class="n">calendar</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSCalendar</span> <span class="n">autoupdatingCurrentCalendar</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">NSPredicate</span> <span class="o">*</span><span class="n">predicate</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSPredicate</span> <span class="nl">predicateWithFormat:</span><span class="s">@&quot;(date &gt;= %@) AND (date &lt;= %@)&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">calendar</span> <span class="nl">dateForBeginningOfDay:</span><span class="n">startDate</span><span class="p">],</span> <span class="p">[</span><span class="n">calendar</span> <span class="nl">dateForEndOfDay:</span><span class="n">endDate</span><span class="p">]];</span>
+</span><span class='line'>        <span class="n">NSArray</span> <span class="o">*</span><span class="n">sortDescriptors</span> <span class="o">=</span> <span class="err">@</span><span class="p">[];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">__weak</span> <span class="n">typeof</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="n">welf</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">dataStore</span>
+</span><span class='line'>         <span class="nl">fetchEntriesWithPredicate:</span><span class="n">predicate</span>
+</span><span class='line'>         <span class="nl">sortDescriptors:</span><span class="n">sortDescriptors</span>
+</span><span class='line'>         <span class="nl">completionBlock:</span><span class="o">^</span><span class="p">(</span><span class="n">NSArray</span><span class="o">*</span> <span class="n">entries</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>             <span class="k">if</span> <span class="p">(</span><span class="n">completionBlock</span><span class="p">)</span>
+</span><span class='line'>             <span class="p">{</span>
+</span><span class='line'>                 <span class="n">completionBlock</span><span class="p">([</span><span class="n">welf</span> <span class="nl">todoItemsFromDataStoreEntries:</span><span class="n">entries</span><span class="p">]);</span>
+</span><span class='line'>             <span class="p">}</span>
+</span><span class='line'>         <span class="p">}];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="n">NSArray</span><span class="o">*</span><span class="p">)</span><span class="nl">todoItemsFromDataStoreEntries:</span><span class="p">(</span><span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="n">entries</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="p">[</span><span class="n">entries</span> <span class="nl">arrayFromObjectsCollectedWithBlock:</span><span class="o">^</span><span class="kt">id</span><span class="p">(</span><span class="n">VTDManagedTodoItem</span> <span class="o">*</span><span class="n">todo</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">return</span> <span class="p">[</span><span class="n">VTDTodoItem</span> <span class="nl">todoItemWithDueDate:</span><span class="n">todo</span><span class="p">.</span><span class="n">date</span> <span class="nl">name:</span><span class="n">todo</span><span class="p">.</span><span class="n">name</span><span class="p">];</span>
+</span><span class='line'>        <span class="p">}];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
 
-- (void)todoItemsBetweenStartDate:(NSDate *)startDate endDate:(NSDate*)endDate completionBlock:(void (^)(NSArray *todoItems))completionBlock
-{
-    NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
-
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(date &gt;= %@) AND (date &lt;= %@)", [calendar dateForBeginningOfDay:startDate], [calendar dateForEndOfDay:endDate]];
-    NSArray *sortDescriptors = @[];
-
-    __weak typeof(self) welf = self;
-    [self.dataStore
-     fetchEntriesWithPredicate:predicate
-     sortDescriptors:sortDescriptors
-     completionBlock:^(NSArray* entries) {
-         if (completionBlock)
-         {
-             completionBlock([welf todoItemsFromDataStoreEntries:entries]);
-         }
-     }];
-}
-
-- (NSArray*)todoItemsFromDataStoreEntries:(NSArray *)entries
-{
-    return [entries arrayFromObjectsCollectedWithBlock:^id(VTDManagedTodoItem *todo) {
-        return [VTDTodoItem todoItemWithDueDate:todo.date name:todo.name];
-    }];
-}
-
-@end
-</code></pre>
 
 <p>与 Core Data 一样极富争议的恐怕就是 UI 故事板了。故事板具有很多有用的功能，如果完全忽视它将会是一个错误。然而，调用故事版所能提供的所有功能来完成 VIPER 的所有目标仍然是很困难的。</p>
 
@@ -348,37 +516,68 @@
 
 <p>除此之外，故事板是一个实现用户界面布局有效方法，特别是在使用自动布局的时候。我们选择在实现待办事项两个界面的实例中使用故事板，并且使用这样的代码来执行自己的导航操作。</p>
 
-<pre><code>static NSString *ListViewControllerIdentifier = @"VTDListViewController";
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'>    <span class="k">static</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">ListViewControllerIdentifier</span> <span class="o">=</span> <span class="s">@&quot;VTDListViewController&quot;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">@implementation</span> <span class="nc">VTDListWireframe</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nl">presentListInterfaceFromWindow:</span><span class="p">(</span><span class="n">UIWindow</span> <span class="o">*</span><span class="p">)</span><span class="n">window</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">VTDListViewController</span> <span class="o">*</span><span class="n">listViewController</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="n">listViewControllerFromStoryboard</span><span class="p">];</span>
+</span><span class='line'>        <span class="n">listViewController</span><span class="p">.</span><span class="n">eventHandler</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">listPresenter</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">listPresenter</span><span class="p">.</span><span class="n">userInterface</span> <span class="o">=</span> <span class="n">listViewController</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">listViewController</span> <span class="o">=</span> <span class="n">listViewController</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">rootWireframe</span> <span class="nl">showRootViewController:</span><span class="n">listViewController</span>
+</span><span class='line'>                                          <span class="nl">inWindow:</span><span class="n">window</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="n">VTDListViewController</span> <span class="o">*</span><span class="p">)</span><span class="n">listViewControllerFromStoryboard</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">UIStoryboard</span> <span class="o">*</span><span class="n">storyboard</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="n">mainStoryboard</span><span class="p">];</span>
+</span><span class='line'>        <span class="n">VTDListViewController</span> <span class="o">*</span><span class="n">viewController</span> <span class="o">=</span> <span class="p">[</span><span class="n">storyboard</span> <span class="nl">instantiateViewControllerWithIdentifier:</span><span class="n">ListViewControllerIdentifier</span><span class="p">];</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">viewController</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="n">UIStoryboard</span> <span class="o">*</span><span class="p">)</span><span class="n">mainStoryboard</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">UIStoryboard</span> <span class="o">*</span><span class="n">storyboard</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIStoryboard</span> <span class="nl">storyboardWithName:</span><span class="s">@&quot;Main&quot;</span>
+</span><span class='line'>                                                             <span class="nl">bundle:</span><span class="p">[</span><span class="n">NSBundle</span> <span class="n">mainBundle</span><span class="p">]];</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">storyboard</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
 
-@implementation VTDListWireframe
-
-- (void)presentListInterfaceFromWindow:(UIWindow *)window 
-{
-    VTDListViewController *listViewController = [self listViewControllerFromStoryboard];
-    listViewController.eventHandler = self.listPresenter;
-    self.listPresenter.userInterface = listViewController;
-    self.listViewController = listViewController;
-
-    [self.rootWireframe showRootViewController:listViewController
-                                      inWindow:window];
-}
-
-- (VTDListViewController *)listViewControllerFromStoryboard 
-{
-    UIStoryboard *storyboard = [self mainStoryboard];
-    VTDListViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:ListViewControllerIdentifier];
-    return viewController;
-}
-
-- (UIStoryboard *)mainStoryboard 
-{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main"
-                                                         bundle:[NSBundle mainBundle]];
-    return storyboard;
-}
-
-@end
-</code></pre>
 
 <h2>使用 VIPER 构建模块</h2>
 
@@ -388,21 +587,36 @@
 
 <p>我们希望能将待办事项中各模块之间分隔更加明确，我们为添加模块定义了两个协议。一个是模块接口，它定义了模块可以做什么；另一个则是模块的代理，用来描述该模块做了什么。例如：</p>
 
-<pre><code>@protocol VTDAddModuleInterface &lt;NSObject&gt;
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'>    <span class="k">@protocol</span> <span class="nc">VTDAddModuleInterface</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">cancelAddAction</span><span class="p">;</span>
+</span><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nl">saveAddActionWithName:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">name</span> <span class="nl">dueDate:</span><span class="p">(</span><span class="n">NSDate</span> <span class="o">*</span><span class="p">)</span><span class="n">dueDate</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">@end</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">@protocol</span> <span class="nc">VTDAddModuleDelegate</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">addModuleDidCancelAddAction</span><span class="p">;</span>
+</span><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">addModuleDidSaveAddAction</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
 
-- (void)cancelAddAction;
-- (void)saveAddActionWithName:(NSString *)name dueDate:(NSDate *)dueDate;
-
-@end
-
-
-@protocol VTDAddModuleDelegate &lt;NSObject&gt;
-
-- (void)addModuleDidCancelAddAction;
-- (void)addModuleDidSaveAddAction;
-
-@end
-</code></pre>
 
 <p>因为模块必须要被展示，才能对用户产生价值，所以模块的展示器通常需要实现模型的接口。当另一个模型想要展现当前模块时，它的展示器就需要实现模型的委托协议，这样它就能在展示时知道当前模块做了些什么。</p>
 
@@ -424,96 +638,171 @@
 
 <p>我们编写的第一个测试是为了保证交互器能够找到所有的截止于下周末的待办事项：</p>
 
-<pre><code>- (void)testFindingUpcomingItemsRequestsAllToDoItemsFromTodayThroughEndOfNextWeek
-{
-    [[self.dataManager expect] todoItemsBetweenStartDate:self.today endDate:self.endOfNextWeek completionBlock:OCMOCK_ANY];
-    [self.interactor findUpcomingItems];
-}
-</code></pre>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">testFindingUpcomingItemsRequestsAllToDoItemsFromTodayThroughEndOfNextWeek</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="p">[[</span><span class="n">self</span><span class="p">.</span><span class="n">dataManager</span> <span class="n">expect</span><span class="p">]</span> <span class="nl">todoItemsBetweenStartDate:</span><span class="n">self</span><span class="p">.</span><span class="n">today</span> <span class="nl">endDate:</span><span class="n">self</span><span class="p">.</span><span class="n">endOfNextWeek</span> <span class="nl">completionBlock:</span><span class="n">OCMOCK_ANY</span><span class="p">];</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">interactor</span> <span class="n">findUpcomingItems</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>一旦知道了交互器找到了正确的待办事项后，我们就需要编写几个小测试用来确认它确实将待办事项分配到了正确的相对日期组内（比如说今天，明天，等等）。</p>
 
-<pre><code>- (void)testFindingUpcomingItemsWithOneItemDueTodayReturnsOneUpcomingItemsForToday
-{
-    NSArray *todoItems = @[[VTDTodoItem todoItemWithDueDate:self.today name:@"Item 1"]];
-    [self dataStoreWillReturnToDoItems:todoItems];
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">testFindingUpcomingItemsWithOneItemDueTodayReturnsOneUpcomingItemsForToday</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">NSArray</span> <span class="o">*</span><span class="n">todoItems</span> <span class="o">=</span> <span class="err">@</span><span class="p">[[</span><span class="n">VTDTodoItem</span> <span class="nl">todoItemWithDueDate:</span><span class="n">self</span><span class="p">.</span><span class="n">today</span> <span class="nl">name:</span><span class="s">@&quot;Item 1&quot;</span><span class="p">]];</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span> <span class="nl">dataStoreWillReturnToDoItems:</span><span class="n">todoItems</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">NSArray</span> <span class="o">*</span><span class="n">upcomingItems</span> <span class="o">=</span> <span class="err">@</span><span class="p">[[</span><span class="n">VTDUpcomingItem</span> <span class="nl">upcomingItemWithDateRelation:</span><span class="n">VTDNearTermDateRelationToday</span> <span class="nl">dueDate:</span><span class="n">self</span><span class="p">.</span><span class="n">today</span> <span class="nl">title:</span><span class="s">@&quot;Item 1&quot;</span><span class="p">]];</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span> <span class="nl">expectUpcomingItems:</span><span class="n">upcomingItems</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">interactor</span> <span class="n">findUpcomingItems</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-    NSArray *upcomingItems = @[[VTDUpcomingItem upcomingItemWithDateRelation:VTDNearTermDateRelationToday dueDate:self.today title:@"Item 1"]];
-    [self expectUpcomingItems:upcomingItems];
-
-    [self.interactor findUpcomingItems];
-}
-</code></pre>
 
 <p>既然我们已经知道了交互器的 API 长什么样，接下来就是开发展示器。一旦展示器接收到了交互器传来的待办事项，我们就需要测试看看我们是否适当的将数据进行格式化并且在用户界面中正确的显示它。</p>
 
-<pre><code>- (void)testFoundZeroUpcomingItemsDisplaysNoContentMessage
-{
-    [[self.ui expect] showNoContentMessage];
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">testFoundZeroUpcomingItemsDisplaysNoContentMessage</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="p">[[</span><span class="n">self</span><span class="p">.</span><span class="n">ui</span> <span class="n">expect</span><span class="p">]</span> <span class="n">showNoContentMessage</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">presenter</span> <span class="nl">foundUpcomingItems:</span><span class="err">@</span><span class="p">[]];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">testFoundUpcomingItemForTodayDisplaysUpcomingDataWithNoDay</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">VTDUpcomingDisplayData</span> <span class="o">*</span><span class="n">displayData</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nl">displayDataWithSectionName:</span><span class="s">@&quot;Today&quot;</span>
+</span><span class='line'>                                                              <span class="nl">sectionImageName:</span><span class="s">@&quot;check&quot;</span>
+</span><span class='line'>                                                                     <span class="nl">itemTitle:</span><span class="s">@&quot;Get a haircut&quot;</span>
+</span><span class='line'>                                                                    <span class="nl">itemDueDay:</span><span class="s">@&quot;&quot;</span><span class="p">];</span>
+</span><span class='line'>        <span class="p">[[</span><span class="n">self</span><span class="p">.</span><span class="n">ui</span> <span class="n">expect</span><span class="p">]</span> <span class="nl">showUpcomingDisplayData:</span><span class="n">displayData</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">NSCalendar</span> <span class="o">*</span><span class="n">calendar</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSCalendar</span> <span class="n">gregorianCalendar</span><span class="p">];</span>
+</span><span class='line'>        <span class="n">NSDate</span> <span class="o">*</span><span class="n">dueDate</span> <span class="o">=</span> <span class="p">[</span><span class="n">calendar</span> <span class="nl">dateWithYear:</span><span class="mi">2014</span> <span class="nl">month:</span><span class="mi">5</span> <span class="nl">day:</span><span class="mi">29</span><span class="p">];</span>
+</span><span class='line'>        <span class="n">VTDUpcomingItem</span> <span class="o">*</span><span class="n">haircut</span> <span class="o">=</span> <span class="p">[</span><span class="n">VTDUpcomingItem</span> <span class="nl">upcomingItemWithDateRelation:</span><span class="n">VTDNearTermDateRelationToday</span> <span class="nl">dueDate:</span><span class="n">dueDate</span> <span class="nl">title:</span><span class="s">@&quot;Get a haircut&quot;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">presenter</span> <span class="nl">foundUpcomingItems:</span><span class="err">@</span><span class="p">[</span><span class="n">haircut</span><span class="p">]];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">testFoundUpcomingItemForTomorrowDisplaysUpcomingDataWithDay</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">VTDUpcomingDisplayData</span> <span class="o">*</span><span class="n">displayData</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nl">displayDataWithSectionName:</span><span class="s">@&quot;Tomorrow&quot;</span>
+</span><span class='line'>                                                              <span class="nl">sectionImageName:</span><span class="s">@&quot;alarm&quot;</span>
+</span><span class='line'>                                                                     <span class="nl">itemTitle:</span><span class="s">@&quot;Buy groceries&quot;</span>
+</span><span class='line'>                                                                    <span class="nl">itemDueDay:</span><span class="s">@&quot;Thursday&quot;</span><span class="p">];</span>
+</span><span class='line'>        <span class="p">[[</span><span class="n">self</span><span class="p">.</span><span class="n">ui</span> <span class="n">expect</span><span class="p">]</span> <span class="nl">showUpcomingDisplayData:</span><span class="n">displayData</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">NSCalendar</span> <span class="o">*</span><span class="n">calendar</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSCalendar</span> <span class="n">gregorianCalendar</span><span class="p">];</span>
+</span><span class='line'>        <span class="n">NSDate</span> <span class="o">*</span><span class="n">dueDate</span> <span class="o">=</span> <span class="p">[</span><span class="n">calendar</span> <span class="nl">dateWithYear:</span><span class="mi">2014</span> <span class="nl">month:</span><span class="mi">5</span> <span class="nl">day:</span><span class="mi">29</span><span class="p">];</span>
+</span><span class='line'>        <span class="n">VTDUpcomingItem</span> <span class="o">*</span><span class="n">groceries</span> <span class="o">=</span> <span class="p">[</span><span class="n">VTDUpcomingItem</span> <span class="nl">upcomingItemWithDateRelation:</span><span class="n">VTDNearTermDateRelationTomorrow</span> <span class="nl">dueDate:</span><span class="n">dueDate</span> <span class="nl">title:</span><span class="s">@&quot;Buy groceries&quot;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">presenter</span> <span class="nl">foundUpcomingItems:</span><span class="err">@</span><span class="p">[</span><span class="n">groceries</span><span class="p">]];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-    [self.presenter foundUpcomingItems:@[]];
-}
-
-- (void)testFoundUpcomingItemForTodayDisplaysUpcomingDataWithNoDay
-{
-    VTDUpcomingDisplayData *displayData = [self displayDataWithSectionName:@"Today"
-                                                          sectionImageName:@"check"
-                                                                 itemTitle:@"Get a haircut"
-                                                                itemDueDay:@""];
-    [[self.ui expect] showUpcomingDisplayData:displayData];
-
-    NSCalendar *calendar = [NSCalendar gregorianCalendar];
-    NSDate *dueDate = [calendar dateWithYear:2014 month:5 day:29];
-    VTDUpcomingItem *haircut = [VTDUpcomingItem upcomingItemWithDateRelation:VTDNearTermDateRelationToday dueDate:dueDate title:@"Get a haircut"];
-
-    [self.presenter foundUpcomingItems:@[haircut]];
-}
-
-- (void)testFoundUpcomingItemForTomorrowDisplaysUpcomingDataWithDay
-{
-    VTDUpcomingDisplayData *displayData = [self displayDataWithSectionName:@"Tomorrow"
-                                                          sectionImageName:@"alarm"
-                                                                 itemTitle:@"Buy groceries"
-                                                                itemDueDay:@"Thursday"];
-    [[self.ui expect] showUpcomingDisplayData:displayData];
-
-    NSCalendar *calendar = [NSCalendar gregorianCalendar];
-    NSDate *dueDate = [calendar dateWithYear:2014 month:5 day:29];
-    VTDUpcomingItem *groceries = [VTDUpcomingItem upcomingItemWithDateRelation:VTDNearTermDateRelationTomorrow dueDate:dueDate title:@"Buy groceries"];
-
-    [self.presenter foundUpcomingItems:@[groceries]];
-}
-</code></pre>
 
 <p>同样需要测试的是应用是否在用户想要新建待办事项时正确启动了相应操作：</p>
 
-<pre><code>- (void)testAddNewToDoItemActionPresentsAddToDoUI
-{
-    [[self.wireframe expect] presentAddInterface];
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">testAddNewToDoItemActionPresentsAddToDoUI</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="p">[[</span><span class="n">self</span><span class="p">.</span><span class="n">wireframe</span> <span class="n">expect</span><span class="p">]</span> <span class="n">presentAddInterface</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">presenter</span> <span class="n">addNewEntry</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-    [self.presenter addNewEntry];
-}
-</code></pre>
 
 <p>这时我们可以开发视图功能了，并且在没有待办事项的时候我们想要展示一个特殊的信息。</p>
 
-<pre><code>- (void)testShowingNoContentMessageShowsNoContentView
-{
-    [self.view showNoContentMessage];
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">testShowingNoContentMessageShowsNoContentView</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="n">showNoContentMessage</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">XCTAssertEqualObjects</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">view</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">noContentView</span><span class="p">,</span> <span class="s">@&quot;the no content view should be the view&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-    XCTAssertEqualObjects(self.view.view, self.view.noContentView, @"the no content view should be the view");
-}
-</code></pre>
 
 <p>有待办事项出现时，我们要确保列表是显示出来的：</p>
 
-<pre><code>- (void)testShowingUpcomingItemsShowsTableView
-{
-    [self.view showUpcomingDisplayData:nil];
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">testShowingUpcomingItemsShowsTableView</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">showUpcomingDisplayData:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">XCTAssertEqualObjects</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">view</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">tableView</span><span class="p">,</span> <span class="s">@&quot;the table view should be the view&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-    XCTAssertEqualObjects(self.view.view, self.view.tableView, @"the table view should be the view");
-}
-</code></pre>
 
 <p>首先建立交互器是一种符合 TDD 的自然规律。如果你首先开发交互器，紧接着是展示器，你就可以首先建立一个位于这些层的套件测试，并且为实现这是实例奠定基础。由于你不需要为了测试它们而去与用户界面进行交互，所以这些类可以进行快速迭代。在你需要开发视图的时候，你会有一个可以工作并测试过的逻辑和表现层来与其进行连接。在快要完成对视图的开发时，你会发现第一次运行程序时所有部件都运行良好，因为你所有已通过的测试已经告诉你它可以工作。</p>
 
@@ -537,33 +826,60 @@
 
 <p>在 VIPER 中我们使用小型，轻量级的 model 类来在比如从展示器到视图这样不同的层间传递数据。这些 PONSOs 通常是只是简单地带有少量数据，并且通常这些类不会被继承。Swift 的结构体非常适合这个情况。下面的结构体的例子来自 VIPER Swift。这个结构体需要被判断是否相等，所以我们重载了 == 操作符来比较这个类型的两个实例。</p>
 
-<pre><code>struct UpcomingDisplayItem : Equatable, Printable {
-    let title : String = ""
-    let dueDate : String = ""
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'>    <span class="k">struct</span> <span class="n">UpcomingDisplayItem</span> <span class="o">:</span> <span class="n">Equatable</span><span class="p">,</span> <span class="n">Printable</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">let</span> <span class="n">title</span> <span class="o">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+</span><span class='line'>        <span class="n">let</span> <span class="n">dueDate</span> <span class="o">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">var</span> <span class="n">description</span> <span class="o">:</span> <span class="n">String</span> <span class="p">{</span> <span class="n">get</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">return</span> <span class="s">&quot;\(title) -- \(dueDate)&quot;</span>
+</span><span class='line'>        <span class="p">}}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">init</span><span class="p">(</span><span class="nl">title:</span> <span class="n">String</span><span class="p">,</span> <span class="nl">dueDate:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">self</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
+</span><span class='line'>            <span class="n">self</span><span class="p">.</span><span class="n">dueDate</span> <span class="o">=</span> <span class="n">dueDate</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">func</span> <span class="o">==</span> <span class="p">(</span><span class="nl">leftSide:</span> <span class="n">UpcomingDisplayItem</span><span class="p">,</span> <span class="nl">rightSide:</span> <span class="n">UpcomingDisplayItem</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bool</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">var</span> <span class="n">hasEqualSections</span> <span class="o">=</span> <span class="n">false</span>
+</span><span class='line'>        <span class="n">hasEqualSections</span> <span class="o">=</span> <span class="n">rightSide</span><span class="p">.</span><span class="n">title</span> <span class="o">==</span> <span class="n">leftSide</span><span class="p">.</span><span class="n">title</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">if</span> <span class="n">hasEqualSections</span> <span class="o">==</span> <span class="n">false</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">return</span> <span class="n">false</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">hasEqualSections</span> <span class="o">=</span> <span class="n">rightSide</span><span class="p">.</span><span class="n">dueDate</span> <span class="o">==</span> <span class="n">rightSide</span><span class="p">.</span><span class="n">dueDate</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="n">hasEqualSections</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-    var description : String { get {
-        return "\(title) -- \(dueDate)"
-    }}
-
-    init(title: String, dueDate: String) {
-        self.title = title
-        self.dueDate = dueDate
-    }
-}
-
-func == (leftSide: UpcomingDisplayItem, rightSide: UpcomingDisplayItem) -&gt; Bool {
-    var hasEqualSections = false
-    hasEqualSections = rightSide.title == leftSide.title
-
-    if hasEqualSections == false {
-        return false
-    }
-
-    hasEqualSections = rightSide.dueDate == rightSide.dueDate
-
-    return hasEqualSections
-}
-</code></pre>
 
 <h3>类型安全</h3>
 
