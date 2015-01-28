@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Bootstrap - Di Wu's blog</title>
+  <title>zsh 使用 tips - Di Wu's blog</title>
   <meta name="author" content="Di Wu">
 
    
@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://weekwood.github.com/2014/12/26/Bootstrap">
+  <link rel="canonical" href="http://weekwood.github.com/2015/01/28/zsh-rvm">
   <link href="/favicon.png" rel="icon">
   <link href='http://fonts.googleapis.com/css?family=Quicksand:300,400' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
@@ -94,7 +94,7 @@
 
   <header>
   <div class="jumbotron">
-    Bootstrap
+    Zsh 使用 Tips
 	<h5>
 
 
@@ -107,14 +107,24 @@
   
 
 
-<i class="icon-calendar-empty"></i> <time datetime="2014-12-26T21:04:00+08:00" pubdate data-updated="true">Dec 26<span>th</span>, 2014</time></h5>
+<i class="icon-calendar-empty"></i> <time datetime="2015-01-28T08:36:00+08:00" pubdate data-updated="true">Jan 28<span>th</span>, 2015</time></h5>
   </div>
 </header>
   <div class="row-fluid">
     <div class="span12">
-      <p>准备为2015年制作自己的脚本</p>
+      <p>zsh 替代默认的 bash 是一个 mac 上常见的操作，但是总会遇到各种各样的问题。整理下自己遇到的，解决不了的。。。</p>
 
-<!-- more -->
+<ol>
+<li>打开 zsh rvm 不工作。</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rvm get stable --auto-dotfiles
+</span><span class='line'>rm -f ~/.zcompdump*</span></code></pre></td></tr></table></div></figure>
+
+
 
 
     </div>
@@ -160,10 +170,8 @@
       <div class="span12">
         <p class="meta">
           
-            <a class="basic-alignment left" href="/2014/07/02/issue-13-5-weekwood/" title="Previous Post: objc.io #issue 13 使用 VIPER 构建 iOS 应用">&laquo; objc.io #issue 13 使用 VIPER 构建 iOS 应用</a>
+            <a class="basic-alignment left" href="/2014/12/26/Bootstrap/" title="Previous Post: Bootstrap">&laquo; Bootstrap</a>
           
-          
-            <a class="basic-alignment right" href="/2015/01/28/zsh-rvm/" title="Next Post: zsh 使用 tips">zsh 使用 tips &raquo;</a>
           
         </p>
       </div>
@@ -202,8 +210,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://weekwood.github.com/2014/12/26/Bootstrap/';
-        var disqus_url = 'http://weekwood.github.com/2014/12/26/Bootstrap/';
+        var disqus_identifier = 'http://weekwood.github.com/2015/01/28/zsh-rvm/';
+        var disqus_url = 'http://weekwood.github.com/2015/01/28/zsh-rvm/';
         var disqus_script = 'embed.js';
       
     (function () {

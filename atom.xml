@@ -4,7 +4,7 @@
   <title><![CDATA[Di Wu's blog]]></title>
   <link href="http://weekwood.github.com/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2015-01-08T23:31:04+08:00</updated>
+  <updated>2015-01-28T08:42:34+08:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
     <name><![CDATA[Di Wu]]></name>
@@ -12,6 +12,28 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[zsh 使用 tips]]></title>
+    <link href="http://weekwood.github.com/2015/01/28/zsh-rvm/"/>
+    <updated>2015-01-28T08:36:00+08:00</updated>
+    <id>http://weekwood.github.com/2015/01/28/zsh-rvm</id>
+    <content type="html"><![CDATA[<p>zsh 替代默认的 bash 是一个 mac 上常见的操作，但是总会遇到各种各样的问题。整理下自己遇到的，解决不了的。。。</p>
+
+<ol>
+<li>打开 zsh rvm 不工作。</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rvm get stable --auto-dotfiles
+</span><span class='line'>rm -f ~/.zcompdump*</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Bootstrap]]></title>
@@ -3924,72 +3946,6 @@ MGTileMenu 有5个’required‘ 方法，其中4个数据源方法：</p>
 <p>另外，Xcode 4.2开始，增加了旧代码向 ARC 代码自动转换的功能。有兴趣的朋友可以试试。位置是：</p>
 
 <blockquote><p>Edit->Refactor->Convert to Objective-C ARC</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Regex to catch @mention #hashtag and link http(s)://]]></title>
-    <link href="http://weekwood.github.com/2012/12/23/regex-to-catch-at-mention-number-hashtag-and-link-http-s-slash-slash/"/>
-    <updated>2012-12-23T17:13:00+08:00</updated>
-    <id>http://weekwood.github.com/2012/12/23/regex-to-catch-at-mention-number-hashtag-and-link-http-s-slash-slash</id>
-    <content type="html"><![CDATA[<p>在做tweet类文本的时候你需要解析以#开头的话题 @开头的昵称 http开头的连接
-以下这个就是一个很好的例子(核心代码：<a href="https://github.com/SebastienThiebaud/STTweetLabel">STTweetLabel</a>)</p>
-
-<!-- more -->
-
-
-
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSRegularExpression</span> <span class="o">*</span><span class="n">regex</span> <span class="o">=</span> <span class="p">[</span><span class="nl">NSRegularExpressionregularExpressionWithPattern:</span><span class="s">@&quot;((@|#)([A-Z0-9a-z(é|ë|ê|è|à|â|ä|á|ù|ü|û|ú|ì|ï|î|í)\u4e00-\u9fa5_]+))|(http(s)?://([A-Z0-9a-z._-]*(/)?)*)&quot;</span> <span class="nl">options:</span><span class="n">NSRegularExpressionCaseInsensitive</span> <span class="nl">error:</span><span class="o">&amp;</span><span class="n">error</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">NSTextCheckingResult</span> <span class="o">*</span><span class="n">match</span> <span class="o">=</span> <span class="p">[</span><span class="n">regex</span> <span class="nl">firstMatchInString:</span><span class="n">word</span> <span class="nl">options:</span><span class="mi">0</span> <span class="nl">range:</span><span class="n">NSMakeRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="n">word</span> <span class="n">length</span><span class="p">])];</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// Dissolve the word (for example a hashtag: #youtube!, we want only #youtube)</span>
-</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">wordCharacters</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span> <span class="nl">substringWithRange:</span><span class="n">match</span><span class="p">.</span><span class="n">range</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// Draw the touchable word</span>
-</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">[</span><span class="n">wordCharacters</span> <span class="nl">isEqualToString:</span><span class="s">@&quot;&quot;</span><span class="p">])</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="c1">// Set the color for mention/hashtag OR weblink</span>
-</span><span class='line'>        <span class="k">if</span> <span class="p">([</span><span class="n">wordCharacters</span> <span class="nl">hasPrefix:</span><span class="s">@&quot;#&quot;</span><span class="p">]</span> <span class="o">||</span> <span class="p">[</span><span class="n">wordCharacters</span> <span class="nl">hasPrefix:</span><span class="s">@&quot;@&quot;</span><span class="p">])</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>           <span class="c1">//do something...</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>        <span class="k">else</span> <span class="k">if</span> <span class="p">([</span><span class="n">wordCharacters</span> <span class="nl">hasPrefix:</span><span class="s">@&quot;http&quot;</span><span class="p">])</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>            <span class="c1">//do something...</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
 ]]></content>
   </entry>
   

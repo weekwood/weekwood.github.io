@@ -117,6 +117,65 @@
   
 
 
+<i class="icon-calendar-empty"></i> <time datetime="2015-01-28T08:36:00+08:00" pubdate data-updated="true">Jan 28<span>th</span>, 2015</time></h5>
+          <div class="row-fluid">
+          
+          <a href="http://weekwood.github.com/2015/01/28/zsh-rvm/#disqus_thread">Comments </a> <span class="fui-bubble-16"></span>
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          </div>
+          
+    </div>
+    <div class="span10">
+      <h1 class="link"><a href="/2015/01/28/zsh-rvm/">zsh 使用 tips</a></h1>
+      <p>zsh 替代默认的 bash 是一个 mac 上常见的操作，但是总会遇到各种各样的问题。整理下自己遇到的，解决不了的。。。</p>
+
+<ol>
+<li>打开 zsh rvm 不工作。</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rvm get stable --auto-dotfiles
+</span><span class='line'>rm -f ~/.zcompdump*</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+      
+      
+    </div>
+  </div>
+
+
+
+    </article>
+    
+    <hr>
+    
+  
+  
+    <article>
+      
+
+  <div class="row-fluid">
+    <div class="span2">
+		<h1 class="date-time">
+
+
+
+
+
+
+
+
+  
+
+
 <i class="icon-calendar-empty"></i> <time datetime="2014-12-26T21:04:00+08:00" pubdate data-updated="true">Dec 26<span>th</span>, 2014</time></h5>
           <div class="row-fluid">
           
@@ -579,60 +638,6 @@
       <h3>参考资料</h3>
 
 <p><a href="http://zh-google-styleguide.readthedocs.org/en/latest/google-objc-styleguide/">Google Objective-C Style Guide 中文版</a></p>
-
-      
-      
-    </div>
-  </div>
-
-
-
-    </article>
-    
-    <hr>
-    
-  
-  
-    <article>
-      
-
-  <div class="row-fluid">
-    <div class="span2">
-		<h1 class="date-time">
-
-
-
-
-
-
-
-
-  
-
-
-<i class="icon-calendar-empty"></i> <time datetime="2013-08-10T13:25:00+08:00" pubdate data-updated="true">Aug 10<span>th</span>, 2013</time></h5>
-          <div class="row-fluid">
-          
-          <a href="http://weekwood.github.com/2013/08/10/octopress-can-not-create-new-post-on-zsh/#disqus_thread">Comments </a> <span class="fui-bubble-16"></span>
-          
-          </div>
-          
-          <div class="row-fluid">
-          
-          </div>
-          
-    </div>
-    <div class="span10">
-      <h1 class="link"><a href="/2013/08/10/octopress-can-not-create-new-post-on-zsh/">Octopress Can not create new post on zsh</a></h1>
-      <p>执行：$ rake new_post[&#8220;arch-linux-reinstall-glibc.markdown&#8221;]</p>
-
-<p>报错：zsh: no matches found: new_post[arch-linux-reinstall-glibc]</p>
-
-<p>原因：zsh中若出现‘*’, ‘(’, ‘|’, ‘&lt;’, ‘[’, or ‘?’符号，则将其识别为查找文件名的通配符</p>
-
-<p>快速解决：用引号括起来$ rake &#8220;new_post[arch-linux-reinstall-glibc.markdown]&#8221;</p>
-
-<p>彻底解决：取消zsh的通配(GLOB), 在.zshrc中加入alias rake=&#8221;noglob rake&#8221;</p>
 
       
       
