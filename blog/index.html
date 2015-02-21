@@ -135,10 +135,7 @@
 
   <p>zsh 替代默认的 bash 是一个 mac 上常见的操作，但是总会遇到各种各样的问题。整理下自己遇到的，解决不了的。。。</p>
 
-<ol>
-<li>打开 zsh rvm 不工作。</li>
-</ol>
-
+<h3>打开 zsh rvm 不工作。</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -146,6 +143,26 @@
 </span><span class='line'>rm -f ~/.zcompdump*</span></code></pre></td></tr></table></div></figure>
 
 
+<h3>cd 的写法。</h3>
+
+<p>以前我们这样写</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd ../../..</span></code></pre></td></tr></table></div></figure>
+
+
+<p>现在我们可以这样写</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd ....</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>添加一些别名。</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>alias show_hidden="defaults write com.apple.Finder AppleShowAllFiles YES && killall Finder"
+</span><span class='line'>alias hide_hidden="defaults write com.apple.Finder AppleShowAllFiles NO && killall Finder"</span></code></pre></td></tr></table></div></figure>
 
 
 
