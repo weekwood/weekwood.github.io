@@ -4,7 +4,7 @@
   <title><![CDATA[Di Wu's blog]]></title>
   <link href="http://weekwood.github.com/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2015-02-25T21:14:56+08:00</updated>
+  <updated>2015-02-28T21:51:50+08:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
     <name><![CDATA[Di Wu]]></name>
@@ -947,7 +947,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[2014-04-12-issue-10-2-weekwood]]></title>
+    <title type="html"><![CDATA[objc.io #issue 10 iCloud 和 Core Data]]></title>
     <link href="http://weekwood.github.com/2014/06/03/issue-10-2-weekwood/"/>
     <updated>2014-06-03T12:27:00+08:00</updated>
     <id>http://weekwood.github.com/2014/06/03/issue-10-2-weekwood</id>
@@ -1518,7 +1518,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[objc.io #issue8 导航应用[翻译]]]></title>
+    <title type="html"><![CDATA[objc.io #issue8 导航应用]]></title>
     <link href="http://weekwood.github.com/2014/05/10/issue-8-3-weekwood/"/>
     <updated>2014-05-10T09:56:00+08:00</updated>
     <id>http://weekwood.github.com/2014/05/10/issue-8-3-weekwood</id>
@@ -1686,7 +1686,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[objc.io #issue 8 与四轴无人机的通讯[翻译]]]></title>
+    <title type="html"><![CDATA[objc.io #issue 8 与四轴无人机的通讯]]></title>
     <link href="http://weekwood.github.com/2014/05/10/issue-8-2-weekwood/"/>
     <updated>2014-05-10T09:56:00+08:00</updated>
     <id>http://weekwood.github.com/2014/05/10/issue-8-2-weekwood</id>

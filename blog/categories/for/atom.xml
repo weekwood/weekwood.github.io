@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: for | Di Wu's blog]]></title>
+  <link href="http://weekwood.github.com/blog/categories/for/atom.xml" rel="self"/>
+  <link href="http://weekwood.github.com/"/>
+  <updated>2015-02-28T21:51:50+08:00</updated>
+  <id>http://weekwood.github.com/</id>
+  <author>
+    <name><![CDATA[Di Wu]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Arc+blocks+llvm4 的时代2/3]]></title>
+    <link href="http://weekwood.github.com/2013/01/11/arc-plus-blocks-plus-llvm4-de-shi-dai-2-slash-3/"/>
+    <updated>2013-01-11T14:10:00+08:00</updated>
+    <id>http://weekwood.github.com/2013/01/11/arc-plus-blocks-plus-llvm4-de-shi-dai-2-slash-3</id>
+    <content type="html"><![CDATA[<h1>Object Literals</h1>
+
+<h3>NSNumber Literals</h3>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">//NSNumber Creation</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">value</span><span class="p">;</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithChar:</span><span class="sc">&#39;X&#39;</span><span class="p">];</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithInt:</span><span class="mi">12345</span><span class="p">];</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithUnsignedLong:</span><span class="mi">12345</span><span class="n">ul</span><span class="p">];</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithLongLong:</span><span class="mi">12345l</span><span class="n">l</span><span class="p">];</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithFloat:</span><span class="mf">123.45f</span><span class="p">];</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithDouble:</span><span class="mf">123.45</span><span class="p">];</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithBool:</span><span class="n">YES</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">//NSNumber Literals</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">value</span><span class="p">;</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="sc">@&#39;X&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="err">@</span><span class="mi">12345</span><span class="p">;</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="err">@</span><span class="mi">12345</span><span class="n">ul</span><span class="p">;</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="err">@</span><span class="mi">12345l</span><span class="n">l</span><span class="p">;</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="err">@</span><span class="mf">123.45f</span><span class="p">;</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="err">@</span><span class="mf">123.45</span><span class="p">;</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="err">@</span><span class="n">YES</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<!-- more -->
+
+
+<h3>NSArray Literals</h3>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSMutableArray</span> <span class="o">*</span><span class="n">mArr</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableArray</span> <span class="nl">arrayWithObjects:</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">v1</span><span class="p">,</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithUnsignedInt:</span><span class="mi">255</span><span class="n">u</span><span class="p">],</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">mArr</span> <span class="nl">replaceObjectAtIndex:</span><span class="mi">1</span> <span class="nl">withObject:</span><span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithChar:</span><span class="sc">&#39;z&#39;</span><span class="p">]];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">NSMutableArray</span> <span class="o">*</span><span class="n">mArr</span> <span class="o">=</span> <span class="p">[</span><span class="err">@</span><span class="p">[</span><span class="n">v1</span><span class="p">,</span> <span class="err">@</span><span class="mi">255</span><span class="n">U</span><span class="p">]</span> <span class="n">mutableCopy</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// array/dict literals are immutable so we need a mutable copy</span>
+</span><span class='line'><span class="n">ict</span> <span class="n">literals</span> <span class="n">are</span> <span class="n">immutable</span> <span class="n">so</span> <span class="n">we</span> <span class="n">need</span> <span class="n">a</span> <span class="n">mutable</span> <span class="n">copy</span>
+</span><span class='line'><span class="n">mArr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="sc">@&#39;z&#39;</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3>NSDictionary Literals</h3>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSMutableDictionary</span> <span class="o">*</span><span class="n">mDict</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableDictionary</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="nl">dictionaryWithObjectAndKeys:</span><span class="p">[</span><span class="n">NSString</span> <span class="nl">stringWithUTF8String:</span><span class="s">&quot;Hello&quot;</span><span class="p">,</span> <span class="n">k1</span><span class="p">,</span>
+</span><span class='line'>                            <span class="p">[</span><span class="n">NSString</span> <span class="nl">stringWithUTF8String:</span><span class="s">&quot;World&quot;</span><span class="p">],</span><span class="n">k2</span><span class="p">,</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">mDict</span> <span class="nl">setObject:</span><span class="p">[</span><span class="n">NSString</span> <span class="nl">stringWithUTF8String:</span><span class="s">&quot;Ciao&quot;</span> <span class="nl">forKey:</span><span class="n">k1</span><span class="p">]];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">NSMutableDictionary</span> <span class="o">*</span><span class="n">mDict</span> <span class="o">=</span> <span class="p">[</span> <span class="err">@</span><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="s">@&quot;key1&quot;</span> <span class="o">:</span> <span class="s">@&quot;Hello&quot;</span><span class="p">,</span>
+</span><span class='line'><span class="s">@&quot;key2&quot;</span> <span class="o">:</span> <span class="s">@&quot;World&quot;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span> <span class="n">mutableCopy</span><span class="p">];</span>
+</span><span class='line'><span class="n">mDict</span><span class="p">[</span><span class="s">@&quot;key1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;@Ciao&quot;</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+</feed>

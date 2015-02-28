@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: fan | Di Wu's blog]]></title>
+  <link href="http://weekwood.github.com/blog/categories/fan/atom.xml" rel="self"/>
+  <link href="http://weekwood.github.com/"/>
+  <updated>2015-02-28T21:51:50+08:00</updated>
+  <id>http://weekwood.github.com/</id>
+  <author>
+    <name><![CDATA[Di Wu]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[arc+blocks+llvm4 的时代1/3]]></title>
+    <link href="http://weekwood.github.com/2012/12/24/arc-plus-blocks-plus-llvm4-shi-dai-1/"/>
+    <updated>2012-12-24T14:56:00+08:00</updated>
+    <id>http://weekwood.github.com/2012/12/24/arc-plus-blocks-plus-llvm4-shi-dai-1</id>
+    <content type="html"><![CDATA[<h1>ARC</h1>
+
+<p>ARC(Automatic Reference Counting) 到现在已经出来一年有余,越来越多的团队已经体会到他的好处。曾和同行们讨论过新手是否有必要深入学习手动内存管理。个人认为从arc开始的成本要低很多，而且能编译出强壮的代码，何乐不为？</p>
+
+<!-- more -->
+
+
+<h3>什么是手动内存管理</h3>
+
+<blockquote><p>如果需要持有一个对象，那么对其发送retain 如果之后不再使用该对象，那么需要对其发送release（或者autorealse） 每一次对retain,alloc或者new的调用，需要对应一次release或autorealse调用</p></blockquote>
+
+<h3>自动内存管理</h3>
+
+<p>自动内存其实也简单</p>
+
+<blockquote><p>在你的工程中使用 ARC 非常简单。你还像往常一样编程,只是不再调用 retain,release 和 autorelease 了。</p></blockquote>
+
+<h3>生命周期</h3>
+
+<h4>__strong</h4>
+
+<p>变量声明缺省都带有__strong关键字，如果变量什么关键字都不写，那么缺省就是强参照。</p>
+
+<h4>__weak</h4>
+
+<p>该概念是新特性，从 iOS 5/ Mac OS X 10.7 开始导入。由于该类型不影响对象的生命周期，所以如果对象之前就没有持有者，那么会出现刚创建就被破弃的问题，比如下面的代码。
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSString</span> <span class="o">&lt;</span><span class="n">strong</span><span class="o">&gt;</span><span class="n">weak</span> <span class="o">*</span><span class="n">string</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSString</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFormat:</span><span class="s">@&quot;First Name: %@&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">self</span> <span class="n">firstName</span><span class="p">]];</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;string: %@&quot;</span><span class="p">,</span> <span class="n">string</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+以上是一个</strong>weak的例子，由于string没有赋值给任何变量，所以这里返回值是null</p>
+
+<h4>__unsafe_unretained</h4>
+
+<p>该关键字与<strong>weak一样，也是弱参照，与</strong>weak的区别只是是否执行nil赋值(Zeroing)。但是这样，需要注意变量所指的对象已经被破弃了，地址还还存在，但内存中对象已经没有了。如果还是访问该对象，将引起「BAD_ACCESS」错误。</p>
+
+<h3>自动给释放池</h3>
+
+<p>使用ARC，你不能使用NSAutoReleasePool类来管理自动释放池了，作为替代，ARC使用一个新的语法结构：
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="err">@</span><span class="n">autoreleasepool</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span> <span class="c1">// Code, such as a loop that creates a large number of temporary objects.</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3>ARC 代码自动变换</h3>
+
+<p>另外，Xcode 4.2开始，增加了旧代码向 ARC 代码自动转换的功能。有兴趣的朋友可以试试。位置是：</p>
+
+<blockquote><p>Edit->Refactor->Convert to Objective-C ARC</p></blockquote>
+]]></content>
+  </entry>
+  
+</feed>
