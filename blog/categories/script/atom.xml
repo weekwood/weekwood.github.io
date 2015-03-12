@@ -4,7 +4,7 @@
   <title><![CDATA[Category: script | Di Wu's blog]]></title>
   <link href="http://weekwood.github.com/blog/categories/script/atom.xml" rel="self"/>
   <link href="http://weekwood.github.com/"/>
-  <updated>2015-02-28T21:51:50+08:00</updated>
+  <updated>2015-03-12T22:45:46+08:00</updated>
   <id>http://weekwood.github.com/</id>
   <author>
     <name><![CDATA[Di Wu]]></name>
@@ -25,7 +25,7 @@
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>rvm get stable --auto-dotfiles
-</span><span class='line'>rm -f ~/.zcompdump*</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span><span class='line'>rm -f \~/.zcompdump*</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <h3>cd 的写法。</h3>
 
